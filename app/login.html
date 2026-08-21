@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <meta
+    name="robots"
+    content="noindex, nofollow"
+  >
+
+  <meta
+    name="theme-color"
+    content="#0f2c25"
+  >
+
+  <title>
+    Acesso interno | YXZ Soluções Educacionais
+  </title>
+
+  <link
+    rel="icon"
+    href="/assets/favicon.png"
+    type="image/png"
+  >
+</head>
+
+
+<body class="auth-body">
+
+  <main class="auth-page">
+
+    <div class="auth-layout">
+
+
+      <!-- ================================================
+           APRESENTAÇÃO
+      ================================================= -->
+
+      <section
+        class="auth-intro"
+        aria-labelledby="auth-intro-title"
+      >
+
+        <img
+          class="auth-logo"
+          src="/assets/yxz-robotic-logo-white.png"
+          alt="YXZ Soluções Educacionais"
+        >
+
+
+        <div class="auth-intro-content">
+
+          <p class="auth-eyebrow">
+            Plataforma 2.0
+          </p>
+
+          <h1 id="auth-intro-title">
+            Gestão YXZ
+          </h1>
+
+          <p>
+            Ambiente interno para organização,
+            acompanhamento e gestão das operações
+            da YXZ Soluções Educacionais.
+          </p>
+
+        </div>
+
+      </section>
+
+
+      <!-- ================================================
+           LOGIN
+      ================================================= -->
+
+      <section
+        class="auth-card"
+        aria-labelledby="login-title"
+      >
+
+        <header class="auth-card-header">
+
+          <span>
+            Área restrita
+          </span>
+
+          <h2 id="login-title">
+            Entrar
+          </h2>
+
+          <p>
+            Utilize suas credenciais de acesso.
+          </p>
+
+        </header>
+
+
+        <form
+          id="loginForm"
+          class="auth-form"
+          novalidate
+        >
+
+          <div class="auth-field">
+
+            <label for="loginEmail">
+              E-mail
+            </label>
+
+            <input
+              id="loginEmail"
+              class="auth-control"
+              name="email"
+              type="email"
+              autocomplete="username"
+              inputmode="email"
+              required
+            >
+
+          </div>
+
+
+          <div class="auth-field">
+
+            <label for="loginPassword">
+              Senha
+            </label>
+
+            <input
+              id="loginPassword"
+              class="auth-control"
+              name="password"
+              type="password"
+              autocomplete="current-password"
+              required
+            >
+
+          </div>
+
+
+          <button
+            class="auth-submit"
+            type="submit"
+          >
+            Entrar
+          </button>
+
+
+          <p
+            class="auth-status"
+            data-login-status
+            role="status"
+            aria-live="polite"
+          ></p>
+
+        </form>
+
+
+        <div class="auth-back">
+
+          <a href="/">
+            ← Voltar ao site
+          </a>
+
+        </div>
+
+      </section>
+
+    </div>
+
+  </main>
+
+
+  <script
+    type="module"
+    src="/src/login.js"
+  ></script>
+
+</body>
+
+</html>

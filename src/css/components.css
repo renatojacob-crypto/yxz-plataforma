@@ -15,45 +15,99 @@
   border-radius: var(--radius-sm);
 
   font-weight: 600;
+  line-height: 1.2;
+  text-align: center;
+
+  cursor: pointer;
 
   transition:
     transform var(--transition-fast),
-    background var(--transition-fast),
-    box-shadow var(--transition-fast);
+    background-color var(--transition-fast),
+    color var(--transition-fast),
+    box-shadow var(--transition-fast),
+    opacity var(--transition-fast);
 }
 
-.btn:hover {
+.btn:hover:not(:disabled):not([aria-disabled="true"]) {
   transform: translateY(-1px);
 }
+
+.btn:active:not(:disabled):not([aria-disabled="true"]) {
+  transform: translateY(0);
+}
+
+.btn:disabled,
+.btn[aria-disabled="true"] {
+  opacity: 0.55;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+
+/* Botão principal */
 
 .btn-primary {
   background: var(--color-brand-700);
   color: var(--color-white);
 }
 
-.btn-primary:hover {
+.btn-primary:hover:not(:disabled):not([aria-disabled="true"]) {
   background: var(--color-brand-800);
 }
+
+.btn-primary:active:not(:disabled):not([aria-disabled="true"]) {
+  background: var(--color-brand-950);
+}
+
+
+/* Botão secundário */
 
 .btn-secondary {
   background: var(--color-gray-100);
   color: var(--text-primary);
 }
 
+.btn-secondary:hover:not(:disabled):not([aria-disabled="true"]) {
+  background: var(--color-gray-200);
+}
+
+.btn-secondary:active:not(:disabled):not([aria-disabled="true"]) {
+  background: var(--color-gray-300);
+}
+
+
+/* Botão transparente */
+
 .btn-ghost {
   background: transparent;
   color: var(--text-secondary);
 }
+
+.btn-ghost:hover:not(:disabled):not([aria-disabled="true"]) {
+  background: var(--color-gray-100);
+  color: var(--text-primary);
+}
+
+.btn-ghost:active:not(:disabled):not([aria-disabled="true"]) {
+  background: var(--color-gray-200);
+}
+
 
 /* =====================================================
    CARDS
 ===================================================== */
 
 .card {
+  min-width: 0;
+
   background: var(--surface-card);
+
   border: 1px solid var(--border-color);
   border-radius: var(--radius-lg);
+
   box-shadow: var(--shadow-sm);
+
+  overflow: hidden;
 }
 
 .card-header {
@@ -67,14 +121,21 @@
   border-bottom: 1px solid var(--border-color);
 }
 
-.card-header h2 {
+.card-header h1,
+.card-header h2,
+.card-header h3,
+.card-header h4 {
   margin: 0;
+}
+
+.card-header h2 {
   font-size: 17px;
 }
 
 .card-body {
   padding: 24px;
 }
+
 
 /* =====================================================
    BADGES
@@ -83,6 +144,9 @@
 .badge {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
+
+  max-width: 100%;
 
   padding: 5px 9px;
 
@@ -90,7 +154,21 @@
 
   font-size: 12px;
   font-weight: 600;
+  line-height: 1.2;
+
+  white-space: nowrap;
 }
+
+
+/* Badge padrão */
+
+.badge-neutral {
+  background: var(--color-gray-100);
+  color: var(--text-secondary);
+}
+
+
+/* Estados genéricos */
 
 .badge-success {
   color: var(--color-success);
@@ -111,6 +189,37 @@
   color: var(--color-info);
   background: var(--color-info-bg);
 }
+
+
+/* =====================================================
+   STATUS OPERACIONAIS
+===================================================== */
+
+.badge-status-agendada {
+  background: var(--color-info-bg);
+  color: var(--color-info);
+}
+
+.badge-status-realizada {
+  background: var(--color-success-bg);
+  color: var(--color-success);
+}
+
+.badge-status-pendente {
+  background: var(--color-warning-bg);
+  color: var(--color-warning);
+}
+
+.badge-status-cancelada {
+  background: var(--color-danger-bg);
+  color: var(--color-danger);
+}
+
+.badge-status-neutral {
+  background: var(--color-gray-100);
+  color: var(--text-secondary);
+}
+
 
 /* =====================================================
    EMPTY STATE
@@ -135,27 +244,47 @@
   display: grid;
   place-items: center;
 
+  flex-shrink: 0;
+
   background: var(--color-gray-100);
   border-radius: 16px;
 
   color: var(--color-brand-700);
 
   font-size: 22px;
+  line-height: 1;
 }
 
 .empty-state h3 {
   margin-bottom: 6px;
+
   font-size: 16px;
 }
 
 .empty-state p {
+  max-width: 520px;
   margin: 0;
 
   color: var(--text-secondary);
+
   font-size: 14px;
 }
 
-.badge-neutral {
-  background: var(--color-gray-100);
-  color: var(--text-secondary);
+
+/* =====================================================
+   RESPONSIVIDADE
+===================================================== */
+
+@media (max-width: 600px) {
+  .card-header {
+    padding: 18px 20px;
+  }
+
+  .card-body {
+    padding: 20px;
+  }
+
+  .empty-state {
+    padding: 36px 18px;
+  }
 }

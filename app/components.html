@@ -1,0 +1,1442 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+
+    <meta
+      name="robots"
+      content="noindex, nofollow"
+    />
+
+    <meta
+      name="description"
+      content="Laboratório interno de componentes da Plataforma YXZ."
+    />
+
+    <title>
+      Componentes | YXZ Plataforma
+    </title>
+  </head>
+
+  <body>
+
+    <main class="app-content">
+
+      <div class="page-heading">
+
+        <div>
+          <h1>Componentes YXZ</h1>
+
+          <p>
+            Laboratório visual da Plataforma 2.0.
+          </p>
+        </div>
+
+        <a
+          href="/app/"
+          class="btn btn-secondary"
+        >
+          ← Dashboard
+        </a>
+
+      </div>
+
+
+      <section
+        class="card"
+        aria-labelledby="titulo-formularios"
+      >
+
+        <div class="card-header">
+          <h2 id="titulo-formularios">
+            Formulários
+          </h2>
+        </div>
+
+        <div class="card-body">
+
+          <div class="form-grid form-grid-2">
+
+            <div class="field">
+
+              <label
+                for="instituicao"
+                class="field-label"
+              >
+                Instituição
+
+                <span
+                  class="field-required"
+                  aria-hidden="true"
+                >
+                  *
+                </span>
+              </label>
+
+              <input
+                id="instituicao"
+                class="field-control"
+                type="text"
+                placeholder="Nome da instituição"
+                required
+                aria-describedby="instituicao-ajuda"
+              />
+
+              <span
+                id="instituicao-ajuda"
+                class="field-help"
+              >
+                Escola ou instituição atendida.
+              </span>
+
+            </div>
+
+
+            <div class="field">
+
+              <label
+                for="regional"
+                class="field-label"
+              >
+                Regional
+              </label>
+
+              <select
+                id="regional"
+                class="field-control"
+              >
+
+                <option value="">
+                  Selecione...
+                </option>
+
+                <option value="vitoria">
+                  Vitória
+                </option>
+
+                <option value="itabira">
+                  Itabira
+                </option>
+
+                <option value="valadares">
+                  Governador Valadares
+                </option>
+
+              </select>
+
+            </div>
+
+
+            <div class="field">
+
+              <label
+                for="data"
+                class="field-label"
+              >
+                Data da oficina
+              </label>
+
+              <input
+                id="data"
+                class="field-control"
+                type="date"
+              />
+
+            </div>
+
+
+            <div class="field">
+
+              <label
+                for="campoErro"
+                class="field-label"
+              >
+                Exemplo de validação
+              </label>
+
+              <input
+                id="campoErro"
+                class="field-control is-invalid"
+                type="text"
+                value="Informação inválida"
+                aria-invalid="true"
+                aria-describedby="campoErro-mensagem"
+              />
+
+              <span
+                id="campoErro-mensagem"
+                class="field-error"
+              >
+                Verifique a informação digitada.
+              </span>
+
+            </div>
+
+          </div>
+
+
+          <div
+            class="field"
+            style="margin-top: 18px"
+          >
+
+            <label
+              for="observacoes"
+              class="field-label"
+            >
+              Observações
+            </label>
+
+            <textarea
+              id="observacoes"
+              class="field-control"
+              placeholder="Digite uma observação..."
+            ></textarea>
+
+          </div>
+
+
+          <div style="margin-top: 18px">
+
+            <label class="check-field">
+
+              <input type="checkbox" />
+
+              <span>
+                Confirmo que revisei as
+                informações.
+              </span>
+
+            </label>
+
+          </div>
+
+
+          <section
+            class="card"
+            style="margin-top: 24px"
+            aria-labelledby="titulo-status"
+          >
+
+            <div class="card-header">
+
+              <h2 id="titulo-status">
+                Status
+              </h2>
+
+            </div>
+
+            <div class="card-body">
+
+              <div
+                style="
+                  display: flex;
+                  gap: 10px;
+                  flex-wrap: wrap;
+                "
+              >
+
+                <span
+                  class="
+                    badge
+                    badge-status-agendada
+                  "
+                >
+                  Agendada
+                </span>
+
+
+                <span
+                  class="
+                    badge
+                    badge-status-realizada
+                  "
+                >
+                  Realizada
+                </span>
+
+
+                <span
+                  class="
+                    badge
+                    badge-status-pendente
+                  "
+                >
+                  Pendente
+                </span>
+
+
+                <span
+                  class="
+                    badge
+                    badge-status-cancelada
+                  "
+                >
+                  Cancelada
+                </span>
+
+
+                <span
+                  class="
+                    badge
+                    badge-status-neutral
+                  "
+                >
+                  Não definida
+                </span>
+
+              </div>
+
+            </div>
+
+          </section>
+
+
+          <section
+            class="card"
+            style="margin-top: 24px"
+            aria-labelledby="titulo-agendamentos"
+          >
+
+            <div class="card-header">
+
+              <div>
+                <h2 id="titulo-agendamentos">
+                  Agendamentos
+                </h2>
+
+                <span class="table-count">
+                  4 registros encontrados
+                </span>
+              </div>
+
+              <button
+                type="button"
+                class="btn btn-primary"
+              >
+                + Nova oficina
+              </button>
+
+            </div>
+
+
+            <div
+              class="table-responsive"
+              tabindex="0"
+              aria-label="Tabela de agendamentos"
+            >
+
+              <table
+                class="data-table"
+                aria-label="Agendamentos de oficinas"
+              >
+
+                <thead>
+
+                  <tr>
+
+                    <th scope="col">
+                      Data
+                    </th>
+
+                    <th scope="col">
+                      Oficina
+                    </th>
+
+                    <th scope="col">
+                      Regional
+                    </th>
+
+                    <th scope="col">
+                      Instituição
+                    </th>
+
+                    <th scope="col">
+                      Horário
+                    </th>
+
+                    <th scope="col">
+                      Status
+                    </th>
+
+                    <th scope="col">
+                      Ações
+                    </th>
+
+                  </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                  <!-- REGISTRO 1 -->
+
+                  <tr>
+
+                    <td class="table-date">
+
+                      <span class="table-primary">
+                        24/08/2026
+                      </span>
+
+                      <span class="table-secondary">
+                        Segunda-feira
+                      </span>
+
+                    </td>
+
+
+                    <td>
+
+                      <span class="table-primary">
+                        Robótica Educacional
+                      </span>
+
+                      <span class="table-secondary">
+                        Oficina
+                      </span>
+
+                    </td>
+
+
+                    <td>
+                      Vitória
+                    </td>
+
+
+                    <td>
+
+                      <span class="table-primary">
+                        Escola Demonstração
+                      </span>
+
+                      <span class="table-secondary">
+                        Vitória - MG
+                      </span>
+
+                    </td>
+
+
+                    <td>
+                      08:00 — 12:00
+                    </td>
+
+
+                    <td class="table-status">
+
+                      <span
+                        class="
+                          badge
+                          badge-status-agendada
+                        "
+                      >
+                        Agendada
+                      </span>
+
+                    </td>
+
+
+                    <td>
+
+                      <div class="table-actions">
+
+                        <button
+                          type="button"
+                          class="table-action"
+                        >
+                          Ver
+                        </button>
+
+                        <button
+                          type="button"
+                          class="table-action"
+                        >
+                          Editar
+                        </button>
+
+                      </div>
+
+                    </td>
+
+                  </tr>
+
+
+                  <!-- REGISTRO 2 -->
+
+                  <tr>
+
+                    <td class="table-date">
+
+                      <span class="table-primary">
+                        20/08/2026
+                      </span>
+
+                      <span class="table-secondary">
+                        Quinta-feira
+                      </span>
+
+                    </td>
+
+
+                    <td>
+
+                      <span class="table-primary">
+                        PAEBM
+                      </span>
+
+                      <span class="table-secondary">
+                        Educação socioambiental
+                      </span>
+
+                    </td>
+
+
+                    <td>
+                      Itabira
+                    </td>
+
+
+                    <td>
+
+                      <span class="table-primary">
+                        Instituição Exemplo
+                      </span>
+
+                      <span class="table-secondary">
+                        Itabira - MG
+                      </span>
+
+                    </td>
+
+
+                    <td>
+                      13:00 — 17:00
+                    </td>
+
+
+                    <td class="table-status">
+
+                      <span
+                        class="
+                          badge
+                          badge-status-realizada
+                        "
+                      >
+                        Realizada
+                      </span>
+
+                    </td>
+
+
+                    <td>
+
+                      <div class="table-actions">
+
+                        <button
+                          type="button"
+                          class="table-action"
+                        >
+                          Ver
+                        </button>
+
+                      </div>
+
+                    </td>
+
+                  </tr>
+
+
+                  <!-- REGISTRO 3 -->
+
+                  <tr>
+
+                    <td class="table-date">
+
+                      <span class="table-primary">
+                        28/08/2026
+                      </span>
+
+                      <span class="table-secondary">
+                        Sexta-feira
+                      </span>
+
+                    </td>
+
+
+                    <td>
+
+                      <span class="table-primary">
+                        Maker
+                      </span>
+
+                    </td>
+
+
+                    <td>
+                      Governador Valadares
+                    </td>
+
+
+                    <td>
+
+                      <span class="table-primary">
+                        Escola Exemplo
+                      </span>
+
+                    </td>
+
+
+                    <td>
+                      09:00 — 11:00
+                    </td>
+
+
+                    <td class="table-status">
+
+                      <span
+                        class="
+                          badge
+                          badge-status-pendente
+                        "
+                      >
+                        Pendente
+                      </span>
+
+                    </td>
+
+
+                    <td>
+
+                      <div class="table-actions">
+
+                        <button
+                          type="button"
+                          class="table-action"
+                        >
+                          Ver
+                        </button>
+
+                        <button
+                          type="button"
+                          class="table-action"
+                        >
+                          Editar
+                        </button>
+
+                      </div>
+
+                    </td>
+
+                  </tr>
+
+
+                  <!-- REGISTRO 4 -->
+
+                  <tr>
+
+                    <td class="table-date">
+
+                      <span class="table-primary">
+                        14/08/2026
+                      </span>
+
+                      <span class="table-secondary">
+                        Sexta-feira
+                      </span>
+
+                    </td>
+
+
+                    <td>
+
+                      <span class="table-primary">
+                        Sustentabilidade
+                      </span>
+
+                    </td>
+
+
+                    <td>
+                      Vitória
+                    </td>
+
+
+                    <td>
+
+                      <span class="table-primary">
+                        Escola Modelo
+                      </span>
+
+                    </td>
+
+
+                    <td>
+                      08:00 — 10:00
+                    </td>
+
+
+                    <td class="table-status">
+
+                      <span
+                        class="
+                          badge
+                          badge-status-cancelada
+                        "
+                      >
+                        Cancelada
+                      </span>
+
+                    </td>
+
+
+                    <td>
+
+                      <div class="table-actions">
+
+                        <button
+                          type="button"
+                          class="table-action"
+                        >
+                          Ver
+                        </button>
+
+                      </div>
+
+                    </td>
+
+                  </tr>
+
+                </tbody>
+
+              </table>
+
+            </div>
+
+          </section>
+
+
+          <section
+            class="card"
+            style="margin-top: 24px"
+            aria-labelledby="titulo-alertas"
+          >
+
+            <div class="card-header">
+              <h2 id="titulo-alertas">
+                Alertas
+              </h2>
+            </div>
+
+            <div class="card-body">
+
+              <div
+                style="
+                  display: grid;
+                  gap: 12px;
+                "
+              >
+
+                <!-- SUCESSO -->
+
+                <div
+                  class="alert alert-success"
+                  role="status"
+                >
+
+                  <div
+                    class="alert-icon"
+                    aria-hidden="true"
+                  >
+                    ✓
+                  </div>
+
+                  <div class="alert-content">
+
+                    <strong class="alert-title">
+                      Registro salvo
+                    </strong>
+
+                    <p class="alert-message">
+                      As informações foram
+                      registradas com sucesso.
+                    </p>
+
+                  </div>
+
+                </div>
+
+
+                <!-- INFORMAÇÃO -->
+
+                <div
+                  class="alert alert-info"
+                  role="status"
+                >
+
+                  <div
+                    class="alert-icon"
+                    aria-hidden="true"
+                  >
+                    i
+                  </div>
+
+                  <div class="alert-content">
+
+                    <strong class="alert-title">
+                      Informação
+                    </strong>
+
+                    <p class="alert-message">
+                      Os dados apresentados foram
+                      atualizados recentemente.
+                    </p>
+
+                  </div>
+
+                </div>
+
+
+                <!-- ATENÇÃO -->
+
+                <div
+                  class="alert alert-warning"
+                  role="status"
+                >
+
+                  <div
+                    class="alert-icon"
+                    aria-hidden="true"
+                  >
+                    !
+                  </div>
+
+                  <div class="alert-content">
+
+                    <strong class="alert-title">
+                      Atenção
+                    </strong>
+
+                    <p class="alert-message">
+                      Existem registros que precisam
+                      ser revisados.
+                    </p>
+
+                  </div>
+
+                </div>
+
+
+                <!-- ERRO -->
+
+                <div
+                  class="alert alert-danger"
+                  role="alert"
+                >
+
+                  <div
+                    class="alert-icon"
+                    aria-hidden="true"
+                  >
+                    ×
+                  </div>
+
+                  <div class="alert-content">
+
+                    <strong class="alert-title">
+                      Não foi possível carregar os dados
+                    </strong>
+
+                    <p class="alert-message">
+                      Verifique sua conexão e tente
+                      novamente.
+                    </p>
+
+                  </div>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </section>
+
+
+          <section
+            class="card"
+            style="margin-top: 24px"
+            aria-labelledby="titulo-spinner"
+          >
+
+            <div class="card-header">
+
+              <h2 id="titulo-spinner">
+                Indicador de carregamento
+              </h2>
+
+            </div>
+
+            <div class="card-body">
+
+              <div
+                style="
+                  display: flex;
+                  align-items: center;
+                  gap: 30px;
+                "
+              >
+
+                <div
+                  class="spinner spinner-sm"
+                  aria-hidden="true"
+                ></div>
+
+                <div
+                  class="spinner"
+                  aria-hidden="true"
+                ></div>
+
+                <div
+                  class="spinner spinner-lg"
+                  aria-hidden="true"
+                ></div>
+
+              </div>
+
+            </div>
+
+          </section>
+
+
+          <section
+            class="card"
+            style="margin-top: 24px"
+            aria-labelledby="titulo-loading"
+          >
+
+            <div class="card-header">
+
+              <h2 id="titulo-loading">
+                Estado de carregamento
+              </h2>
+
+            </div>
+
+
+            <div
+              class="loading-state"
+              role="status"
+              aria-live="polite"
+            >
+
+              <div
+                class="spinner"
+                aria-hidden="true"
+              ></div>
+
+              <p class="loading-title">
+                Carregando informações
+              </p>
+
+              <p class="loading-message">
+                Aguarde enquanto buscamos
+                os dados da plataforma.
+              </p>
+
+            </div>
+
+          </section>
+
+
+          <section
+            class="card"
+            style="margin-top: 24px"
+            aria-labelledby="titulo-skeleton-kpi"
+          >
+
+            <div class="card-header">
+
+              <h2 id="titulo-skeleton-kpi">
+                Skeleton Loading
+              </h2>
+
+            </div>
+
+
+            <div
+              class="card-body"
+              aria-label="Exemplo de carregamento de indicadores"
+            >
+
+              <div
+                class="kpi-grid"
+                aria-hidden="true"
+              >
+
+                <!-- CARD 1 -->
+
+                <article class="card kpi-skeleton">
+
+                  <div
+                    class="
+                      skeleton
+                      skeleton-line
+                      skeleton-line-md
+                    "
+                  ></div>
+
+                  <div
+                    class="
+                      skeleton
+                      skeleton-title
+                    "
+                  ></div>
+
+                  <div
+                    class="
+                      skeleton
+                      skeleton-line
+                      skeleton-line-sm
+                    "
+                  ></div>
+
+                </article>
+
+
+                <!-- CARD 2 -->
+
+                <article class="card kpi-skeleton">
+
+                  <div
+                    class="
+                      skeleton
+                      skeleton-line
+                      skeleton-line-md
+                    "
+                  ></div>
+
+                  <div
+                    class="
+                      skeleton
+                      skeleton-title
+                    "
+                  ></div>
+
+                  <div
+                    class="
+                      skeleton
+                      skeleton-line
+                      skeleton-line-sm
+                    "
+                  ></div>
+
+                </article>
+
+
+                <!-- CARD 3 -->
+
+                <article class="card kpi-skeleton">
+
+                  <div
+                    class="
+                      skeleton
+                      skeleton-line
+                      skeleton-line-md
+                    "
+                  ></div>
+
+                  <div
+                    class="
+                      skeleton
+                      skeleton-title
+                    "
+                  ></div>
+
+                  <div
+                    class="
+                      skeleton
+                      skeleton-line
+                      skeleton-line-sm
+                    "
+                  ></div>
+
+                </article>
+
+
+                <!-- CARD 4 -->
+
+                <article class="card kpi-skeleton">
+
+                  <div
+                    class="
+                      skeleton
+                      skeleton-line
+                      skeleton-line-md
+                    "
+                  ></div>
+
+                  <div
+                    class="
+                      skeleton
+                      skeleton-title
+                    "
+                  ></div>
+
+                  <div
+                    class="
+                      skeleton
+                      skeleton-line
+                      skeleton-line-sm
+                    "
+                  ></div>
+
+                </article>
+
+              </div>
+
+            </div>
+
+          </section>
+
+
+          <section
+            class="card"
+            style="margin-top: 24px"
+            aria-labelledby="titulo-skeleton-tabela"
+          >
+
+            <div class="card-header">
+
+              <h2 id="titulo-skeleton-tabela">
+                Skeleton de tabela
+              </h2>
+
+            </div>
+
+
+            <div
+              class="table-responsive"
+              aria-hidden="true"
+            >
+
+              <table class="data-table">
+
+                <thead>
+
+                  <tr>
+                    <th scope="col">Data</th>
+                    <th scope="col">Oficina</th>
+                    <th scope="col">Regional</th>
+                    <th scope="col">Instituição</th>
+                    <th scope="col">Status</th>
+                  </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                  <tr>
+
+                    <td>
+                      <div
+                        class="
+                          skeleton
+                          skeleton-line
+                        "
+                      ></div>
+                    </td>
+
+                    <td>
+                      <div
+                        class="
+                          skeleton
+                          skeleton-line
+                          skeleton-line-lg
+                        "
+                      ></div>
+                    </td>
+
+                    <td>
+                      <div
+                        class="
+                          skeleton
+                          skeleton-line
+                          skeleton-line-md
+                        "
+                      ></div>
+                    </td>
+
+                    <td>
+                      <div
+                        class="
+                          skeleton
+                          skeleton-line
+                          skeleton-line-lg
+                        "
+                      ></div>
+                    </td>
+
+                    <td>
+                      <div
+                        class="
+                          skeleton
+                          skeleton-line
+                          skeleton-line-md
+                        "
+                      ></div>
+                    </td>
+
+                  </tr>
+
+
+                  <tr>
+
+                    <td>
+                      <div
+                        class="
+                          skeleton
+                          skeleton-line
+                        "
+                      ></div>
+                    </td>
+
+                    <td>
+                      <div
+                        class="
+                          skeleton
+                          skeleton-line
+                          skeleton-line-lg
+                        "
+                      ></div>
+                    </td>
+
+                    <td>
+                      <div
+                        class="
+                          skeleton
+                          skeleton-line
+                          skeleton-line-md
+                        "
+                      ></div>
+                    </td>
+
+                    <td>
+                      <div
+                        class="
+                          skeleton
+                          skeleton-line
+                          skeleton-line-lg
+                        "
+                      ></div>
+                    </td>
+
+                    <td>
+                      <div
+                        class="
+                          skeleton
+                          skeleton-line
+                          skeleton-line-md
+                        "
+                      ></div>
+                    </td>
+
+                  </tr>
+
+
+                  <tr>
+
+                    <td>
+                      <div
+                        class="
+                          skeleton
+                          skeleton-line
+                        "
+                      ></div>
+                    </td>
+
+                    <td>
+                      <div
+                        class="
+                          skeleton
+                          skeleton-line
+                          skeleton-line-lg
+                        "
+                      ></div>
+                    </td>
+
+                    <td>
+                      <div
+                        class="
+                          skeleton
+                          skeleton-line
+                          skeleton-line-md
+                        "
+                      ></div>
+                    </td>
+
+                    <td>
+                      <div
+                        class="
+                          skeleton
+                          skeleton-line
+                          skeleton-line-lg
+                        "
+                      ></div>
+                    </td>
+
+                    <td>
+                      <div
+                        class="
+                          skeleton
+                          skeleton-line
+                          skeleton-line-md
+                        "
+                      ></div>
+                    </td>
+
+                  </tr>
+
+                </tbody>
+
+              </table>
+
+            </div>
+
+          </section>
+
+
+          <section
+            class="card"
+            style="margin-top: 24px"
+            aria-labelledby="titulo-estado-erro"
+          >
+
+            <div class="card-header">
+
+              <h2 id="titulo-estado-erro">
+                Estado de erro
+              </h2>
+
+            </div>
+
+
+            <div
+              class="
+                feedback-state
+                feedback-state-error
+              "
+              role="alert"
+            >
+
+              <div
+                class="feedback-state-icon"
+                aria-hidden="true"
+              >
+                !
+              </div>
+
+              <h3>
+                Não conseguimos carregar os dados
+              </h3>
+
+              <p>
+                O servidor não respondeu corretamente.
+                Verifique sua conexão ou tente novamente.
+              </p>
+
+              <button
+                type="button"
+                class="btn btn-primary"
+              >
+                Tentar novamente
+              </button>
+
+            </div>
+
+          </section>
+
+
+          <section
+            class="card"
+            style="margin-top: 24px"
+            aria-labelledby="titulo-estado-vazio"
+          >
+
+            <div class="card-header">
+
+              <h2 id="titulo-estado-vazio">
+                Estado vazio
+              </h2>
+
+            </div>
+
+
+            <div class="feedback-state">
+
+              <div
+                class="feedback-state-icon"
+                aria-hidden="true"
+              >
+                +
+              </div>
+
+              <h3>
+                Nenhuma oficina encontrada
+              </h3>
+
+              <p>
+                Não existem oficinas cadastradas
+                para os filtros selecionados.
+              </p>
+
+              <button
+                type="button"
+                class="btn btn-primary"
+              >
+                Nova oficina
+              </button>
+
+            </div>
+
+          </section>
+
+
+          <div class="form-actions">
+
+            <button
+              type="button"
+              class="btn btn-secondary"
+            >
+              Cancelar
+            </button>
+
+            <button
+              type="button"
+              class="btn btn-primary"
+            >
+              Salvar
+            </button>
+
+          </div>
+
+        </div>
+
+      </section>
+
+    </main>
+
+
+    <script
+      type="module"
+      src="/src/main.js"
+    ></script>
+
+  </body>
+</html>

@@ -1,5 +1,10 @@
 /* =====================================================
-   FORMULÁRIOS
+   FORMULÁRIOS — YXZ PLATAFORMA
+===================================================== */
+
+
+/* =====================================================
+   GRIDS
 ===================================================== */
 
 .form-grid {
@@ -15,6 +20,11 @@
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
+
+/* =====================================================
+   CAMPOS
+===================================================== */
+
 .field {
   min-width: 0;
 }
@@ -27,11 +37,17 @@
 
   font-size: 13px;
   font-weight: 600;
+  line-height: 1.35;
 }
 
 .field-required {
   color: var(--color-danger);
 }
+
+
+/* =====================================================
+   CONTROLES
+===================================================== */
 
 .field-control {
   width: 100%;
@@ -46,25 +62,41 @@
   color: var(--text-primary);
 
   font-size: 14px;
+  line-height: 1.4;
 
   transition:
     border-color var(--transition-fast),
     box-shadow var(--transition-fast),
-    background var(--transition-fast);
+    background-color var(--transition-fast),
+    color var(--transition-fast);
 }
+
+
+/* TEXTAREA */
 
 textarea.field-control {
   min-height: 110px;
+
   resize: vertical;
 }
 
+
+/* PLACEHOLDER */
+
 .field-control::placeholder {
   color: var(--text-muted);
+  opacity: 1;
 }
 
-.field-control:hover {
+
+/* HOVER */
+
+.field-control:hover:not(:disabled):not([readonly]) {
   border-color: var(--color-gray-300);
 }
+
+
+/* FOCO */
 
 .field-control:focus {
   outline: none;
@@ -72,27 +104,57 @@ textarea.field-control {
   border-color: var(--color-brand-600);
 
   box-shadow:
-    0 0 0 3px rgba(27, 94, 75, 0.12);
+    0 0 0 3px rgba(27, 94, 75, 0.14);
 }
 
-.field-control:disabled,
-.field-control[readonly] {
+
+/* =====================================================
+   CAMPOS DESABILITADOS
+===================================================== */
+
+.field-control:disabled {
   cursor: not-allowed;
 
   background: var(--color-gray-100);
   color: var(--text-muted);
+
+  opacity: 0.75;
 }
 
-/* ERROS */
 
-.field-control.is-invalid {
+/* =====================================================
+   CAMPOS SOMENTE LEITURA
+===================================================== */
+
+.field-control[readonly] {
+  background: var(--color-gray-100);
+  color: var(--text-secondary);
+
+  cursor: default;
+}
+
+
+/* =====================================================
+   ERRO / VALIDAÇÃO
+===================================================== */
+
+.field-control.is-invalid,
+.field-control[aria-invalid="true"] {
   border-color: var(--color-danger);
 }
 
-.field-control.is-invalid:focus {
+.field-control.is-invalid:focus,
+.field-control[aria-invalid="true"]:focus {
+  border-color: var(--color-danger);
+
   box-shadow:
-    0 0 0 3px rgba(194, 65, 65, 0.12);
+    0 0 0 3px rgba(194, 65, 65, 0.14);
 }
+
+
+/* =====================================================
+   AJUDA E MENSAGENS
+===================================================== */
 
 .field-help,
 .field-error {
@@ -101,6 +163,7 @@ textarea.field-control {
   margin-top: 6px;
 
   font-size: 12px;
+  line-height: 1.4;
 }
 
 .field-help {
@@ -109,32 +172,53 @@ textarea.field-control {
 
 .field-error {
   color: var(--color-danger);
+  font-weight: 500;
 }
 
-/* CHECKBOX */
+
+/* =====================================================
+   CHECKBOX
+===================================================== */
 
 .check-field {
   display: flex;
   align-items: flex-start;
   gap: 9px;
 
-  cursor: pointer;
-
   color: var(--text-secondary);
 
   font-size: 14px;
+  line-height: 1.4;
+
+  cursor: pointer;
 }
 
 .check-field input {
   width: 17px;
   height: 17px;
 
-  margin-top: 2px;
+  margin: 2px 0 0;
+
+  flex-shrink: 0;
 
   accent-color: var(--color-brand-700);
+
+  cursor: pointer;
 }
 
-/* AÇÕES */
+.check-field input:disabled {
+  cursor: not-allowed;
+}
+
+.check-field:has(input:disabled) {
+  cursor: not-allowed;
+  opacity: 0.65;
+}
+
+
+/* =====================================================
+   AÇÕES DO FORMULÁRIO
+===================================================== */
 
 .form-actions {
   margin-top: 24px;
@@ -147,6 +231,11 @@ textarea.field-control {
 
   border-top: 1px solid var(--border-color);
 }
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
 
 @media (max-width: 700px) {
   .form-grid-2,

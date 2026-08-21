@@ -1,25 +1,83 @@
 /* =====================================================
-   TABELAS
+   TABELAS — YXZ PLATAFORMA
+===================================================== */
+
+
+/* =====================================================
+   CONTAINER RESPONSIVO
 ===================================================== */
 
 .table-responsive {
   width: 100%;
+  max-width: 100%;
+
   overflow-x: auto;
+  overflow-y: hidden;
+
+  /*
+    Mantém a rolagem suave no iOS.
+  */
+  -webkit-overflow-scrolling: touch;
+
+  /*
+    Evita que a rolagem horizontal da tabela
+    interfira desnecessariamente na página.
+  */
+  overscroll-behavior-inline: contain;
+
+  scrollbar-width: thin;
+  scrollbar-color:
+    var(--color-gray-300)
+    transparent;
 }
+
+.table-responsive::-webkit-scrollbar {
+  height: 8px;
+}
+
+.table-responsive::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.table-responsive::-webkit-scrollbar-thumb {
+  background: var(--color-gray-300);
+  border-radius: 999px;
+}
+
+.table-responsive::-webkit-scrollbar-thumb:hover {
+  background: var(--color-gray-500);
+}
+
+
+/* =====================================================
+   TABELA
+===================================================== */
 
 .data-table {
   width: 100%;
-  min-width: 700px;
+  min-width: 760px;
 
   border-collapse: collapse;
 
+  background: var(--color-white);
+
+  color: var(--text-primary);
+
   font-size: 13px;
+  line-height: 1.4;
+}
+
+
+/* =====================================================
+   CABEÇALHO
+===================================================== */
+
+.data-table thead {
+  background: var(--color-gray-50);
 }
 
 .data-table th {
   padding: 12px 16px;
-
-  background: var(--color-gray-50);
 
   border-bottom: 1px solid var(--border-color);
 
@@ -29,9 +87,17 @@
   font-weight: 700;
 
   letter-spacing: 0.04em;
+
   text-align: left;
   text-transform: uppercase;
+
+  white-space: nowrap;
 }
+
+
+/* =====================================================
+   CORPO
+===================================================== */
 
 .data-table td {
   padding: 14px 16px;
@@ -44,42 +110,175 @@
 }
 
 .data-table tbody tr {
-  transition: background var(--transition-fast);
-}
-
-.data-table tbody tr:hover {
-  background: var(--color-gray-50);
+  transition:
+    background-color var(--transition-fast);
 }
 
 .data-table tbody tr:last-child td {
   border-bottom: 0;
 }
 
+
+/*
+ * O hover é aplicado apenas em dispositivos
+ * que realmente possuem ponteiro/mouse.
+ */
+@media (hover: hover) {
+  .data-table tbody tr:hover {
+    background-color: var(--color-gray-50);
+  }
+}
+
+
+/* =====================================================
+   CONTEÚDO DAS CÉLULAS
+===================================================== */
+
 .table-primary {
+  display: block;
+
+  color: var(--text-primary);
+
   font-weight: 600;
+  line-height: 1.35;
 }
 
 .table-secondary {
   display: block;
 
-  margin-top: 2px;
+  margin-top: 3px;
 
   color: var(--text-muted);
 
   font-size: 11px;
+  line-height: 1.4;
 }
+
+
+/* =====================================================
+   COLUNAS ESPECIAIS
+===================================================== */
+
+.table-date,
+.table-status {
+  white-space: nowrap;
+}
+
+
+/* =====================================================
+   AÇÕES
+===================================================== */
 
 .table-actions {
   display: flex;
   align-items: center;
   justify-content: flex-end;
   gap: 6px;
+
+  white-space: nowrap;
 }
 
-.table-empty {
-  padding: 40px;
+.table-action {
+  min-height: 34px;
 
-  color: var(--text-muted);
+  padding: 0 10px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+
+  border: 1px solid transparent;
+  border-radius: 7px;
+
+  background: transparent;
+
+  color: var(--text-secondary);
+
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.2;
+
+  transition:
+    background-color var(--transition-fast),
+    border-color var(--transition-fast),
+    color var(--transition-fast),
+    opacity var(--transition-fast);
+}
+
+
+/* Ação comum */
+
+.table-action:hover:not(:disabled):not([aria-disabled="true"]) {
+  background: var(--color-gray-100);
+
+  color: var(--color-brand-700);
+}
+
+.table-action:active:not(:disabled):not([aria-disabled="true"]) {
+  background: var(--color-gray-200);
+}
+
+
+/* Ação destrutiva */
+
+.table-action-danger:hover:not(:disabled):not([aria-disabled="true"]) {
+  background: var(--color-danger-bg);
+
+  color: var(--color-danger);
+}
+
+
+/* Ação desabilitada */
+
+.table-action:disabled,
+.table-action[aria-disabled="true"] {
+  opacity: 0.5;
+
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+
+/* =====================================================
+   ESTADO VAZIO
+===================================================== */
+
+.table-empty {
+  padding: 46px 20px !important;
+
+  color: var(--text-muted) !important;
 
   text-align: center;
+  line-height: 1.5;
+}
+
+
+/* =====================================================
+   CONTADOR
+===================================================== */
+
+.table-count {
+  color: var(--text-muted);
+
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 700px) {
+  .data-table th,
+  .data-table td {
+    padding-right: 12px;
+    padding-left: 12px;
+  }
+
+  .table-empty {
+    padding-right: 16px !important;
+    padding-left: 16px !important;
+  }
 }

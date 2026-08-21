@@ -1,0 +1,751 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <meta
+    name="description"
+    content="Portal de Gestão YXZ Soluções Educacionais"
+  >
+
+  <meta
+    name="robots"
+    content="noindex, nofollow"
+  >
+
+  <meta
+    name="theme-color"
+    content="#0f2c25"
+  >
+
+  <title>
+    Dashboard | YXZ Plataforma
+  </title>
+
+  <link
+    rel="icon"
+    href="/assets/favicon.png"
+    type="image/png"
+  >
+</head>
+
+
+<body>
+
+  <!--
+    hidden evita que o portal apareça
+    antes da validação da autenticação.
+  -->
+
+  <div
+    class="app-shell"
+    data-app-shell
+    hidden
+  >
+
+
+    <!-- ==================================================
+         SIDEBAR
+    ================================================== -->
+
+    <aside
+      class="sidebar"
+      id="sidebar"
+      aria-label="Menu lateral"
+    >
+
+      <div class="sidebar-brand">
+
+        <div
+          class="brand-symbol"
+          aria-hidden="true"
+        >
+          YXZ
+        </div>
+
+        <div class="brand-text">
+
+          <strong>
+            Plataforma YXZ
+          </strong>
+
+          <span>
+            Gestão Educacional
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <nav
+        class="sidebar-nav"
+        aria-label="Navegação principal"
+      >
+
+
+        <!-- VISÃO GERAL -->
+
+        <div class="nav-section">
+
+          <p class="nav-section-title">
+            Visão geral
+          </p>
+
+          <a
+            href="/app/"
+            class="nav-link active"
+            aria-current="page"
+          >
+
+            <span
+              class="nav-icon"
+              aria-hidden="true"
+            >
+              ▦
+            </span>
+
+            <span>
+              Dashboard
+            </span>
+
+          </a>
+
+        </div>
+
+
+        <!-- OFICINAS -->
+
+        <div class="nav-section">
+
+          <p class="nav-section-title">
+            Oficinas
+          </p>
+
+          <a
+            href="#"
+            class="nav-link"
+          >
+
+            <span
+              class="nav-icon"
+              aria-hidden="true"
+            >
+              ＋
+            </span>
+
+            <span>
+              Agendamentos
+            </span>
+
+          </a>
+
+
+          <a
+            href="#"
+            class="nav-link"
+          >
+
+            <span
+              class="nav-icon"
+              aria-hidden="true"
+            >
+              ♙
+            </span>
+
+            <span>
+              Escalas
+            </span>
+
+          </a>
+
+
+          <a
+            href="#"
+            class="nav-link"
+          >
+
+            <span
+              class="nav-icon"
+              aria-hidden="true"
+            >
+              ✓
+            </span>
+
+            <span>
+              Execuções
+            </span>
+
+          </a>
+
+
+          <a
+            href="#"
+            class="nav-link"
+          >
+
+            <span
+              class="nav-icon"
+              aria-hidden="true"
+            >
+              □
+            </span>
+
+            <span>
+              Calendário
+            </span>
+
+          </a>
+
+        </div>
+
+
+        <!-- EQUIPE -->
+
+        <div class="nav-section">
+
+          <p class="nav-section-title">
+            Equipe
+          </p>
+
+          <a
+            href="#"
+            class="nav-link"
+          >
+
+            <span
+              class="nav-icon"
+              aria-hidden="true"
+            >
+              ◎
+            </span>
+
+            <span>
+              Colaboradores
+            </span>
+
+          </a>
+
+
+          <a
+            href="#"
+            class="nav-link"
+          >
+
+            <span
+              class="nav-icon"
+              aria-hidden="true"
+            >
+              ◷
+            </span>
+
+            <span>
+              Horas
+            </span>
+
+          </a>
+
+
+          <a
+            href="#"
+            class="nav-link"
+          >
+
+            <span
+              class="nav-icon"
+              aria-hidden="true"
+            >
+              ≋
+            </span>
+
+            <span>
+              Conferência
+            </span>
+
+          </a>
+
+        </div>
+
+
+        <!-- FINANCEIRO -->
+
+        <div class="nav-section">
+
+          <p class="nav-section-title">
+            Financeiro
+          </p>
+
+          <a
+            href="#"
+            class="nav-link"
+          >
+
+            <span
+              class="nav-icon"
+              aria-hidden="true"
+            >
+              ◇
+            </span>
+
+            <span>
+              Previsões
+            </span>
+
+          </a>
+
+
+          <a
+            href="#"
+            class="nav-link"
+          >
+
+            <span
+              class="nav-icon"
+              aria-hidden="true"
+            >
+              $
+            </span>
+
+            <span>
+              Gastos
+            </span>
+
+          </a>
+
+
+          <a
+            href="#"
+            class="nav-link"
+          >
+
+            <span
+              class="nav-icon"
+              aria-hidden="true"
+            >
+              ↗
+            </span>
+
+            <span>
+              Comparativo
+            </span>
+
+          </a>
+
+        </div>
+
+
+        <!-- GESTÃO -->
+
+        <div class="nav-section">
+
+          <p class="nav-section-title">
+            Gestão
+          </p>
+
+          <a
+            href="#"
+            class="nav-link"
+          >
+
+            <span
+              class="nav-icon"
+              aria-hidden="true"
+            >
+              ◆
+            </span>
+
+            <span>
+              Eventos
+            </span>
+
+          </a>
+
+
+          <a
+            href="#"
+            class="nav-link"
+          >
+
+            <span
+              class="nav-icon"
+              aria-hidden="true"
+            >
+              ▤
+            </span>
+
+            <span>
+              Relatórios
+            </span>
+
+          </a>
+
+        </div>
+
+      </nav>
+
+
+      <div class="sidebar-footer">
+
+        <a
+          href="#"
+          class="nav-link"
+        >
+
+          <span
+            class="nav-icon"
+            aria-hidden="true"
+          >
+            ⚙
+          </span>
+
+          <span>
+            Configurações
+          </span>
+
+        </a>
+
+      </div>
+
+    </aside>
+
+
+    <!-- ==================================================
+         OVERLAY MOBILE
+    ================================================== -->
+
+    <div
+      class="sidebar-overlay"
+      data-sidebar-close
+      aria-hidden="true"
+    ></div>
+
+
+    <!-- ==================================================
+         ÁREA PRINCIPAL
+    ================================================== -->
+
+    <div class="app-main">
+
+
+      <!-- ==================================================
+           HEADER
+      ================================================== -->
+
+      <header class="app-header">
+
+        <div class="header-left">
+
+          <button
+            type="button"
+            class="mobile-menu-button"
+            data-sidebar-toggle
+            aria-label="Abrir menu"
+            aria-expanded="false"
+            aria-controls="sidebar"
+          >
+
+            <span aria-hidden="true">
+              ☰
+            </span>
+
+          </button>
+
+
+          <div class="header-context">
+            Portal de Gestão
+          </div>
+
+        </div>
+
+
+        <!-- USUÁRIO AUTENTICADO -->
+
+        <div class="header-user">
+
+          <div
+            class="user-avatar"
+            aria-hidden="true"
+          >
+            YXZ
+          </div>
+
+
+          <div class="user-info">
+
+            <strong data-auth-name>
+              Usuário
+            </strong>
+
+            <span data-auth-email>
+              Carregando...
+            </span>
+
+          </div>
+
+
+          <button
+            type="button"
+            class="btn btn-ghost"
+            data-auth-logout
+            aria-label="Sair do portal"
+          >
+            Sair
+          </button>
+
+        </div>
+
+      </header>
+
+
+      <!-- ==================================================
+           CONTEÚDO
+      ================================================== -->
+
+      <main class="app-content">
+
+
+        <div class="page-heading">
+
+          <div>
+
+            <h1>
+              Visão Geral
+            </h1>
+
+            <p>
+              Acompanhe as principais informações
+              da operação YXZ.
+            </p>
+
+          </div>
+
+
+          <button
+            type="button"
+            class="btn btn-primary"
+          >
+            + Nova oficina
+          </button>
+
+        </div>
+
+
+        <!-- ==================================================
+             KPIs
+        ================================================== -->
+
+        <section
+          class="kpi-grid"
+          aria-label="Indicadores principais"
+        >
+
+
+          <article class="card kpi-card">
+
+            <p class="kpi-label">
+              Oficinas agendadas
+            </p>
+
+            <div class="kpi-value">
+              —
+            </div>
+
+            <p class="kpi-description">
+              Próximos 30 dias
+            </p>
+
+            <div
+              class="kpi-accent"
+              aria-hidden="true"
+            ></div>
+
+          </article>
+
+
+          <article class="card kpi-card">
+
+            <p class="kpi-label">
+              Realizadas
+            </p>
+
+            <div class="kpi-value">
+              —
+            </div>
+
+            <p class="kpi-description">
+              Neste mês
+            </p>
+
+            <div
+              class="kpi-accent"
+              aria-hidden="true"
+            ></div>
+
+          </article>
+
+
+          <article class="card kpi-card">
+
+            <p class="kpi-label">
+              Horas registradas
+            </p>
+
+            <div class="kpi-value">
+              —
+            </div>
+
+            <p class="kpi-description">
+              Equipe no mês
+            </p>
+
+            <div
+              class="kpi-accent"
+              aria-hidden="true"
+            ></div>
+
+          </article>
+
+
+          <article class="card kpi-card">
+
+            <p class="kpi-label">
+              Investimento realizado
+            </p>
+
+            <div class="kpi-value">
+              —
+            </div>
+
+            <p class="kpi-description">
+              Período atual
+            </p>
+
+            <div
+              class="kpi-accent"
+              aria-hidden="true"
+            ></div>
+
+          </article>
+
+        </section>
+
+
+        <!-- ==================================================
+             CONTEÚDO INFERIOR
+        ================================================== -->
+
+        <section
+          class="dashboard-grid"
+          aria-label="Resumo operacional"
+        >
+
+
+          <!-- PRÓXIMAS OFICINAS -->
+
+          <article class="card">
+
+            <div class="card-header">
+
+              <h2>
+                Próximas oficinas
+              </h2>
+
+              <button
+                type="button"
+                class="btn btn-ghost"
+              >
+                Ver todas
+              </button>
+
+            </div>
+
+
+            <div class="card-body">
+
+              <div class="empty-state">
+
+                <div
+                  class="empty-state-icon"
+                  aria-hidden="true"
+                >
+                  □
+                </div>
+
+                <h3>
+                  Dados ainda não conectados
+                </h3>
+
+                <p>
+                  No próximo marco conectaremos
+                  o dashboard à API da plataforma.
+                </p>
+
+              </div>
+
+            </div>
+
+          </article>
+
+
+          <!-- STATUS OPERACIONAL -->
+
+          <article class="card">
+
+            <div class="card-header">
+
+              <h2>
+                Status operacional
+              </h2>
+
+            </div>
+
+
+            <div class="card-body">
+
+              <div class="empty-state">
+
+                <div
+                  class="empty-state-icon"
+                  aria-hidden="true"
+                >
+                  ◎
+                </div>
+
+                <h3>
+                  Indicadores em preparação
+                </h3>
+
+                <p>
+                  Esta área receberá alertas,
+                  pendências e informações importantes.
+                </p>
+
+              </div>
+
+            </div>
+
+          </article>
+
+        </section>
+
+      </main>
+
+    </div>
+
+  </div>
+
+
+  <script
+    type="module"
+    src="/src/main.js"
+  ></script>
+
+</body>
+
+</html>

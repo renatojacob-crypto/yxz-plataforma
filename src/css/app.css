@@ -1,6 +1,8 @@
 .app-shell {
   min-height: 100vh;
+  min-height: 100dvh;
 }
+
 
 /* =====================================================
    SIDEBAR
@@ -13,7 +15,9 @@
   z-index: 100;
 
   width: var(--sidebar-width);
+
   height: 100vh;
+  height: 100dvh;
 
   display: flex;
   flex-direction: column;
@@ -28,18 +32,56 @@
 
   color: var(--text-inverse);
 
+  overflow-x: hidden;
   overflow-y: auto;
+
+  overscroll-behavior: contain;
+
+  scrollbar-width: thin;
+  scrollbar-color:
+    rgba(255, 255, 255, 0.2)
+    transparent;
 }
+
+.sidebar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.sidebar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+  background:
+    rgba(255, 255, 255, 0.18);
+
+  border-radius: 999px;
+}
+
+.sidebar::-webkit-scrollbar-thumb:hover {
+  background:
+    rgba(255, 255, 255, 0.28);
+}
+
+
+/* =====================================================
+   MARCA
+===================================================== */
 
 .sidebar-brand {
   min-height: var(--header-height);
+
   padding: 18px 22px;
 
   display: flex;
   align-items: center;
   gap: 12px;
 
-  border-bottom: 1px solid rgba(255, 255, 255, 0.09);
+  flex-shrink: 0;
+
+  border-bottom:
+    1px solid
+    rgba(255, 255, 255, 0.09);
 }
 
 .brand-symbol {
@@ -53,25 +95,42 @@
 
   border-radius: 12px;
 
-  background: var(--color-gold-500);
-  color: var(--color-brand-950);
+  background:
+    var(--color-gold-500);
+
+  color:
+    var(--color-brand-950);
 
   font-size: 15px;
   font-weight: 800;
+  line-height: 1;
+}
+
+.brand-text {
+  min-width: 0;
 }
 
 .brand-text strong {
   display: block;
+
+  color: var(--color-white);
+
   font-size: 15px;
+  line-height: 1.3;
 }
 
 .brand-text span {
   display: block;
+
   margin-top: 2px;
 
-  color: rgba(255, 255, 255, 0.55);
+  color:
+    rgba(255, 255, 255, 0.62);
+
   font-size: 11px;
+  line-height: 1.35;
 }
+
 
 /* =====================================================
    NAVEGAÇÃO
@@ -87,10 +146,16 @@
   margin-bottom: 26px;
 }
 
-.nav-section-title {
-  margin: 0 10px 9px;
+.nav-section:last-child {
+  margin-bottom: 0;
+}
 
-  color: rgba(255, 255, 255, 0.38);
+.nav-section-title {
+  margin:
+    0 10px 9px;
+
+  color:
+    rgba(255, 255, 255, 0.5);
 
   font-size: 10px;
   font-weight: 700;
@@ -101,7 +166,8 @@
 
 .nav-link {
   min-height: 44px;
-  padding: 0 12px;
+
+  padding: 8px 12px;
 
   display: flex;
   align-items: center;
@@ -109,28 +175,48 @@
 
   border-radius: 10px;
 
-  color: rgba(255, 255, 255, 0.72);
+  color:
+    rgba(255, 255, 255, 0.76);
 
   font-size: 14px;
   font-weight: 500;
+  line-height: 1.3;
 
   transition:
-    background var(--transition-fast),
-    color var(--transition-fast);
+    background-color
+      var(--transition-fast),
+    color
+      var(--transition-fast);
 }
 
-.nav-link:hover {
-  background: var(--surface-sidebar-hover);
-  color: var(--color-white);
+@media (hover: hover) {
+  .nav-link:hover {
+    background:
+      var(--surface-sidebar-hover);
+
+    color:
+      var(--color-white);
+  }
 }
 
-.nav-link.active {
-  background: rgba(217, 164, 65, 0.15);
-  color: var(--color-white);
+
+/*
+ * Compatível tanto com classe .active
+ * quanto com aria-current="page".
+ */
+.nav-link.active,
+.nav-link[aria-current="page"] {
+  background:
+    rgba(217, 164, 65, 0.16);
+
+  color:
+    var(--color-white);
 }
 
-.nav-link.active .nav-icon {
-  color: var(--color-gold-400);
+.nav-link.active .nav-icon,
+.nav-link[aria-current="page"] .nav-icon {
+  color:
+    var(--color-gold-400);
 }
 
 .nav-icon {
@@ -139,50 +225,77 @@
   flex: 0 0 auto;
 
   display: inline-flex;
+  align-items: center;
   justify-content: center;
 
-  color: rgba(255, 255, 255, 0.55);
+  color:
+    rgba(255, 255, 255, 0.6);
 }
 
 .sidebar-footer {
   padding: 16px;
 
-  border-top: 1px solid rgba(255, 255, 255, 0.09);
+  flex-shrink: 0;
+
+  border-top:
+    1px solid
+    rgba(255, 255, 255, 0.09);
 }
+
 
 /* =====================================================
    CONTEÚDO PRINCIPAL
 ===================================================== */
 
 .app-main {
+  min-width: 0;
+
   min-height: 100vh;
-  margin-left: var(--sidebar-width);
+  min-height: 100dvh;
+
+  margin-left:
+    var(--sidebar-width);
 }
+
 
 /* =====================================================
    HEADER
 ===================================================== */
 
 .app-header {
-  height: var(--header-height);
-  padding: 0 32px;
+  position: sticky;
+  top: 0;
+
+  z-index: 50;
+
+  min-height:
+    var(--header-height);
+
+  padding:
+    0 32px;
 
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 20px;
 
-  position: sticky;
-  top: 0;
-  z-index: 50;
+  background:
+    rgba(255, 255, 255, 0.9);
 
-  background: rgba(255, 255, 255, 0.88);
+  border-bottom:
+    1px solid
+    var(--border-color);
 
-  border-bottom: 1px solid var(--border-color);
+  backdrop-filter:
+    blur(18px);
 
-  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter:
+    blur(18px);
 }
 
 .header-left {
+  min-width: 0;
+
   display: flex;
   align-items: center;
   gap: 14px;
@@ -192,24 +305,63 @@
   width: 42px;
   height: 42px;
 
+  padding: 0;
+
   display: none;
   place-items: center;
 
-  border: 1px solid var(--border-color);
+  flex: 0 0 auto;
+
+  border:
+    1px solid
+    var(--border-color);
+
   border-radius: 10px;
 
-  background: var(--color-white);
+  background:
+    var(--color-white);
+
+  color:
+    var(--text-primary);
+
+  transition:
+    background-color
+      var(--transition-fast),
+    border-color
+      var(--transition-fast);
+}
+
+@media (hover: hover) {
+  .mobile-menu-button:hover {
+    background:
+      var(--color-gray-100);
+
+    border-color:
+      var(--color-gray-300);
+  }
 }
 
 .header-context {
-  color: var(--text-secondary);
+  min-width: 0;
+
+  color:
+    var(--text-secondary);
+
   font-size: 13px;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .header-user {
+  min-width: 0;
+
   display: flex;
   align-items: center;
   gap: 10px;
+
+  flex-shrink: 0;
 }
 
 .user-avatar {
@@ -219,26 +371,54 @@
   display: grid;
   place-items: center;
 
-  background: var(--color-brand-700);
+  flex: 0 0 auto;
+
+  background:
+    var(--color-brand-700);
+
   border-radius: 50%;
 
-  color: white;
+  color:
+    var(--color-white);
 
   font-size: 13px;
   font-weight: 700;
+  line-height: 1;
+}
+
+.user-info {
+  min-width: 0;
 }
 
 .user-info strong {
   display: block;
+
+  max-width: 180px;
+
   font-size: 13px;
+  line-height: 1.35;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .user-info span {
   display: block;
 
-  color: var(--text-muted);
+  max-width: 180px;
+
+  color:
+    var(--text-muted);
+
   font-size: 11px;
+  line-height: 1.35;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
+
 
 /* =====================================================
    CONTEÚDO
@@ -249,6 +429,7 @@
   max-width: 1600px;
 
   margin: 0 auto;
+
   padding: 32px;
 }
 
@@ -261,19 +442,33 @@
   gap: 20px;
 }
 
+.page-heading > * {
+  min-width: 0;
+}
+
 .page-heading h1 {
   margin-bottom: 6px;
 
-  color: var(--color-brand-950);
+  color:
+    var(--color-brand-950);
 
-  font-size: 28px;
+  font-size:
+    clamp(24px, 2.2vw, 28px);
+
   line-height: 1.2;
 }
 
 .page-heading p {
+  max-width: 760px;
+
   margin: 0;
-  color: var(--text-secondary);
+
+  color:
+    var(--text-secondary);
+
+  line-height: 1.55;
 }
+
 
 /* =====================================================
    KPI
@@ -283,12 +478,20 @@
   margin-bottom: 24px;
 
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+
+  grid-template-columns:
+    repeat(
+      4,
+      minmax(0, 1fr)
+    );
+
   gap: 18px;
 }
 
 .kpi-card {
+  min-width: 0;
   min-height: 150px;
+
   padding: 22px;
 
   position: relative;
@@ -299,7 +502,8 @@
 .kpi-label {
   margin-bottom: 18px;
 
-  color: var(--text-secondary);
+  color:
+    var(--text-secondary);
 
   font-size: 12px;
   font-weight: 700;
@@ -311,18 +515,26 @@
 .kpi-value {
   margin-bottom: 4px;
 
-  color: var(--color-brand-950);
+  color:
+    var(--color-brand-950);
 
-  font-size: 32px;
+  font-size:
+    clamp(28px, 3vw, 32px);
+
   font-weight: 700;
+  line-height: 1.15;
+
+  overflow-wrap: anywhere;
 }
 
 .kpi-description {
   margin: 0;
 
-  color: var(--text-muted);
+  color:
+    var(--text-muted);
 
   font-size: 12px;
+  line-height: 1.45;
 }
 
 .kpi-accent {
@@ -330,13 +542,18 @@
   height: 70px;
 
   position: absolute;
+
   right: -16px;
   bottom: -16px;
 
   border-radius: 50%;
 
-  background: rgba(27, 94, 75, 0.06);
+  background:
+    rgba(27, 94, 75, 0.06);
+
+  pointer-events: none;
 }
+
 
 /* =====================================================
    DASHBOARD
@@ -344,9 +561,18 @@
 
 .dashboard-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1.5fr) minmax(320px, 0.8fr);
+
+  grid-template-columns:
+    minmax(0, 1.5fr)
+    minmax(320px, 0.8fr);
+
   gap: 20px;
 }
+
+.dashboard-grid > * {
+  min-width: 0;
+}
+
 
 /* =====================================================
    MOBILE OVERLAY
@@ -360,18 +586,30 @@
 
   z-index: 90;
 
-  background: rgba(15, 25, 20, 0.5);
+  background:
+    rgba(15, 25, 20, 0.5);
 
-  backdrop-filter: blur(2px);
+  backdrop-filter:
+    blur(2px);
+
+  -webkit-backdrop-filter:
+    blur(2px);
+
+  cursor: pointer;
 }
 
+
 /* =====================================================
-   RESPONSIVIDADE
+   RESPONSIVIDADE — TABLET
 ===================================================== */
 
 @media (max-width: 1150px) {
   .kpi-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns:
+      repeat(
+        2,
+        minmax(0, 1fr)
+      );
   }
 
   .dashboard-grid {
@@ -379,20 +617,31 @@
   }
 }
 
+
+/* =====================================================
+   RESPONSIVIDADE — SIDEBAR MOBILE
+===================================================== */
+
 @media (max-width: 850px) {
   .sidebar {
-    transform: translateX(-100%);
+    transform:
+      translateX(-100%);
 
-    box-shadow: var(--shadow-lg);
+    box-shadow:
+      var(--shadow-lg);
 
-    transition: transform var(--transition-normal);
+    transition:
+      transform
+      var(--transition-normal);
   }
 
   body.sidebar-open .sidebar {
-    transform: translateX(0);
+    transform:
+      translateX(0);
   }
 
-  body.sidebar-open .sidebar-overlay {
+  body.sidebar-open
+  .sidebar-overlay {
     display: block;
   }
 
@@ -405,13 +654,20 @@
   }
 
   .app-header {
-    padding: 0 18px;
+    padding:
+      0 18px;
   }
 
   .app-content {
-    padding: 24px 18px;
+    padding:
+      24px 18px;
   }
 }
+
+
+/* =====================================================
+   RESPONSIVIDADE — MOBILE
+===================================================== */
 
 @media (max-width: 600px) {
   .kpi-grid {
@@ -429,5 +685,40 @@
 
   .user-info {
     display: none;
+  }
+
+  .header-context {
+    font-size: 12px;
+  }
+
+  .app-header {
+    gap: 12px;
+  }
+}
+
+
+/* =====================================================
+   TELAS MUITO PEQUENAS
+===================================================== */
+
+@media (max-width: 380px) {
+  .app-header {
+    padding:
+      0 12px;
+  }
+
+  .app-content {
+    padding:
+      20px 14px;
+  }
+
+  .mobile-menu-button {
+    width: 40px;
+    height: 40px;
+  }
+
+  .user-avatar {
+    width: 36px;
+    height: 36px;
   }
 }
