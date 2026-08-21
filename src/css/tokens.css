@@ -1,0 +1,89 @@
+:root {
+  /* Marca YXZ */
+  --color-brand-950: #0f2c25;
+  --color-brand-900: #12355b;
+  --color-brand-800: #164a3c;
+  --color-brand-700: #1b5e4b;
+  --color-brand-600: #24745d;
+  --color-brand-500: #3c8c72;
+
+  --color-gold-600: #c28a2c;
+  --color-gold-500: #d9a441;
+  --color-gold-400: #e7bd69;
+
+  /* Neutros */
+  --color-white: #ffffff;
+
+  --color-gray-50: #f8faf9;
+  --color-gray-100: #f1f5f3;
+  --color-gray-200: #e5ebe8;
+  --color-gray-300: #d2dad6;
+
+  --color-gray-500: #738079;
+  --color-gray-600: #626967;
+  --color-gray-700: #47514c;
+  --color-gray-800: #2b3430;
+  --color-gray-900: #18201c;
+
+  /* Estados */
+  --color-success: #16825d;
+  --color-success-bg: #eaf8f2;
+
+  --color-warning: #b7791f;
+  --color-warning-bg: #fff8e7;
+
+  --color-danger: #c24141;
+  --color-danger-bg: #fff0f0;
+
+  --color-info: #2468a2;
+  --color-info-bg: #edf6ff;
+
+  /* Superfícies */
+  --surface-page: #f5f7f6;
+  --surface-card: #ffffff;
+  --surface-sidebar: #0f2c25;
+  --surface-sidebar-hover: rgba(255, 255, 255, 0.08);
+
+  /* Texto */
+  --text-primary: #25302b;
+  --text-secondary: #626967;
+  --text-muted: #87908b;
+  --text-inverse: #ffffff;
+
+  /* Bordas */
+  --border-color: #e1e7e4;
+
+  /* Sombras */
+  --shadow-sm:
+    0 1px 2px rgba(15, 44, 37, 0.04),
+    0 2px 8px rgba(15, 44, 37, 0.04);
+
+  --shadow-md:
+    0 8px 30px rgba(15, 44, 37, 0.08);
+
+  --shadow-lg:
+    0 20px 60px rgba(15, 44, 37, 0.12);
+
+  /* Raios */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+  --radius-xl: 24px;
+
+  /* Layout */
+  --sidebar-width: 270px;
+  --header-height: 76px;
+
+  /* Transições */
+  --transition-fast: 150ms ease;
+  --transition-normal: 250ms ease;
+
+  /* Tipografia */
+  --font-body:
+    Inter,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+}
