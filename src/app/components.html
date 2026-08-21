@@ -1,0 +1,621 @@
+<!doctype html>
+
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+
+    <title>
+      Componentes | YXZ Plataforma
+    </title>
+  </head>
+
+  <body>
+    <main class="app-content">
+
+      <div class="page-heading">
+
+        <div>
+          <h1>Componentes YXZ</h1>
+
+          <p>
+            Laboratório visual da Plataforma 2.0.
+          </p>
+        </div>
+
+        <a
+          href="/app/"
+          class="btn btn-secondary"
+        >
+          ← Voltar ao Dashboard
+        </a>
+
+      </div>
+
+
+      <!-- FORMULÁRIO -->
+
+      <section class="card">
+
+        <div class="card-header">
+          <h2>Formulários</h2>
+        </div>
+
+        <div class="card-body">
+
+          <div class="form-grid form-grid-2">
+
+            <div class="field">
+
+              <label
+                class="field-label"
+                for="instituicao"
+              >
+                Instituição
+                <span class="field-required">
+                  *
+                </span>
+              </label>
+
+              <input
+                id="instituicao"
+                class="field-control"
+                type="text"
+                placeholder="Nome da instituição"
+              />
+
+              <span class="field-help">
+                Escola ou instituição atendida.
+              </span>
+
+            </div>
+
+
+            <div class="field">
+
+              <label
+                class="field-label"
+                for="regional"
+              >
+                Regional
+              </label>
+
+              <select
+                id="regional"
+                class="field-control"
+              >
+                <option value="">
+                  Selecione...
+                </option>
+
+                <option>
+                  Vitória
+                </option>
+
+                <option>
+                  Itabira
+                </option>
+
+                <option>
+                  Governador Valadares
+                </option>
+              </select>
+
+            </div>
+
+
+            <div class="field">
+
+              <label
+                class="field-label"
+                for="data"
+              >
+                Data
+              </label>
+
+              <input
+                id="data"
+                class="field-control"
+                type="date"
+              />
+
+            </div>
+
+
+            <div class="field">
+
+              <label
+                class="field-label"
+                for="exemploErro"
+              >
+                Campo com erro
+              </label>
+
+              <input
+                id="exemploErro"
+                class="field-control is-invalid"
+                type="text"
+                value="Valor inválido"
+              />
+
+              <span class="field-error">
+                Verifique o valor informado.
+              </span>
+
+            </div>
+
+          </div>
+
+
+          <div
+            class="field"
+            style="margin-top: 18px;"
+          >
+
+            <label
+              class="field-label"
+              for="observacoes"
+            >
+              Observações
+            </label>
+
+            <textarea
+              id="observacoes"
+              class="field-control"
+              placeholder="Digite alguma observação..."
+            ></textarea>
+
+          </div>
+
+
+          <div
+            style="margin-top: 18px;"
+          >
+
+            <label class="check-field">
+
+              <input
+                type="checkbox"
+              />
+
+              Confirmo que os dados foram
+              revisados.
+
+            </label>
+
+          </div>
+
+
+          <div class="form-actions">
+
+            <button
+              class="btn btn-secondary"
+              type="button"
+            >
+              Cancelar
+            </button>
+
+            <button
+              class="btn btn-primary"
+              type="button"
+            >
+              Salvar
+            </button>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- TABELA -->
+
+      <section
+        class="card"
+        style="margin-top: 24px;"
+      >
+
+        <div class="card-header">
+
+          <h2>Tabela</h2>
+
+          <span class="badge badge-info">
+            3 registros
+          </span>
+
+        </div>
+
+
+        <div class="table-responsive">
+
+          <table class="data-table">
+
+            <thead>
+              <tr>
+                <th>Data</th>
+                <th>Oficina</th>
+                <th>Instituição</th>
+                <th>Status</th>
+                <th></th>
+              </tr>
+            </thead>
+
+
+            <tbody>
+
+              <tr>
+
+                <td>
+                  20/08/2026
+                </td>
+
+                <td>
+                  <span class="table-primary">
+                    Robótica Educacional
+                  </span>
+
+                  <span class="table-secondary">
+                    Vitória
+                  </span>
+                </td>
+
+                <td>
+                  Escola Exemplo
+                </td>
+
+                <td>
+                  <span class="badge badge-info">
+                    Agendada
+                  </span>
+                </td>
+
+                <td>
+                  <div class="table-actions">
+
+                    <button
+                      class="btn btn-ghost"
+                      type="button"
+                    >
+                      Ver
+                    </button>
+
+                  </div>
+                </td>
+
+              </tr>
+
+
+              <tr>
+
+                <td>
+                  18/08/2026
+                </td>
+
+                <td>
+                  <span class="table-primary">
+                    PAEBM
+                  </span>
+
+                  <span class="table-secondary">
+                    Itabira
+                  </span>
+                </td>
+
+                <td>
+                  Instituição Exemplo
+                </td>
+
+                <td>
+                  <span class="badge badge-success">
+                    Realizada
+                  </span>
+                </td>
+
+                <td>
+                  <div class="table-actions">
+
+                    <button
+                      class="btn btn-ghost"
+                      type="button"
+                    >
+                      Ver
+                    </button>
+
+                  </div>
+                </td>
+
+              </tr>
+
+
+              <tr>
+
+                <td>
+                  15/08/2026
+                </td>
+
+                <td>
+                  <span class="table-primary">
+                    Maker
+                  </span>
+                </td>
+
+                <td>
+                  Escola Demonstração
+                </td>
+
+                <td>
+                  <span class="badge badge-danger">
+                    Cancelada
+                  </span>
+                </td>
+
+                <td>
+                  <div class="table-actions">
+
+                    <button
+                      class="btn btn-ghost"
+                      type="button"
+                    >
+                      Ver
+                    </button>
+
+                  </div>
+                </td>
+
+              </tr>
+
+            </tbody>
+
+          </table>
+
+        </div>
+
+      </section>
+
+
+      <!-- ALERTAS -->
+
+      <section
+        class="card"
+        style="margin-top: 24px;"
+      >
+
+        <div class="card-header">
+          <h2>Alertas</h2>
+        </div>
+
+        <div class="card-body">
+
+          <div
+            class="alert alert-success"
+            style="margin-bottom: 12px;"
+          >
+
+            <span class="alert-icon">
+              ✓
+            </span>
+
+            <div>
+              <strong>
+                Registro salvo
+              </strong>
+
+              <p>
+                Os dados foram registrados
+                corretamente.
+              </p>
+            </div>
+
+          </div>
+
+
+          <div
+            class="alert alert-warning"
+            style="margin-bottom: 12px;"
+          >
+
+            <span class="alert-icon">
+              !
+            </span>
+
+            <div>
+              <strong>
+                Atenção
+              </strong>
+
+              <p>
+                Existem informações pendentes.
+              </p>
+            </div>
+
+          </div>
+
+
+          <div class="alert alert-danger">
+
+            <span class="alert-icon">
+              ×
+            </span>
+
+            <div>
+              <strong>
+                Não foi possível concluir
+              </strong>
+
+              <p>
+                Verifique os campos informados.
+              </p>
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- FEEDBACK -->
+
+      <section
+        class="card"
+        style="margin-top: 24px;"
+      >
+
+        <div class="card-header">
+          <h2>Feedback e Modal</h2>
+        </div>
+
+        <div class="card-body">
+
+          <div
+            style="
+              display: flex;
+              flex-wrap: wrap;
+              gap: 10px;
+            "
+          >
+
+            <button
+              class="btn btn-primary"
+              type="button"
+              data-toast-trigger
+              data-toast-type="success"
+              data-toast-title="Tudo certo!"
+              data-toast-message="O registro foi salvo com sucesso."
+            >
+              Toast de sucesso
+            </button>
+
+
+            <button
+              class="btn btn-secondary"
+              type="button"
+              data-toast-trigger
+              data-toast-type="warning"
+              data-toast-title="Atenção"
+              data-toast-message="Há informações que precisam ser revisadas."
+            >
+              Toast de alerta
+            </button>
+
+
+            <button
+              class="btn btn-secondary"
+              type="button"
+              data-modal-open="modalExemplo"
+            >
+              Abrir modal
+            </button>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- LOADING -->
+
+      <section
+        class="card"
+        style="margin-top: 24px;"
+      >
+
+        <div class="card-header">
+          <h2>Carregamento</h2>
+        </div>
+
+        <div class="card-body">
+
+          <div class="loading-state">
+
+            <div class="spinner"></div>
+
+            Carregando informações...
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- MODAL -->
+
+      <dialog
+        class="modal"
+        id="modalExemplo"
+        data-modal
+      >
+
+        <div class="modal-header">
+
+          <h2>
+            Confirmar operação
+          </h2>
+
+          <button
+            class="modal-close"
+            type="button"
+            data-modal-close
+            aria-label="Fechar modal"
+          >
+            ×
+          </button>
+
+        </div>
+
+
+        <div class="modal-body">
+
+          <p>
+            Este é o componente de modal
+            padrão da Plataforma YXZ 2.0.
+          </p>
+
+          <p>
+            Mais adiante ele poderá ser usado
+            para confirmações, edição rápida
+            e visualização de detalhes.
+          </p>
+
+        </div>
+
+
+        <div class="modal-footer">
+
+          <button
+            class="btn btn-secondary"
+            type="button"
+            data-modal-close
+          >
+            Cancelar
+          </button>
+
+          <button
+            class="btn btn-primary"
+            type="button"
+            data-modal-close
+          >
+            Confirmar
+          </button>
+
+        </div>
+
+      </dialog>
+
+    </main>
+
+
+    <script
+      type="module"
+      src="/src/main.js"
+    ></script>
+
+  </body>
+</html>

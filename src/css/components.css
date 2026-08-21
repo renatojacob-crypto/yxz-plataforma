@@ -154,3 +154,8 @@
   color: var(--text-secondary);
   font-size: 14px;
 }
+
+.badge-neutral {
+  background: var(--color-gray-100);
+  color: var(--text-secondary);
+}

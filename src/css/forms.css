@@ -1,0 +1,165 @@
+/* =====================================================
+   FORMULÁRIOS
+===================================================== */
+
+.form-grid {
+  display: grid;
+  gap: 18px;
+}
+
+.form-grid-2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.form-grid-3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.field {
+  min-width: 0;
+}
+
+.field-label {
+  display: block;
+  margin-bottom: 7px;
+
+  color: var(--text-primary);
+
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.field-required {
+  color: var(--color-danger);
+}
+
+.field-control {
+  width: 100%;
+  min-height: 44px;
+
+  padding: 10px 12px;
+
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+
+  background: var(--color-white);
+  color: var(--text-primary);
+
+  font-size: 14px;
+
+  transition:
+    border-color var(--transition-fast),
+    box-shadow var(--transition-fast),
+    background var(--transition-fast);
+}
+
+textarea.field-control {
+  min-height: 110px;
+  resize: vertical;
+}
+
+.field-control::placeholder {
+  color: var(--text-muted);
+}
+
+.field-control:hover {
+  border-color: var(--color-gray-300);
+}
+
+.field-control:focus {
+  outline: none;
+
+  border-color: var(--color-brand-600);
+
+  box-shadow:
+    0 0 0 3px rgba(27, 94, 75, 0.12);
+}
+
+.field-control:disabled,
+.field-control[readonly] {
+  cursor: not-allowed;
+
+  background: var(--color-gray-100);
+  color: var(--text-muted);
+}
+
+/* ERROS */
+
+.field-control.is-invalid {
+  border-color: var(--color-danger);
+}
+
+.field-control.is-invalid:focus {
+  box-shadow:
+    0 0 0 3px rgba(194, 65, 65, 0.12);
+}
+
+.field-help,
+.field-error {
+  display: block;
+
+  margin-top: 6px;
+
+  font-size: 12px;
+}
+
+.field-help {
+  color: var(--text-muted);
+}
+
+.field-error {
+  color: var(--color-danger);
+}
+
+/* CHECKBOX */
+
+.check-field {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+
+  cursor: pointer;
+
+  color: var(--text-secondary);
+
+  font-size: 14px;
+}
+
+.check-field input {
+  width: 17px;
+  height: 17px;
+
+  margin-top: 2px;
+
+  accent-color: var(--color-brand-700);
+}
+
+/* AÇÕES */
+
+.form-actions {
+  margin-top: 24px;
+  padding-top: 20px;
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+
+  border-top: 1px solid var(--border-color);
+}
+
+@media (max-width: 700px) {
+  .form-grid-2,
+  .form-grid-3 {
+    grid-template-columns: 1fr;
+  }
+
+  .form-actions {
+    align-items: stretch;
+    flex-direction: column-reverse;
+  }
+
+  .form-actions .btn {
+    width: 100%;
+  }
+}
