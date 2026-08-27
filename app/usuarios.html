@@ -1,0 +1,1137 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <meta
+    name="description"
+    content="Gestão de usuários da Plataforma YXZ"
+  >
+
+  <meta
+    name="robots"
+    content="noindex, nofollow"
+  >
+
+  <meta
+    name="theme-color"
+    content="#0f2c25"
+  >
+
+  <title>
+    Usuários | YXZ Plataforma
+  </title>
+
+  <link
+    rel="icon"
+    href="/assets/favicon.png"
+    type="image/png"
+  >
+</head>
+
+
+<body data-app-page="usuarios">
+
+  <div
+    class="app-shell"
+    data-app-shell
+    hidden
+  >
+
+    <!-- ==================================================
+         SIDEBAR
+    ================================================== -->
+
+    <aside
+      class="sidebar"
+      id="sidebar"
+      aria-label="Menu lateral"
+    >
+
+      <div class="sidebar-brand">
+
+        <div
+          class="brand-symbol"
+          aria-hidden="true"
+        >
+          YXZ
+        </div>
+
+        <div class="brand-text">
+
+          <strong>
+            Plataforma YXZ
+          </strong>
+
+          <span>
+            Gestão Educacional
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <nav
+        class="sidebar-nav"
+        aria-label="Navegação principal"
+      >
+
+        <div class="nav-section">
+
+          <p class="nav-section-title">
+            Visão geral
+          </p>
+
+          <a
+            href="/app/"
+            class="nav-link"
+            data-permission="dashboard.visualizar"
+            hidden
+          >
+            <span
+              class="nav-icon"
+              aria-hidden="true"
+            >
+              ▦
+            </span>
+
+            <span>
+              Dashboard
+            </span>
+          </a>
+
+        </div>
+
+
+        <div class="nav-section">
+
+          <p class="nav-section-title">
+            Oficinas
+          </p>
+
+          <a
+            href="#"
+            class="nav-link"
+            data-permission="oficinas.visualizar"
+            hidden
+          >
+            <span
+              class="nav-icon"
+              aria-hidden="true"
+            >
+              ＋
+            </span>
+
+            <span>
+              Agendamentos
+            </span>
+          </a>
+
+
+          <a
+            href="#"
+            class="nav-link"
+            data-permission="escalas.visualizar"
+            hidden
+          >
+            <span
+              class="nav-icon"
+              aria-hidden="true"
+            >
+              ♙
+            </span>
+
+            <span>
+              Escalas
+            </span>
+          </a>
+
+
+          <a
+            href="#"
+            class="nav-link"
+            data-permission="oficinas.registrar_execucao"
+            hidden
+          >
+            <span
+              class="nav-icon"
+              aria-hidden="true"
+            >
+              ✓
+            </span>
+
+            <span>
+              Execuções
+            </span>
+          </a>
+
+
+          <a
+            href="#"
+            class="nav-link"
+            data-permission="oficinas.visualizar"
+            hidden
+          >
+            <span
+              class="nav-icon"
+              aria-hidden="true"
+            >
+              □
+            </span>
+
+            <span>
+              Calendário
+            </span>
+          </a>
+
+        </div>
+
+
+        <div class="nav-section">
+
+          <p class="nav-section-title">
+            Equipe
+          </p>
+
+          <a
+            href="#"
+            class="nav-link"
+            data-permission="escalas.gerenciar"
+            hidden
+          >
+            <span
+              class="nav-icon"
+              aria-hidden="true"
+            >
+              ◎
+            </span>
+
+            <span>
+              Instrutores
+            </span>
+          </a>
+
+
+          <a
+            href="#"
+            class="nav-link"
+            data-permission="escalas.visualizar"
+            hidden
+          >
+            <span
+              class="nav-icon"
+              aria-hidden="true"
+            >
+              ◷
+            </span>
+
+            <span>
+              Horas
+            </span>
+          </a>
+
+
+          <a
+            href="#"
+            class="nav-link"
+            data-permission="oficinas.registrar_execucao"
+            hidden
+          >
+            <span
+              class="nav-icon"
+              aria-hidden="true"
+            >
+              ≋
+            </span>
+
+            <span>
+              Conferência
+            </span>
+          </a>
+
+        </div>
+
+
+        <div class="nav-section">
+
+          <p class="nav-section-title">
+            Financeiro
+          </p>
+
+          <a
+            href="#"
+            class="nav-link"
+            data-permission="previsoes.visualizar"
+            hidden
+          >
+            <span
+              class="nav-icon"
+              aria-hidden="true"
+            >
+              ◇
+            </span>
+
+            <span>
+              Previsões
+            </span>
+          </a>
+
+
+          <a
+            href="#"
+            class="nav-link"
+            data-permission="gastos.visualizar"
+            hidden
+          >
+            <span
+              class="nav-icon"
+              aria-hidden="true"
+            >
+              $
+            </span>
+
+            <span>
+              Gastos
+            </span>
+          </a>
+
+
+          <a
+            href="#"
+            class="nav-link"
+            data-permission="gastos.visualizar"
+            hidden
+          >
+            <span
+              class="nav-icon"
+              aria-hidden="true"
+            >
+              ↗
+            </span>
+
+            <span>
+              Comparativo
+            </span>
+          </a>
+
+        </div>
+
+
+        <div class="nav-section">
+
+          <p class="nav-section-title">
+            Gestão
+          </p>
+
+          <a
+            href="#"
+            class="nav-link"
+            data-permission="relatorios.visualizar"
+            hidden
+          >
+            <span
+              class="nav-icon"
+              aria-hidden="true"
+            >
+              ▤
+            </span>
+
+            <span>
+              Relatórios
+            </span>
+          </a>
+
+
+          <a
+            href="/app/usuarios.html"
+            class="nav-link active"
+            aria-current="page"
+            data-permission="usuarios.gerenciar"
+            hidden
+          >
+            <span
+              class="nav-icon"
+              aria-hidden="true"
+            >
+              ♟
+            </span>
+
+            <span>
+              Usuários
+            </span>
+          </a>
+
+        </div>
+
+      </nav>
+
+    </aside>
+
+
+    <div
+      class="sidebar-overlay"
+      data-sidebar-close
+      aria-hidden="true"
+    ></div>
+
+
+    <!-- ==================================================
+         ÁREA PRINCIPAL
+    ================================================== -->
+
+    <div class="app-main">
+
+      <header class="app-header">
+
+        <div class="header-left">
+
+          <button
+            type="button"
+            class="mobile-menu-button"
+            data-sidebar-toggle
+            aria-label="Abrir menu"
+            aria-expanded="false"
+            aria-controls="sidebar"
+          >
+            <span aria-hidden="true">
+              ☰
+            </span>
+          </button>
+
+
+          <div class="header-context">
+            Gestão de usuários
+          </div>
+
+        </div>
+
+
+        <div class="header-user">
+
+          <div
+            class="user-avatar"
+            data-auth-avatar
+            aria-hidden="true"
+          >
+            YXZ
+          </div>
+
+          <div class="user-info">
+
+            <strong data-auth-name>
+              Usuário
+            </strong>
+
+            <span data-auth-cargo>
+              Carregando...
+            </span>
+
+          </div>
+
+
+          <button
+            type="button"
+            class="btn btn-ghost"
+            data-auth-logout
+          >
+            Sair
+          </button>
+
+        </div>
+
+      </header>
+
+
+      <main class="app-content">
+
+        <div class="page-heading">
+
+          <div>
+
+            <h1>
+              Usuários
+            </h1>
+
+            <p>
+              Gerencie as pessoas autorizadas
+              a acessar a Plataforma YXZ.
+            </p>
+
+          </div>
+
+
+          <button
+            type="button"
+            class="btn btn-primary"
+            data-new-user
+          >
+            + Novo usuário
+          </button>
+
+        </div>
+
+
+        <p
+          class="users-page-message"
+          data-users-message
+          role="status"
+          aria-live="polite"
+        ></p>
+
+
+        <!-- RESUMO -->
+
+        <section
+          class="users-summary"
+          aria-label="Resumo dos usuários"
+        >
+
+          <article class="card users-summary-card">
+            <span>Total</span>
+
+            <strong data-users-total>
+              —
+            </strong>
+          </article>
+
+
+          <article class="card users-summary-card">
+            <span>Ativos</span>
+
+            <strong data-users-active>
+              —
+            </strong>
+          </article>
+
+
+          <article class="card users-summary-card">
+            <span>Inativos</span>
+
+            <strong data-users-inactive>
+              —
+            </strong>
+          </article>
+
+        </section>
+
+
+        <!-- LISTAGEM -->
+
+        <section
+          class="card users-card"
+          aria-labelledby="users-list-title"
+        >
+
+          <div class="users-card-header">
+
+            <div>
+
+              <h2 id="users-list-title">
+                Pessoas com acesso
+              </h2>
+
+              <p>
+                Pesquise, filtre ou edite os usuários.
+              </p>
+
+            </div>
+
+          </div>
+
+
+          <div class="users-toolbar">
+
+            <div class="users-search">
+
+              <label
+                class="sr-only"
+                for="usersSearch"
+              >
+                Buscar usuários
+              </label>
+
+              <input
+                id="usersSearch"
+                type="search"
+                placeholder="Buscar por nome, e-mail ou cargo"
+                autocomplete="off"
+                data-users-search
+              >
+
+            </div>
+
+
+            <div class="users-filter">
+
+              <label for="usersProfileFilter">
+                Perfil
+              </label>
+
+              <select
+                id="usersProfileFilter"
+                data-users-profile-filter
+              >
+
+                <option value="all">
+                  Todos
+                </option>
+
+                <option value="administrador_master">
+                  Administrador Master
+                </option>
+
+                <option value="administrador">
+                  Administrador
+                </option>
+
+                <option value="educador_social">
+                  Educador Social
+                </option>
+
+                <option value="coordenador">
+                  Coordenador
+                </option>
+
+                <option value="instrutor">
+                  Instrutor
+                </option>
+
+              </select>
+
+            </div>
+
+
+            <div class="users-filter">
+
+              <label for="usersStatusFilter">
+                Status
+              </label>
+
+              <select
+                id="usersStatusFilter"
+                data-users-status-filter
+              >
+
+                <option value="all">
+                  Todos
+                </option>
+
+                <option value="active">
+                  Ativos
+                </option>
+
+                <option value="inactive">
+                  Inativos
+                </option>
+
+              </select>
+
+            </div>
+
+          </div>
+
+
+          <div class="users-table-wrapper">
+
+            <table class="users-table">
+
+              <thead>
+
+                <tr>
+                  <th scope="col">
+                    Usuário
+                  </th>
+
+                  <th scope="col">
+                    Cargo
+                  </th>
+
+                  <th scope="col">
+                    Perfil
+                  </th>
+
+                  <th scope="col">
+                    Status
+                  </th>
+
+                  <th scope="col">
+                    Ações
+                  </th>
+                </tr>
+
+              </thead>
+
+
+              <tbody data-users-table-body>
+
+                <tr>
+
+                  <td
+                    colspan="5"
+                    class="users-loading"
+                  >
+                    Carregando usuários...
+                  </td>
+
+                </tr>
+
+              </tbody>
+
+            </table>
+
+          </div>
+
+
+          <div
+            class="users-empty"
+            data-users-empty
+            hidden
+          >
+            <strong>
+              Nenhum usuário encontrado.
+            </strong>
+
+            <span>
+              Ajuste os filtros ou a busca.
+            </span>
+          </div>
+
+        </section>
+
+      </main>
+
+    </div>
+
+  </div>
+
+
+  <!-- ==================================================
+       NOVO USUÁRIO
+  ================================================== -->
+
+  <dialog
+    class="users-dialog"
+    id="userCreateDialog"
+    aria-labelledby="userCreateTitle"
+  >
+
+    <form
+      class="users-dialog-form"
+      id="userCreateForm"
+    >
+
+      <header class="users-dialog-header">
+
+        <div>
+
+          <span class="users-dialog-kicker">
+            Novo acesso
+          </span>
+
+          <h2 id="userCreateTitle">
+            Novo usuário
+          </h2>
+
+        </div>
+
+
+        <button
+          type="button"
+          class="users-dialog-close"
+          data-create-dialog-close
+          aria-label="Fechar"
+        >
+          ×
+        </button>
+
+      </header>
+
+
+      <div class="users-dialog-body">
+
+        <div class="form-field">
+
+          <label for="createUserName">
+            Nome
+          </label>
+
+          <input
+            id="createUserName"
+            type="text"
+            maxlength="120"
+            autocomplete="name"
+            required
+            data-create-name
+          >
+
+        </div>
+
+
+        <div class="form-field">
+
+          <label for="createUserEmail">
+            E-mail
+          </label>
+
+          <input
+            id="createUserEmail"
+            type="email"
+            maxlength="254"
+            autocomplete="email"
+            required
+            data-create-email
+          >
+
+        </div>
+
+
+        <div class="form-field">
+
+          <label for="createUserCargo">
+            Cargo
+          </label>
+
+          <input
+            id="createUserCargo"
+            type="text"
+            maxlength="120"
+            required
+            data-create-cargo
+          >
+
+        </div>
+
+
+        <div class="form-field">
+
+          <label for="createUserProfile">
+            Perfil de acesso
+          </label>
+
+          <select
+            id="createUserProfile"
+            required
+            data-create-profile
+          >
+
+            <option value="educador_social">
+              Educador Social
+            </option>
+
+            <option value="coordenador">
+              Coordenador
+            </option>
+
+            <option value="administrador">
+              Administrador
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <div class="users-permission-box">
+
+          <strong>
+            Administrador Master
+          </strong>
+
+          <p>
+            O perfil Master não pode ser criado
+            por esta tela.
+          </p>
+
+        </div>
+
+
+        <p
+          class="users-dialog-status"
+          data-create-status
+          role="status"
+          aria-live="polite"
+        ></p>
+
+      </div>
+
+
+      <footer class="users-dialog-footer">
+
+        <button
+          type="button"
+          class="btn btn-ghost"
+          data-create-dialog-close
+        >
+          Cancelar
+        </button>
+
+        <button
+          type="submit"
+          class="btn btn-primary"
+          data-create-submit
+        >
+          Enviar convite
+        </button>
+
+      </footer>
+
+    </form>
+
+  </dialog>
+
+
+  <!-- ==================================================
+       EDITAR USUÁRIO
+  ================================================== -->
+
+  <dialog
+    class="users-dialog"
+    id="userEditDialog"
+    aria-labelledby="userEditTitle"
+  >
+
+    <form
+      class="users-dialog-form"
+      id="userEditForm"
+    >
+
+      <header class="users-dialog-header">
+
+        <div>
+
+          <span class="users-dialog-kicker">
+            Perfil de acesso
+          </span>
+
+          <h2 id="userEditTitle">
+            Editar usuário
+          </h2>
+
+        </div>
+
+
+        <button
+          type="button"
+          class="users-dialog-close"
+          data-user-dialog-close
+          aria-label="Fechar"
+        >
+          ×
+        </button>
+
+      </header>
+
+
+      <div class="users-dialog-body">
+
+        <div class="form-field">
+
+          <label for="editUserEmail">
+            E-mail
+          </label>
+
+          <input
+            id="editUserEmail"
+            type="email"
+            readonly
+            data-edit-email
+          >
+
+        </div>
+
+
+        <div class="form-field">
+
+          <label for="editUserName">
+            Nome
+          </label>
+
+          <input
+            id="editUserName"
+            type="text"
+            maxlength="120"
+            required
+            data-edit-name
+          >
+
+        </div>
+
+
+        <div class="form-field">
+
+          <label for="editUserCargo">
+            Cargo
+          </label>
+
+          <input
+            id="editUserCargo"
+            type="text"
+            maxlength="120"
+            required
+            data-edit-cargo
+          >
+
+        </div>
+
+
+        <div class="form-field">
+
+          <label for="editUserProfile">
+            Perfil de acesso
+          </label>
+
+          <select
+            id="editUserProfile"
+            required
+            data-edit-profile
+          >
+
+            <option
+              value="administrador_master"
+              disabled
+            >
+              Administrador Master
+            </option>
+
+            <option value="administrador">
+              Administrador
+            </option>
+
+            <option value="educador_social">
+              Educador Social
+            </option>
+
+            <option value="coordenador">
+              Coordenador
+            </option>
+
+            <option value="instrutor">
+              Instrutor
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <div class="users-permission-box">
+
+          <div>
+
+            <strong>
+              Gestão de usuários
+            </strong>
+
+            <span data-edit-manager-status>
+              Não autorizado
+            </span>
+
+          </div>
+
+          <p>
+            Essa permissão especial não pode
+            ser alterada pelo portal.
+          </p>
+
+        </div>
+
+
+        <label class="users-active-control">
+
+          <input
+            type="checkbox"
+            data-edit-active
+          >
+
+          <span>
+
+            <strong>
+              Usuário ativo
+            </strong>
+
+            <small data-edit-active-help>
+              Usuários inativos não conseguem
+              acessar o portal.
+            </small>
+
+          </span>
+
+        </label>
+
+
+        <div class="users-permission-box">
+
+          <div>
+
+            <strong>
+              Senha de acesso
+            </strong>
+
+            <button
+              type="button"
+              class="btn btn-ghost"
+              data-reset-password
+            >
+              Enviar redefinição
+            </button>
+
+          </div>
+
+          <p>
+            Envia um e-mail para que o próprio
+            usuário escolha uma nova senha.
+          </p>
+
+        </div>
+
+
+        <p
+          class="users-dialog-status"
+          data-edit-status
+          role="status"
+          aria-live="polite"
+        ></p>
+
+      </div>
+
+
+      <footer class="users-dialog-footer">
+
+        <button
+          type="button"
+          class="btn btn-ghost"
+          data-user-dialog-close
+        >
+          Cancelar
+        </button>
+
+        <button
+          type="submit"
+          class="btn btn-primary"
+          data-edit-save
+        >
+          Salvar alterações
+        </button>
+
+      </footer>
+
+    </form>
+
+  </dialog>
+
+
+  <script
+    type="module"
+    src="/src/main.js"
+  ></script>
+
+</body>
+
+</html>

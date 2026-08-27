@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <meta
+    name="robots"
+    content="noindex, nofollow"
+  >
+
+  <meta
+    name="theme-color"
+    content="#0f2c25"
+  >
+
+  <title>
+    Redefinir senha | YXZ Plataforma
+  </title>
+
+  <link
+    rel="icon"
+    href="/assets/favicon.png"
+    type="image/png"
+  >
+</head>
+
+
+<body class="auth-body">
+
+  <main class="auth-page">
+
+    <div class="auth-layout">
+
+
+      <!-- ==================================================
+           APRESENTAÇÃO
+      ================================================== -->
+
+      <section
+        class="auth-intro"
+        aria-labelledby="recovery-intro-title"
+      >
+
+        <img
+          class="auth-logo"
+          src="/assets/yxz-robotic-logo-white.png"
+          alt="YXZ Soluções Educacionais"
+        >
+
+
+        <div class="auth-intro-content">
+
+          <p class="auth-eyebrow">
+            Plataforma 2.0
+          </p>
+
+          <h1 id="recovery-intro-title">
+            Recuperação de acesso
+          </h1>
+
+          <p>
+            Escolha uma nova senha para
+            continuar acessando o Portal YXZ.
+          </p>
+
+        </div>
+
+      </section>
+
+
+      <!-- ==================================================
+           NOVA SENHA
+      ================================================== -->
+
+      <section
+        class="auth-card"
+        aria-labelledby="recovery-title"
+      >
+
+        <header class="auth-card-header">
+
+          <span>
+            Segurança
+          </span>
+
+          <h2 id="recovery-title">
+            Redefinir senha
+          </h2>
+
+          <p>
+            Este formulário é liberado somente
+            através de um link válido de recuperação.
+          </p>
+
+        </header>
+
+
+        <p
+          class="auth-status"
+          data-recovery-page-status
+          role="status"
+          aria-live="polite"
+        >
+          Validando solicitação...
+        </p>
+
+
+        <form
+          id="recoveryPasswordForm"
+          class="auth-form"
+          data-recovery-form
+          hidden
+        >
+
+          <div class="auth-field">
+
+            <label for="recoveryPassword">
+              Nova senha
+            </label>
+
+            <input
+              id="recoveryPassword"
+              class="auth-control"
+              name="password"
+              type="password"
+              minlength="8"
+              autocomplete="new-password"
+              required
+            >
+
+          </div>
+
+
+          <div class="auth-field">
+
+            <label for="recoveryPasswordConfirm">
+              Confirmar nova senha
+            </label>
+
+            <input
+              id="recoveryPasswordConfirm"
+              class="auth-control"
+              name="passwordConfirm"
+              type="password"
+              minlength="8"
+              autocomplete="new-password"
+              required
+            >
+
+          </div>
+
+
+          <button
+            class="auth-submit"
+            type="submit"
+            data-recovery-submit
+          >
+            Salvar nova senha
+          </button>
+
+
+          <p
+            class="auth-status"
+            data-recovery-status
+            role="status"
+            aria-live="polite"
+          ></p>
+
+        </form>
+
+
+        <div class="auth-back">
+
+          <a href="/app/login.html">
+            Voltar para o login
+          </a>
+
+        </div>
+
+      </section>
+
+    </div>
+
+  </main>
+
+
+  <script
+    type="module"
+    src="/src/redefinir-senha.js"
+  ></script>
+
+</body>
+
+</html>

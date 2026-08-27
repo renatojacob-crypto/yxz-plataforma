@@ -28,20 +28,25 @@ function getAuthErrorMessage(
   const code =
     error?.code || "";
 
+
   switch (code) {
     case "invalid_credentials":
-      return "E-mail ou senha inválidos.";
+      return (
+        "E-mail ou senha inválidos."
+      );
+
 
     case "email_not_confirmed":
       return (
-        "Este e-mail ainda não foi confirmado. " +
-        "Confirme o usuário no Supabase antes de entrar."
+        "Este e-mail ainda não foi confirmado."
       );
+
 
     case "user_banned":
       return (
         "Este usuário está temporariamente bloqueado."
       );
+
 
     case "over_request_rate_limit":
       return (
@@ -49,10 +54,12 @@ function getAuthErrorMessage(
         "Aguarde alguns instantes e tente novamente."
       );
 
+
     case "email_provider_disabled":
       return (
         "O acesso por e-mail e senha não está disponível."
       );
+
 
     default:
       return (
@@ -63,11 +70,118 @@ function getAuthErrorMessage(
 }
 
 
+function getRedirectMessage() {
+  const params =
+    new URLSearchParams(
+      window.location.search,
+    );
+
+
+  const reason =
+    params.get("reason");
+
+
+  switch (reason) {
+    case "inactive":
+      return {
+        type: "error",
+
+        message:
+          "Seu acesso à Plataforma YXZ está desativado. " +
+          "Entre em contato com um administrador.",
+      };
+
+
+    case "profile_missing":
+      return {
+        type: "error",
+
+        message:
+          "Sua conta está autenticada, mas ainda não possui " +
+          "um perfil de acesso configurado.",
+      };
+
+
+    case "profile_error":
+      return {
+        type: "error",
+
+        message:
+          "Não foi possível validar seu perfil de acesso. " +
+          "Tente novamente ou entre em contato com um administrador.",
+      };
+
+
+    case "auth_required":
+      return {
+        type: "loading",
+
+        message:
+          "Faça login para acessar o Portal de Gestão YXZ.",
+      };
+
+
+    default:
+      return null;
+  }
+}
+
+
+function showRedirectMessage(
+  status,
+) {
+  const redirectMessage =
+    getRedirectMessage();
+
+
+  if (!redirectMessage) {
+    return;
+  }
+
+
+  setMessage(
+    status,
+    redirectMessage.message,
+    redirectMessage.type,
+  );
+}
+
+
+function clearRedirectReason() {
+  const url =
+    new URL(
+      window.location.href,
+    );
+
+
+  if (
+    !url.searchParams.has(
+      "reason",
+    )
+  ) {
+    return;
+  }
+
+
+  url.searchParams.delete(
+    "reason",
+  );
+
+
+  window.history.replaceState(
+    {},
+    "",
+    `${url.pathname}${url.search}${url.hash}`,
+  );
+}
+
+
 export async function initLoginPage() {
   const form =
     document.getElementById(
       "loginForm",
     );
+
 
   if (!form) {
     return;
@@ -79,15 +193,18 @@ export async function initLoginPage() {
       "loginEmail",
     );
 
+
   const passwordInput =
     document.getElementById(
       "loginPassword",
     );
 
+
   const submitButton =
     form.querySelector(
       '[type="submit"]',
     );
+
 
   const status =
     form.querySelector(
@@ -96,11 +213,21 @@ export async function initLoginPage() {
 
 
   /*
-   * Se já houver usuário autenticado,
-   * segue diretamente para o portal.
+   * Mostra, quando existir,
+   * o motivo do redirecionamento.
+   */
+  showRedirectMessage(
+    status,
+  );
+
+
+  /*
+   * Se o usuário ainda tiver uma
+   * sessão válida, segue ao portal.
    */
   const currentUser =
     await getAuthenticatedUser();
+
 
   if (currentUser) {
     window.location.replace(
@@ -130,6 +257,7 @@ export async function initLoginPage() {
           .trim()
           .toLowerCase();
 
+
       const password =
         passwordInput.value;
 
@@ -141,7 +269,9 @@ export async function initLoginPage() {
           "error",
         );
 
+
         emailInput.focus();
+
 
         return;
       }
@@ -154,7 +284,9 @@ export async function initLoginPage() {
           "error",
         );
 
+
         passwordInput.focus();
+
 
         return;
       }
@@ -163,6 +295,7 @@ export async function initLoginPage() {
       if (submitButton) {
         submitButton.disabled =
           true;
+
 
         submitButton.textContent =
           "Entrando...";
@@ -188,13 +321,9 @@ export async function initLoginPage() {
 
 
         if (error) {
-          /*
-           * Em desenvolvimento mostramos
-           * o erro real no Console.
-           *
-           * Nunca mostramos a senha.
-           */
-          if (import.meta.env.DEV) {
+          if (
+            import.meta.env.DEV
+          ) {
             console.error(
               "[YXZ] Erro retornado pelo Supabase Auth:",
               {
@@ -219,6 +348,7 @@ export async function initLoginPage() {
             "error",
           );
 
+
           return;
         }
 
@@ -230,8 +360,18 @@ export async function initLoginPage() {
             "error",
           );
 
+
           return;
         }
+
+
+        /*
+         * Remove somente o motivo antigo.
+         *
+         * O parâmetro next continua
+         * disponível para o redirecionamento.
+         */
+        clearRedirectReason();
 
 
         setMessage(
@@ -260,6 +400,7 @@ export async function initLoginPage() {
         if (submitButton) {
           submitButton.disabled =
             false;
+
 
           submitButton.textContent =
             "Entrar";

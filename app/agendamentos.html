@@ -1,0 +1,1773 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <meta
+    name="description"
+    content="Agendamento de eventos da Plataforma YXZ"
+  >
+
+  <meta
+    name="robots"
+    content="noindex, nofollow"
+  >
+
+  <meta
+    name="theme-color"
+    content="#0f2c25"
+  >
+
+  <title>
+    Agendamento de Eventos | YXZ Plataforma
+  </title>
+
+  <link
+    rel="icon"
+    href="/assets/favicon.png"
+    type="image/png"
+  >
+</head>
+
+
+<body data-app-page="agendamentos">
+
+  <div
+    class="app-shell"
+    data-app-shell
+    hidden
+  >
+
+    <!-- ==================================================
+         SIDEBAR
+    ================================================== -->
+
+    <aside
+      class="sidebar"
+      id="sidebar"
+      aria-label="Menu lateral"
+    >
+
+      <div class="sidebar-brand">
+
+        <div
+          class="brand-symbol"
+          aria-hidden="true"
+        >
+          YXZ
+        </div>
+
+        <div class="brand-text">
+
+          <strong>
+            Plataforma YXZ
+          </strong>
+
+          <span>
+            Gestão Educacional
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <nav
+        class="sidebar-nav"
+        aria-label="Navegação principal"
+      >
+
+        <div class="nav-section">
+
+          <p class="nav-section-title">
+            Visão geral
+          </p>
+
+          <a
+            href="/app/"
+            class="nav-link"
+            data-permission="dashboard.visualizar"
+            hidden
+          >
+            <span
+              class="nav-icon"
+              aria-hidden="true"
+            >
+              ▦
+            </span>
+
+            <span>
+              Dashboard
+            </span>
+          </a>
+
+        </div>
+
+
+        <div class="nav-section">
+
+          <p class="nav-section-title">
+            Eventos
+          </p>
+
+          <a
+            href="/app/agendamentos.html"
+            class="nav-link active"
+            aria-current="page"
+            data-permission="oficinas.visualizar"
+            hidden
+          >
+            <span
+              class="nav-icon"
+              aria-hidden="true"
+            >
+              ＋
+            </span>
+
+            <span>
+              Agendamentos
+            </span>
+          </a>
+
+
+          <a
+            href="#"
+            class="nav-link"
+            data-permission="escalas.visualizar"
+            hidden
+          >
+            <span
+              class="nav-icon"
+              aria-hidden="true"
+            >
+              ♙
+            </span>
+
+            <span>
+              Escalas
+            </span>
+          </a>
+
+
+          <a
+            href="#"
+            class="nav-link"
+            data-permission="oficinas.registrar_execucao"
+            hidden
+          >
+            <span
+              class="nav-icon"
+              aria-hidden="true"
+            >
+              ✓
+            </span>
+
+            <span>
+              Execuções
+            </span>
+          </a>
+
+
+          <a
+            href="#"
+            class="nav-link"
+            data-permission="oficinas.visualizar"
+            hidden
+          >
+            <span
+              class="nav-icon"
+              aria-hidden="true"
+            >
+              □
+            </span>
+
+            <span>
+              Calendário
+            </span>
+          </a>
+
+        </div>
+
+
+        <div class="nav-section">
+
+          <p class="nav-section-title">
+            Equipe
+          </p>
+
+          <a
+            href="/app/instrutores.html"
+            class="nav-link"
+            data-permission="escalas.gerenciar"
+            hidden
+          >
+            <span
+              class="nav-icon"
+              aria-hidden="true"
+            >
+              ◎
+            </span>
+
+            <span>
+              Instrutores
+            </span>
+          </a>
+
+
+          <a
+            href="#"
+            class="nav-link"
+            data-permission="escalas.visualizar"
+            hidden
+          >
+            <span
+              class="nav-icon"
+              aria-hidden="true"
+            >
+              ◷
+            </span>
+
+            <span>
+              Horas
+            </span>
+          </a>
+
+
+          <a
+            href="#"
+            class="nav-link"
+            data-permission="oficinas.registrar_execucao"
+            hidden
+          >
+            <span
+              class="nav-icon"
+              aria-hidden="true"
+            >
+              ≋
+            </span>
+
+            <span>
+              Conferência
+            </span>
+          </a>
+
+        </div>
+
+
+        <div class="nav-section">
+
+          <p class="nav-section-title">
+            Financeiro
+          </p>
+
+          <a
+            href="#"
+            class="nav-link"
+            data-permission="previsoes.visualizar"
+            hidden
+          >
+            <span
+              class="nav-icon"
+              aria-hidden="true"
+            >
+              ◇
+            </span>
+
+            <span>
+              Previsões
+            </span>
+          </a>
+
+
+          <a
+            href="#"
+            class="nav-link"
+            data-permission="gastos.visualizar"
+            hidden
+          >
+            <span
+              class="nav-icon"
+              aria-hidden="true"
+            >
+              $
+            </span>
+
+            <span>
+              Gastos
+            </span>
+          </a>
+
+
+          <a
+            href="#"
+            class="nav-link"
+            data-permission="gastos.visualizar"
+            hidden
+          >
+            <span
+              class="nav-icon"
+              aria-hidden="true"
+            >
+              ↗
+            </span>
+
+            <span>
+              Comparativo
+            </span>
+          </a>
+
+        </div>
+
+
+        <div class="nav-section">
+
+          <p class="nav-section-title">
+            Gestão
+          </p>
+
+          <a
+            href="#"
+            class="nav-link"
+            data-permission="relatorios.visualizar"
+            hidden
+          >
+            <span
+              class="nav-icon"
+              aria-hidden="true"
+            >
+              ▤
+            </span>
+
+            <span>
+              Relatórios
+            </span>
+          </a>
+
+
+          <a
+            href="/app/usuarios.html"
+            class="nav-link"
+            data-permission="usuarios.gerenciar"
+            hidden
+          >
+            <span
+              class="nav-icon"
+              aria-hidden="true"
+            >
+              ♟
+            </span>
+
+            <span>
+              Usuários
+            </span>
+          </a>
+
+        </div>
+
+      </nav>
+
+    </aside>
+
+
+    <div
+      class="sidebar-overlay"
+      data-sidebar-close
+      aria-hidden="true"
+    ></div>
+
+
+    <!-- ==================================================
+         PRINCIPAL
+    ================================================== -->
+
+    <div class="app-main">
+
+      <header class="app-header">
+
+        <div class="header-left">
+
+          <button
+            type="button"
+            class="mobile-menu-button"
+            data-sidebar-toggle
+            aria-label="Abrir menu"
+            aria-expanded="false"
+            aria-controls="sidebar"
+          >
+            <span aria-hidden="true">
+              ☰
+            </span>
+          </button>
+
+          <div class="header-context">
+            Agendamento de Eventos
+          </div>
+
+        </div>
+
+
+        <div class="header-user">
+
+          <div
+            class="user-avatar"
+            data-auth-avatar
+            aria-hidden="true"
+          >
+            YXZ
+          </div>
+
+          <div class="user-info">
+
+            <strong data-auth-name>
+              Usuário
+            </strong>
+
+            <span data-auth-cargo>
+              Carregando...
+            </span>
+
+          </div>
+
+          <button
+            type="button"
+            class="btn btn-ghost"
+            data-auth-logout
+          >
+            Sair
+          </button>
+
+        </div>
+
+      </header>
+
+
+      <main class="app-content">
+
+        <!-- ==================================================
+             CABEÇALHO
+        ================================================== -->
+
+        <div class="page-heading">
+
+          <div>
+
+            <h1>
+              Agendamento de Eventos
+            </h1>
+
+            <p>
+              Cadastre e acompanhe Oficinas Educacionais
+              e Eventos à Comunidade das Regionais da YXZ.
+            </p>
+
+          </div>
+
+
+          <button
+            type="button"
+            class="btn btn-primary"
+            data-new-workshop
+            data-permission="oficinas.agendar"
+            hidden
+          >
+            + Novo evento
+          </button>
+
+        </div>
+
+
+        <p
+          class="workshops-page-message"
+          data-workshops-message
+          role="status"
+          aria-live="polite"
+        ></p>
+
+
+        <!-- ==================================================
+             RESUMO
+        ================================================== -->
+
+        <section
+          class="workshops-summary"
+          aria-label="Resumo dos eventos"
+        >
+
+          <article class="card workshops-summary-card">
+
+            <span>
+              Total
+            </span>
+
+            <strong data-workshops-total>
+              —
+            </strong>
+
+          </article>
+
+
+          <article class="card workshops-summary-card">
+
+            <span>
+              Agendados
+            </span>
+
+            <strong data-workshops-scheduled>
+              —
+            </strong>
+
+          </article>
+
+
+          <article class="card workshops-summary-card">
+
+            <span>
+              Cancelados
+            </span>
+
+            <strong data-workshops-cancelled>
+              —
+            </strong>
+
+          </article>
+
+        </section>
+
+
+        <!-- ==================================================
+             LISTAGEM
+        ================================================== -->
+
+        <section
+          class="card workshops-card"
+          aria-labelledby="workshops-list-title"
+        >
+
+          <div class="workshops-card-header">
+
+            <div>
+
+              <h2 id="workshops-list-title">
+                Eventos
+              </h2>
+
+              <p>
+                Consulte os eventos por Regional,
+                escola, período ou status.
+              </p>
+
+            </div>
+
+          </div>
+
+
+          <div class="workshops-toolbar">
+
+            <div class="workshops-search">
+
+              <label
+                class="sr-only"
+                for="workshopsSearch"
+              >
+                Buscar eventos
+              </label>
+
+              <input
+                id="workshopsSearch"
+                type="search"
+                placeholder="Buscar escola ou evento"
+                autocomplete="off"
+                data-workshops-search
+              >
+
+            </div>
+
+
+            <div class="workshops-filter">
+
+              <label for="workshopsRegionalFilter">
+                Regional
+              </label>
+
+              <select
+                id="workshopsRegionalFilter"
+                data-workshops-regional-filter
+              >
+                <option value="all">
+                  Todas
+                </option>
+              </select>
+
+            </div>
+
+
+            <div class="workshops-filter">
+
+              <label for="workshopsSchoolFilter">
+                Escola
+              </label>
+
+              <select
+                id="workshopsSchoolFilter"
+                data-workshops-school-filter
+              >
+                <option value="all">
+                  Todas
+                </option>
+              </select>
+
+            </div>
+
+
+            <div class="workshops-filter">
+
+              <label for="workshopsTypeFilter">
+                Tipo
+              </label>
+
+              <select
+                id="workshopsTypeFilter"
+                data-workshops-type-filter
+              >
+                <option value="all">
+                  Todos
+                </option>
+
+                <option value="oficina_educacional">
+                  Oficina Educacional
+                </option>
+
+                <option value="evento_comunidade">
+                  Evento à Comunidade
+                </option>
+              </select>
+
+            </div>
+
+
+            <div class="workshops-filter">
+
+              <label for="workshopsStatusFilter">
+                Status
+              </label>
+
+              <select
+                id="workshopsStatusFilter"
+                data-workshops-status-filter
+              >
+                <option value="all">
+                  Todos
+                </option>
+
+                <option value="agendada">
+                  Agendado
+                </option>
+
+                <option value="realizada">
+                  Realizado
+                </option>
+
+                <option value="cancelada">
+                  Cancelado
+                </option>
+              </select>
+
+            </div>
+
+
+            <div class="workshops-filter">
+
+              <label for="workshopsDateStart">
+                De
+              </label>
+
+              <input
+                id="workshopsDateStart"
+                type="date"
+                data-workshops-date-start
+              >
+
+            </div>
+
+
+            <div class="workshops-filter">
+
+              <label for="workshopsDateEnd">
+                Até
+              </label>
+
+              <input
+                id="workshopsDateEnd"
+                type="date"
+                data-workshops-date-end
+              >
+
+            </div>
+
+          </div>
+
+
+          <div class="workshops-table-wrapper">
+
+            <table class="workshops-table">
+
+              <thead>
+
+                <tr>
+
+                  <th scope="col">
+                    Data
+                  </th>
+
+                  <th scope="col">
+                    Escola
+                  </th>
+
+                  <th scope="col">
+                    Regional
+                  </th>
+
+                  <th scope="col">
+                    Evento
+                  </th>
+
+                  <th scope="col">
+                    Status
+                  </th>
+
+                  <th scope="col">
+                    Ações
+                  </th>
+
+                </tr>
+
+              </thead>
+
+
+              <tbody data-workshops-table-body>
+
+                <tr>
+
+                  <td
+                    colspan="6"
+                    class="workshops-loading"
+                  >
+                    Carregando eventos...
+                  </td>
+
+                </tr>
+
+              </tbody>
+
+            </table>
+
+          </div>
+
+
+          <div
+            class="workshops-empty"
+            data-workshops-empty
+            hidden
+          >
+
+            <strong>
+              Nenhum evento encontrado.
+            </strong>
+
+            <span>
+              Ajuste os filtros ou cadastre
+              um novo evento.
+            </span>
+
+          </div>
+
+        </section>
+
+      </main>
+
+    </div>
+
+  </div>
+
+
+  <!-- ==================================================
+       MODAL - EVENTO
+  ================================================== -->
+
+  <dialog
+    class="users-dialog workshops-form-dialog"
+    id="workshopDialog"
+    aria-labelledby="workshopDialogTitle"
+  >
+
+    <form
+      class="users-dialog-form"
+      id="workshopForm"
+    >
+
+      <header class="users-dialog-header">
+
+        <div>
+
+          <span
+            class="users-dialog-kicker"
+            data-workshop-dialog-kicker
+          >
+            Novo agendamento
+          </span>
+
+          <h2
+            id="workshopDialogTitle"
+            data-workshop-dialog-title
+          >
+            Novo evento
+          </h2>
+
+          <p class="workshops-dialog-description">
+            Informe o tipo de evento, local,
+            data e horário.
+          </p>
+
+        </div>
+
+
+        <button
+          type="button"
+          class="users-dialog-close"
+          data-workshop-dialog-close
+          aria-label="Fechar"
+        >
+          ×
+        </button>
+
+      </header>
+
+
+      <div class="users-dialog-body">
+
+        <!-- ==================================================
+             LOCAL
+        ================================================== -->
+
+        <section class="workshops-form-section">
+
+          <p class="workshops-form-section-title">
+            Local
+          </p>
+
+
+          <div class="workshops-form-grid">
+
+            <div class="form-field">
+
+              <label for="workshopRegional">
+                Regional *
+              </label>
+
+              <select
+                id="workshopRegional"
+                required
+                data-workshop-regional
+              ></select>
+
+            </div>
+
+
+            <div
+              class="form-field workshops-school-field"
+              data-school-combobox
+            >
+
+              <label for="workshopSchoolSearch">
+                Escola *
+              </label>
+
+              <input
+                id="workshopSchoolSearch"
+                type="search"
+                autocomplete="off"
+                placeholder="Digite para localizar..."
+                data-workshop-school-search
+              >
+
+
+              <div
+                class="workshops-school-results"
+                data-workshop-school-results
+                hidden
+              ></div>
+
+
+              <button
+                type="button"
+                class="workshops-new-school-button"
+                data-new-school
+              >
+                + Cadastrar nova escola
+              </button>
+
+            </div>
+
+          </div>
+
+        </section>
+
+
+        <!-- ==================================================
+             EVENTO
+        ================================================== -->
+
+        <section class="workshops-form-section">
+
+          <p class="workshops-form-section-title">
+            Evento
+          </p>
+
+
+          <div class="workshops-form-grid">
+
+            <!-- TIPO -->
+
+            <div class="form-field workshops-form-full">
+
+              <label for="workshopEventType">
+                Tipo de evento *
+              </label>
+
+              <select
+                id="workshopEventType"
+                required
+                data-workshop-event-type
+              >
+                <option value="oficina_educacional">
+                  Oficina Educacional
+                </option>
+
+                <option value="evento_comunidade">
+                  Evento à Comunidade
+                </option>
+              </select>
+
+            </div>
+
+
+            <!-- CATÁLOGO DE OFICINAS -->
+
+            <div
+              class="form-field workshops-form-full"
+              data-educational-workshop-fields
+            >
+
+              <label for="workshopCatalog">
+                Oficina Educacional *
+              </label>
+
+              <select
+                id="workshopCatalog"
+                data-workshop-catalog
+              >
+                <option value="">
+                  Selecione uma oficina
+                </option>
+              </select>
+
+
+              <div class="workshops-catalog-info">
+
+                <span>
+                  Tipo:
+                </span>
+
+                <strong data-workshop-catalog-type>
+                  —
+                </strong>
+
+              </div>
+
+
+              <button
+                type="button"
+                class="workshops-new-catalog-button"
+                data-new-catalog
+                hidden
+              >
+                + Cadastrar nova oficina no catálogo
+              </button>
+
+            </div>
+
+
+            <!-- EVENTO À COMUNIDADE -->
+
+            <div
+              class="form-field workshops-form-full"
+              data-community-event-fields
+              hidden
+            >
+
+              <label for="workshopCommunityName">
+                Nome do evento *
+              </label>
+
+              <input
+                id="workshopCommunityName"
+                type="text"
+                maxlength="180"
+                placeholder="Ex.: Feira da Família"
+                data-workshop-community-name
+              >
+
+            </div>
+
+
+            <!-- DATA -->
+
+            <div class="form-field">
+
+              <label for="workshopDate">
+                Data *
+              </label>
+
+              <input
+                id="workshopDate"
+                type="date"
+                required
+                data-workshop-date
+              >
+
+            </div>
+
+
+            <!-- PARTICIPANTES -->
+
+            <div class="form-field">
+
+              <label for="workshopParticipants">
+                Participantes previstos
+              </label>
+
+              <input
+                id="workshopParticipants"
+                type="number"
+                min="0"
+                step="1"
+                placeholder="Ex.: 30"
+                data-workshop-participants
+              >
+
+            </div>
+
+
+            <!-- HORA INICIAL -->
+
+            <div class="form-field">
+
+              <label for="workshopStartTime">
+                Hora inicial *
+              </label>
+
+              <input
+                id="workshopStartTime"
+                type="time"
+                required
+                data-workshop-start-time
+              >
+
+            </div>
+
+
+            <!-- HORA FINAL -->
+
+            <div class="form-field">
+
+              <label for="workshopEndTime">
+                Hora final *
+              </label>
+
+              <input
+                id="workshopEndTime"
+                type="time"
+                required
+                data-workshop-end-time
+              >
+
+            </div>
+
+
+            <!-- OBSERVAÇÕES -->
+
+            <div class="form-field workshops-form-full">
+
+              <label for="workshopNotes">
+                Observações
+              </label>
+
+              <textarea
+                id="workshopNotes"
+                rows="4"
+                maxlength="1500"
+                placeholder="Informações adicionais sobre o evento..."
+                data-workshop-notes
+              ></textarea>
+
+            </div>
+
+          </div>
+
+        </section>
+
+
+        <div class="users-permission-box">
+
+          <strong>
+            Reagendamento
+          </strong>
+
+          <p>
+            Alterações de data ou horário ficam
+            registradas automaticamente no histórico.
+          </p>
+
+        </div>
+
+
+        <p
+          class="users-dialog-status"
+          data-workshop-status
+          role="status"
+          aria-live="polite"
+        ></p>
+
+      </div>
+
+
+      <footer class="users-dialog-footer">
+
+        <button
+          type="button"
+          class="btn btn-ghost"
+          data-workshop-dialog-close
+        >
+          Cancelar
+        </button>
+
+
+        <button
+          type="submit"
+          class="btn btn-primary"
+          data-workshop-save
+        >
+          Agendar evento
+        </button>
+
+      </footer>
+
+    </form>
+
+  </dialog>
+
+
+  <!-- ==================================================
+       MODAL - CATÁLOGO
+  ================================================== -->
+
+  <dialog
+    class="users-dialog workshop-catalog-dialog"
+    id="workshopCatalogDialog"
+    aria-labelledby="workshopCatalogDialogTitle"
+  >
+
+    <form
+      class="users-dialog-form"
+      id="workshopCatalogForm"
+    >
+
+      <header class="users-dialog-header">
+
+        <div>
+
+          <span class="users-dialog-kicker">
+            Catálogo de Oficinas
+          </span>
+
+          <h2 id="workshopCatalogDialogTitle">
+            Nova Oficina Educacional
+          </h2>
+
+          <p class="workshops-dialog-description">
+            Cadastre uma oficina para reutilizá-la
+            nos próximos eventos.
+          </p>
+
+        </div>
+
+
+        <button
+          type="button"
+          class="users-dialog-close"
+          data-catalog-dialog-close
+          aria-label="Fechar"
+        >
+          ×
+        </button>
+
+      </header>
+
+
+      <div class="users-dialog-body">
+
+        <div class="workshops-form-grid">
+
+          <div class="form-field">
+
+            <label for="catalogRegional">
+              Regional *
+            </label>
+
+            <select
+              id="catalogRegional"
+              required
+              data-catalog-regional
+            ></select>
+
+          </div>
+
+
+          <div class="form-field">
+
+            <label for="catalogType">
+              Tipo da oficina *
+            </label>
+
+            <input
+              id="catalogType"
+              type="text"
+              maxlength="120"
+              required
+              placeholder="Ex.: Tecnologia"
+              data-catalog-type
+            >
+
+          </div>
+
+
+          <div class="form-field workshops-form-full">
+
+            <label for="catalogName">
+              Nome da oficina *
+            </label>
+
+            <input
+              id="catalogName"
+              type="text"
+              maxlength="180"
+              required
+              placeholder="Ex.: Robótica Educacional"
+              data-catalog-name
+            >
+
+          </div>
+
+        </div>
+
+
+        <p
+          class="users-dialog-status"
+          data-catalog-status
+          role="status"
+          aria-live="polite"
+        ></p>
+
+      </div>
+
+
+      <footer class="users-dialog-footer">
+
+        <button
+          type="button"
+          class="btn btn-ghost"
+          data-catalog-dialog-close
+        >
+          Cancelar
+        </button>
+
+
+        <button
+          type="submit"
+          class="btn btn-primary"
+          data-catalog-save
+        >
+          Cadastrar oficina
+        </button>
+
+      </footer>
+
+    </form>
+
+  </dialog>
+
+
+  <!-- ==================================================
+       MODAL - ESCOLA
+  ================================================== -->
+
+  <dialog
+    class="users-dialog school-form-dialog"
+    id="schoolDialog"
+    aria-labelledby="schoolDialogTitle"
+  >
+
+    <form
+      class="users-dialog-form"
+      id="schoolForm"
+    >
+
+      <header class="users-dialog-header">
+
+        <div>
+
+          <span class="users-dialog-kicker">
+            Cadastro rápido
+          </span>
+
+          <h2 id="schoolDialogTitle">
+            Nova escola
+          </h2>
+
+          <p class="workshops-dialog-description">
+            Cadastre a escola sem sair
+            do agendamento.
+          </p>
+
+        </div>
+
+
+        <button
+          type="button"
+          class="users-dialog-close"
+          data-school-dialog-close
+          aria-label="Fechar"
+        >
+          ×
+        </button>
+
+      </header>
+
+
+      <div class="users-dialog-body">
+
+        <section class="workshops-form-section">
+
+          <p class="workshops-form-section-title">
+            Identificação
+          </p>
+
+
+          <div class="workshops-form-grid">
+
+            <div class="form-field">
+
+              <label for="schoolRegional">
+                Regional *
+              </label>
+
+              <select
+                id="schoolRegional"
+                required
+                data-school-regional
+              ></select>
+
+            </div>
+
+
+            <div class="form-field">
+
+              <label for="schoolName">
+                Nome da escola *
+              </label>
+
+              <input
+                id="schoolName"
+                type="text"
+                maxlength="200"
+                required
+                data-school-name
+              >
+
+            </div>
+
+          </div>
+
+        </section>
+
+
+        <section class="workshops-form-section">
+
+          <p class="workshops-form-section-title">
+            Endereço
+          </p>
+
+
+          <div class="workshops-form-grid">
+
+            <div class="form-field workshops-cep-field">
+
+              <label for="schoolCep">
+                CEP
+              </label>
+
+              <div class="workshops-cep-control">
+
+                <input
+                  id="schoolCep"
+                  type="text"
+                  inputmode="numeric"
+                  maxlength="9"
+                  placeholder="00000-000"
+                  data-school-cep
+                >
+
+                <button
+                  type="button"
+                  class="btn btn-ghost"
+                  data-school-cep-search
+                >
+                  Buscar CEP
+                </button>
+
+              </div>
+
+            </div>
+
+
+            <div class="form-field">
+
+              <label for="schoolStreet">
+                Logradouro
+              </label>
+
+              <input
+                id="schoolStreet"
+                type="text"
+                maxlength="200"
+                data-school-street
+              >
+
+            </div>
+
+
+            <div class="form-field">
+
+              <label for="schoolNumber">
+                Número
+              </label>
+
+              <input
+                id="schoolNumber"
+                type="text"
+                maxlength="40"
+                data-school-number
+              >
+
+            </div>
+
+
+            <div class="form-field">
+
+              <label for="schoolComplement">
+                Complemento
+              </label>
+
+              <input
+                id="schoolComplement"
+                type="text"
+                maxlength="120"
+                data-school-complement
+              >
+
+            </div>
+
+
+            <div class="form-field">
+
+              <label for="schoolNeighborhood">
+                Bairro
+              </label>
+
+              <input
+                id="schoolNeighborhood"
+                type="text"
+                maxlength="120"
+                data-school-neighborhood
+              >
+
+            </div>
+
+
+            <div class="form-field">
+
+              <label for="schoolCity">
+                Cidade
+              </label>
+
+              <input
+                id="schoolCity"
+                type="text"
+                maxlength="120"
+                data-school-city
+              >
+
+            </div>
+
+
+            <div class="form-field">
+
+              <label for="schoolState">
+                UF
+              </label>
+
+              <input
+                id="schoolState"
+                type="text"
+                maxlength="2"
+                data-school-state
+              >
+
+            </div>
+
+          </div>
+
+        </section>
+
+
+        <section class="workshops-form-section">
+
+          <p class="workshops-form-section-title">
+            Contato principal
+          </p>
+
+
+          <div class="workshops-form-grid">
+
+            <div class="form-field">
+
+              <label for="schoolContactName">
+                Nome
+              </label>
+
+              <input
+                id="schoolContactName"
+                type="text"
+                maxlength="160"
+                data-school-contact-name
+              >
+
+            </div>
+
+
+            <div class="form-field">
+
+              <label for="schoolContactRole">
+                Cargo
+              </label>
+
+              <input
+                id="schoolContactRole"
+                type="text"
+                maxlength="120"
+                data-school-contact-role
+              >
+
+            </div>
+
+
+            <div class="form-field">
+
+              <label for="schoolContactPhone">
+                Telefone
+              </label>
+
+              <input
+                id="schoolContactPhone"
+                type="tel"
+                maxlength="40"
+                data-school-contact-phone
+              >
+
+            </div>
+
+
+            <div class="form-field">
+
+              <label for="schoolContactEmail">
+                E-mail
+              </label>
+
+              <input
+                id="schoolContactEmail"
+                type="email"
+                maxlength="254"
+                data-school-contact-email
+              >
+
+            </div>
+
+          </div>
+
+        </section>
+
+
+        <p
+          class="users-dialog-status"
+          data-school-status
+          role="status"
+          aria-live="polite"
+        ></p>
+
+      </div>
+
+
+      <footer class="users-dialog-footer">
+
+        <button
+          type="button"
+          class="btn btn-ghost"
+          data-school-dialog-close
+        >
+          Cancelar
+        </button>
+
+
+        <button
+          type="submit"
+          class="btn btn-primary"
+          data-school-save
+        >
+          Cadastrar escola
+        </button>
+
+      </footer>
+
+    </form>
+
+  </dialog>
+
+
+  <!-- ==================================================
+       MODAL - CANCELAMENTO
+  ================================================== -->
+
+  <dialog
+    class="users-dialog workshop-cancel-dialog"
+    id="workshopCancelDialog"
+    aria-labelledby="workshopCancelTitle"
+  >
+
+    <form
+      class="users-dialog-form"
+      id="workshopCancelForm"
+    >
+
+      <header class="users-dialog-header">
+
+        <div>
+
+          <span class="users-dialog-kicker">
+            Alteração de status
+          </span>
+
+          <h2 id="workshopCancelTitle">
+            Cancelar evento
+          </h2>
+
+        </div>
+
+
+        <button
+          type="button"
+          class="users-dialog-close"
+          data-cancel-dialog-close
+          aria-label="Fechar"
+        >
+          ×
+        </button>
+
+      </header>
+
+
+      <div class="users-dialog-body">
+
+        <p class="workshops-cancel-description">
+          Informe o motivo do cancelamento.
+          O registro continuará disponível
+          no histórico do sistema.
+        </p>
+
+
+        <div class="form-field">
+
+          <label for="workshopCancelReason">
+            Motivo *
+          </label>
+
+          <textarea
+            id="workshopCancelReason"
+            rows="4"
+            maxlength="1000"
+            required
+            data-cancel-reason
+          ></textarea>
+
+        </div>
+
+
+        <p
+          class="users-dialog-status"
+          data-cancel-status
+          role="status"
+          aria-live="polite"
+        ></p>
+
+      </div>
+
+
+      <footer class="users-dialog-footer">
+
+        <button
+          type="button"
+          class="btn btn-ghost"
+          data-cancel-dialog-close
+        >
+          Voltar
+        </button>
+
+
+        <button
+          type="submit"
+          class="btn btn-primary"
+          data-cancel-submit
+        >
+          Confirmar cancelamento
+        </button>
+
+      </footer>
+
+    </form>
+
+  </dialog>
+
+
+  <script
+    type="module"
+    src="/src/main.js"
+  ></script>
+
+</body>
+
+</html>

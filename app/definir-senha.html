@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <meta
+    name="robots"
+    content="noindex, nofollow"
+  >
+
+  <meta
+    name="theme-color"
+    content="#0f2c25"
+  >
+
+  <title>
+    Definir senha | YXZ Plataforma
+  </title>
+
+  <link
+    rel="icon"
+    href="/assets/favicon.png"
+    type="image/png"
+  >
+</head>
+
+
+<body class="auth-body">
+
+  <main class="auth-page">
+
+    <div class="auth-layout">
+
+
+      <!-- ==================================================
+           APRESENTAÇÃO
+      ================================================== -->
+
+      <section
+        class="auth-intro"
+        aria-labelledby="password-intro-title"
+      >
+
+        <img
+          class="auth-logo"
+          src="/assets/yxz-robotic-logo-white.png"
+          alt="YXZ Soluções Educacionais"
+        >
+
+
+        <div class="auth-intro-content">
+
+          <p class="auth-eyebrow">
+            Plataforma 2.0
+          </p>
+
+          <h1 id="password-intro-title">
+            Bem-vindo à YXZ
+          </h1>
+
+          <p>
+            Finalize a ativação da sua conta
+            criando uma senha pessoal para
+            acessar o Portal de Gestão.
+          </p>
+
+        </div>
+
+      </section>
+
+
+      <!-- ==================================================
+           DEFINIR SENHA
+      ================================================== -->
+
+      <section
+        class="auth-card"
+        aria-labelledby="password-title"
+      >
+
+        <header class="auth-card-header">
+
+          <span>
+            Ativação da conta
+          </span>
+
+          <h2 id="password-title">
+            Definir senha
+          </h2>
+
+          <p>
+            Escolha a senha que será utilizada
+            nos próximos acessos.
+          </p>
+
+        </header>
+
+
+        <p
+          class="auth-status"
+          data-password-page-status
+          role="status"
+          aria-live="polite"
+        >
+          Validando convite...
+        </p>
+
+
+        <form
+          id="passwordForm"
+          class="auth-form"
+          data-password-form
+          hidden
+        >
+
+          <div class="auth-field">
+
+            <label for="newPassword">
+              Nova senha
+            </label>
+
+            <input
+              id="newPassword"
+              class="auth-control"
+              name="password"
+              type="password"
+              minlength="8"
+              autocomplete="new-password"
+              required
+            >
+
+          </div>
+
+
+          <div class="auth-field">
+
+            <label for="confirmPassword">
+              Confirmar senha
+            </label>
+
+            <input
+              id="confirmPassword"
+              class="auth-control"
+              name="confirmPassword"
+              type="password"
+              minlength="8"
+              autocomplete="new-password"
+              required
+            >
+
+          </div>
+
+
+          <button
+            class="auth-submit"
+            type="submit"
+            data-password-submit
+          >
+            Salvar senha
+          </button>
+
+
+          <p
+            class="auth-status"
+            data-password-status
+            role="status"
+            aria-live="polite"
+          ></p>
+
+        </form>
+
+
+        <div class="auth-back">
+
+          <a href="/app/login.html">
+            Voltar para o login
+          </a>
+
+        </div>
+
+      </section>
+
+    </div>
+
+  </main>
+
+
+  <script
+    type="module"
+    src="/src/definir-senha.js"
+  ></script>
+
+</body>
+
+</html>

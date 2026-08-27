@@ -10,11 +10,6 @@
   >
 
   <meta
-    name="description"
-    content="Portal de Gestão YXZ Soluções Educacionais"
-  >
-
-  <meta
     name="robots"
     content="noindex, nofollow"
   >
@@ -36,23 +31,13 @@
 </head>
 
 
-<body>
-
-  <!--
-    hidden evita que o portal apareça
-    antes da validação da autenticação.
-  -->
+<body data-app-page="dashboard">
 
   <div
     class="app-shell"
     data-app-shell
     hidden
   >
-
-
-    <!-- ==================================================
-         SIDEBAR
-    ================================================== -->
 
     <aside
       class="sidebar"
@@ -89,7 +74,6 @@
         aria-label="Navegação principal"
       >
 
-
         <!-- VISÃO GERAL -->
 
         <div class="nav-section">
@@ -102,8 +86,9 @@
             href="/app/"
             class="nav-link active"
             aria-current="page"
+            data-permission="dashboard.visualizar"
+            hidden
           >
-
             <span
               class="nav-icon"
               aria-hidden="true"
@@ -114,7 +99,6 @@
             <span>
               Dashboard
             </span>
-
           </a>
 
         </div>
@@ -131,8 +115,9 @@
           <a
             href="#"
             class="nav-link"
+            data-permission="oficinas.visualizar"
+            hidden
           >
-
             <span
               class="nav-icon"
               aria-hidden="true"
@@ -143,15 +128,15 @@
             <span>
               Agendamentos
             </span>
-
           </a>
 
 
           <a
             href="#"
             class="nav-link"
+            data-permission="escalas.visualizar"
+            hidden
           >
-
             <span
               class="nav-icon"
               aria-hidden="true"
@@ -162,15 +147,15 @@
             <span>
               Escalas
             </span>
-
           </a>
 
 
           <a
             href="#"
             class="nav-link"
+            data-permission="oficinas.registrar_execucao"
+            hidden
           >
-
             <span
               class="nav-icon"
               aria-hidden="true"
@@ -181,15 +166,15 @@
             <span>
               Execuções
             </span>
-
           </a>
 
 
           <a
             href="#"
             class="nav-link"
+            data-permission="oficinas.visualizar"
+            hidden
           >
-
             <span
               class="nav-icon"
               aria-hidden="true"
@@ -200,7 +185,6 @@
             <span>
               Calendário
             </span>
-
           </a>
 
         </div>
@@ -217,8 +201,9 @@
           <a
             href="#"
             class="nav-link"
+            data-permission="escalas.gerenciar"
+            hidden
           >
-
             <span
               class="nav-icon"
               aria-hidden="true"
@@ -227,17 +212,17 @@
             </span>
 
             <span>
-              Colaboradores
+              Instrutores
             </span>
-
           </a>
 
 
           <a
             href="#"
             class="nav-link"
+            data-permission="escalas.visualizar"
+            hidden
           >
-
             <span
               class="nav-icon"
               aria-hidden="true"
@@ -248,15 +233,15 @@
             <span>
               Horas
             </span>
-
           </a>
 
 
           <a
             href="#"
             class="nav-link"
+            data-permission="oficinas.registrar_execucao"
+            hidden
           >
-
             <span
               class="nav-icon"
               aria-hidden="true"
@@ -267,7 +252,6 @@
             <span>
               Conferência
             </span>
-
           </a>
 
         </div>
@@ -284,8 +268,9 @@
           <a
             href="#"
             class="nav-link"
+            data-permission="previsoes.visualizar"
+            hidden
           >
-
             <span
               class="nav-icon"
               aria-hidden="true"
@@ -296,15 +281,15 @@
             <span>
               Previsões
             </span>
-
           </a>
 
 
           <a
             href="#"
             class="nav-link"
+            data-permission="gastos.visualizar"
+            hidden
           >
-
             <span
               class="nav-icon"
               aria-hidden="true"
@@ -315,15 +300,15 @@
             <span>
               Gastos
             </span>
-
           </a>
 
 
           <a
             href="#"
             class="nav-link"
+            data-permission="gastos.visualizar"
+            hidden
           >
-
             <span
               class="nav-icon"
               aria-hidden="true"
@@ -334,7 +319,6 @@
             <span>
               Comparativo
             </span>
-
           </a>
 
         </div>
@@ -351,27 +335,9 @@
           <a
             href="#"
             class="nav-link"
+            data-permission="relatorios.visualizar"
+            hidden
           >
-
-            <span
-              class="nav-icon"
-              aria-hidden="true"
-            >
-              ◆
-            </span>
-
-            <span>
-              Eventos
-            </span>
-
-          </a>
-
-
-          <a
-            href="#"
-            class="nav-link"
-          >
-
             <span
               class="nav-icon"
               aria-hidden="true"
@@ -382,42 +348,33 @@
             <span>
               Relatórios
             </span>
+          </a>
 
+
+          <a
+            href="/app/usuarios.html"
+            class="nav-link"
+            data-permission="usuarios.gerenciar"
+            hidden
+          >
+            <span
+              class="nav-icon"
+              aria-hidden="true"
+            >
+              ♟
+            </span>
+
+            <span>
+              Usuários
+            </span>
           </a>
 
         </div>
 
       </nav>
 
-
-      <div class="sidebar-footer">
-
-        <a
-          href="#"
-          class="nav-link"
-        >
-
-          <span
-            class="nav-icon"
-            aria-hidden="true"
-          >
-            ⚙
-          </span>
-
-          <span>
-            Configurações
-          </span>
-
-        </a>
-
-      </div>
-
     </aside>
 
-
-    <!-- ==================================================
-         OVERLAY MOBILE
-    ================================================== -->
 
     <div
       class="sidebar-overlay"
@@ -426,16 +383,7 @@
     ></div>
 
 
-    <!-- ==================================================
-         ÁREA PRINCIPAL
-    ================================================== -->
-
     <div class="app-main">
-
-
-      <!-- ==================================================
-           HEADER
-      ================================================== -->
 
       <header class="app-header">
 
@@ -449,11 +397,9 @@
             aria-expanded="false"
             aria-controls="sidebar"
           >
-
             <span aria-hidden="true">
               ☰
             </span>
-
           </button>
 
 
@@ -464,12 +410,11 @@
         </div>
 
 
-        <!-- USUÁRIO AUTENTICADO -->
-
         <div class="header-user">
 
           <div
             class="user-avatar"
+            data-auth-avatar
             aria-hidden="true"
           >
             YXZ
@@ -482,7 +427,7 @@
               Usuário
             </strong>
 
-            <span data-auth-email>
+            <span data-auth-cargo>
               Carregando...
             </span>
 
@@ -493,7 +438,6 @@
             type="button"
             class="btn btn-ghost"
             data-auth-logout
-            aria-label="Sair do portal"
           >
             Sair
           </button>
@@ -503,12 +447,7 @@
       </header>
 
 
-      <!-- ==================================================
-           CONTEÚDO
-      ================================================== -->
-
       <main class="app-content">
-
 
         <div class="page-heading">
 
@@ -529,6 +468,8 @@
           <button
             type="button"
             class="btn btn-primary"
+            data-permission="oficinas.agendar"
+            hidden
           >
             + Nova oficina
           </button>
@@ -536,15 +477,10 @@
         </div>
 
 
-        <!-- ==================================================
-             KPIs
-        ================================================== -->
-
         <section
           class="kpi-grid"
           aria-label="Indicadores principais"
         >
-
 
           <article class="card kpi-card">
 
@@ -559,11 +495,6 @@
             <p class="kpi-description">
               Próximos 30 dias
             </p>
-
-            <div
-              class="kpi-accent"
-              aria-hidden="true"
-            ></div>
 
           </article>
 
@@ -582,11 +513,6 @@
               Neste mês
             </p>
 
-            <div
-              class="kpi-accent"
-              aria-hidden="true"
-            ></div>
-
           </article>
 
 
@@ -603,11 +529,6 @@
             <p class="kpi-description">
               Equipe no mês
             </p>
-
-            <div
-              class="kpi-accent"
-              aria-hidden="true"
-            ></div>
 
           </article>
 
@@ -626,27 +547,15 @@
               Período atual
             </p>
 
-            <div
-              class="kpi-accent"
-              aria-hidden="true"
-            ></div>
-
           </article>
 
         </section>
 
 
-        <!-- ==================================================
-             CONTEÚDO INFERIOR
-        ================================================== -->
-
         <section
           class="dashboard-grid"
           aria-label="Resumo operacional"
         >
-
-
-          <!-- PRÓXIMAS OFICINAS -->
 
           <article class="card">
 
@@ -656,13 +565,6 @@
                 Próximas oficinas
               </h2>
 
-              <button
-                type="button"
-                class="btn btn-ghost"
-              >
-                Ver todas
-              </button>
-
             </div>
 
 
@@ -670,20 +572,13 @@
 
               <div class="empty-state">
 
-                <div
-                  class="empty-state-icon"
-                  aria-hidden="true"
-                >
-                  □
-                </div>
-
                 <h3>
                   Dados ainda não conectados
                 </h3>
 
                 <p>
-                  No próximo marco conectaremos
-                  o dashboard à API da plataforma.
+                  Esta área receberá as próximas
+                  oficinas cadastradas.
                 </p>
 
               </div>
@@ -692,8 +587,6 @@
 
           </article>
 
-
-          <!-- STATUS OPERACIONAL -->
 
           <article class="card">
 
@@ -710,20 +603,13 @@
 
               <div class="empty-state">
 
-                <div
-                  class="empty-state-icon"
-                  aria-hidden="true"
-                >
-                  ◎
-                </div>
-
                 <h3>
                   Indicadores em preparação
                 </h3>
 
                 <p>
-                  Esta área receberá alertas,
-                  pendências e informações importantes.
+                  Esta área receberá alertas
+                  e pendências da operação.
                 </p>
 
               </div>

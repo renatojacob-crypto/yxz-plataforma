@@ -26,9 +26,34 @@ export default defineConfig({
           "app/login.html",
         ),
 
+        definirSenha: resolve(
+          process.cwd(),
+          "app/definir-senha.html",
+        ),
+
+        redefinirSenha: resolve(
+          process.cwd(),
+          "app/redefinir-senha.html",
+        ),
+
         app: resolve(
           process.cwd(),
           "app/index.html",
+        ),
+
+        usuarios: resolve(
+          process.cwd(),
+          "app/usuarios.html",
+        ),
+
+        instrutores: resolve(
+          process.cwd(),
+          "app/instrutores.html",
+        ),
+
+        agendamentos: resolve(
+          process.cwd(),
+          "app/agendamentos.html",
         ),
       },
     },

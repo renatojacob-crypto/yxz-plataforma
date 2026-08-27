@@ -1,0 +1,991 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <meta
+    name="description"
+    content="Gestão de instrutores da Plataforma YXZ"
+  >
+
+  <meta
+    name="robots"
+    content="noindex, nofollow"
+  >
+
+  <meta
+    name="theme-color"
+    content="#0f2c25"
+  >
+
+  <title>
+    Instrutores | YXZ Plataforma
+  </title>
+
+  <link
+    rel="icon"
+    href="/assets/favicon.png"
+    type="image/png"
+  >
+</head>
+
+
+<body data-app-page="instrutores">
+
+  <div
+    class="app-shell"
+    data-app-shell
+    hidden
+  >
+
+    <!-- ==================================================
+         SIDEBAR
+    ================================================== -->
+
+    <aside
+      class="sidebar"
+      id="sidebar"
+      aria-label="Menu lateral"
+    >
+
+      <div class="sidebar-brand">
+
+        <div
+          class="brand-symbol"
+          aria-hidden="true"
+        >
+          YXZ
+        </div>
+
+        <div class="brand-text">
+
+          <strong>
+            Plataforma YXZ
+          </strong>
+
+          <span>
+            Gestão Educacional
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <nav
+        class="sidebar-nav"
+        aria-label="Navegação principal"
+      >
+
+        <!-- VISÃO GERAL -->
+
+        <div class="nav-section">
+
+          <p class="nav-section-title">
+            Visão geral
+          </p>
+
+          <a
+            href="/app/"
+            class="nav-link"
+            data-permission="dashboard.visualizar"
+            hidden
+          >
+
+            <span
+              class="nav-icon"
+              aria-hidden="true"
+            >
+              ▦
+            </span>
+
+            <span>
+              Dashboard
+            </span>
+
+          </a>
+
+        </div>
+
+
+        <!-- OFICINAS -->
+
+        <div class="nav-section">
+
+          <p class="nav-section-title">
+            Oficinas
+          </p>
+
+          <a
+            href="#"
+            class="nav-link"
+            data-permission="oficinas.visualizar"
+            hidden
+          >
+
+            <span
+              class="nav-icon"
+              aria-hidden="true"
+            >
+              ＋
+            </span>
+
+            <span>
+              Agendamentos
+            </span>
+
+          </a>
+
+
+          <a
+            href="#"
+            class="nav-link"
+            data-permission="escalas.visualizar"
+            hidden
+          >
+
+            <span
+              class="nav-icon"
+              aria-hidden="true"
+            >
+              ♙
+            </span>
+
+            <span>
+              Escalas
+            </span>
+
+          </a>
+
+
+          <a
+            href="#"
+            class="nav-link"
+            data-permission="oficinas.registrar_execucao"
+            hidden
+          >
+
+            <span
+              class="nav-icon"
+              aria-hidden="true"
+            >
+              ✓
+            </span>
+
+            <span>
+              Execuções
+            </span>
+
+          </a>
+
+
+          <a
+            href="#"
+            class="nav-link"
+            data-permission="oficinas.visualizar"
+            hidden
+          >
+
+            <span
+              class="nav-icon"
+              aria-hidden="true"
+            >
+              □
+            </span>
+
+            <span>
+              Calendário
+            </span>
+
+          </a>
+
+        </div>
+
+
+        <!-- EQUIPE -->
+
+        <div class="nav-section">
+
+          <p class="nav-section-title">
+            Equipe
+          </p>
+
+          <a
+            href="/app/instrutores.html"
+            class="nav-link active"
+            aria-current="page"
+            data-permission="escalas.gerenciar"
+            hidden
+          >
+
+            <span
+              class="nav-icon"
+              aria-hidden="true"
+            >
+              ◎
+            </span>
+
+            <span>
+              Instrutores
+            </span>
+
+          </a>
+
+
+          <a
+            href="#"
+            class="nav-link"
+            data-permission="escalas.visualizar"
+            hidden
+          >
+
+            <span
+              class="nav-icon"
+              aria-hidden="true"
+            >
+              ◷
+            </span>
+
+            <span>
+              Horas
+            </span>
+
+          </a>
+
+
+          <a
+            href="#"
+            class="nav-link"
+            data-permission="oficinas.registrar_execucao"
+            hidden
+          >
+
+            <span
+              class="nav-icon"
+              aria-hidden="true"
+            >
+              ≋
+            </span>
+
+            <span>
+              Conferência
+            </span>
+
+          </a>
+
+        </div>
+
+
+        <!-- FINANCEIRO -->
+
+        <div class="nav-section">
+
+          <p class="nav-section-title">
+            Financeiro
+          </p>
+
+          <a
+            href="#"
+            class="nav-link"
+            data-permission="previsoes.visualizar"
+            hidden
+          >
+
+            <span
+              class="nav-icon"
+              aria-hidden="true"
+            >
+              ◇
+            </span>
+
+            <span>
+              Previsões
+            </span>
+
+          </a>
+
+
+          <a
+            href="#"
+            class="nav-link"
+            data-permission="gastos.visualizar"
+            hidden
+          >
+
+            <span
+              class="nav-icon"
+              aria-hidden="true"
+            >
+              $
+            </span>
+
+            <span>
+              Gastos
+            </span>
+
+          </a>
+
+
+          <a
+            href="#"
+            class="nav-link"
+            data-permission="gastos.visualizar"
+            hidden
+          >
+
+            <span
+              class="nav-icon"
+              aria-hidden="true"
+            >
+              ↗
+            </span>
+
+            <span>
+              Comparativo
+            </span>
+
+          </a>
+
+        </div>
+
+
+        <!-- GESTÃO -->
+
+        <div class="nav-section">
+
+          <p class="nav-section-title">
+            Gestão
+          </p>
+
+          <a
+            href="#"
+            class="nav-link"
+            data-permission="relatorios.visualizar"
+            hidden
+          >
+
+            <span
+              class="nav-icon"
+              aria-hidden="true"
+            >
+              ▤
+            </span>
+
+            <span>
+              Relatórios
+            </span>
+
+          </a>
+
+
+          <a
+            href="/app/usuarios.html"
+            class="nav-link"
+            data-permission="usuarios.gerenciar"
+            hidden
+          >
+
+            <span
+              class="nav-icon"
+              aria-hidden="true"
+            >
+              ♟
+            </span>
+
+            <span>
+              Usuários
+            </span>
+
+          </a>
+
+        </div>
+
+      </nav>
+
+    </aside>
+
+
+    <div
+      class="sidebar-overlay"
+      data-sidebar-close
+      aria-hidden="true"
+    ></div>
+
+
+    <!-- ==================================================
+         CONTEÚDO PRINCIPAL
+    ================================================== -->
+
+    <div class="app-main">
+
+      <header class="app-header">
+
+        <div class="header-left">
+
+          <button
+            type="button"
+            class="mobile-menu-button"
+            data-sidebar-toggle
+            aria-label="Abrir menu"
+            aria-expanded="false"
+            aria-controls="sidebar"
+          >
+
+            <span aria-hidden="true">
+              ☰
+            </span>
+
+          </button>
+
+
+          <div class="header-context">
+            Gestão de instrutores
+          </div>
+
+        </div>
+
+
+        <div class="header-user">
+
+          <div
+            class="user-avatar"
+            data-auth-avatar
+            aria-hidden="true"
+          >
+            YXZ
+          </div>
+
+
+          <div class="user-info">
+
+            <strong data-auth-name>
+              Usuário
+            </strong>
+
+            <span data-auth-cargo>
+              Carregando...
+            </span>
+
+          </div>
+
+
+          <button
+            type="button"
+            class="btn btn-ghost"
+            data-auth-logout
+          >
+            Sair
+          </button>
+
+        </div>
+
+      </header>
+
+
+      <main class="app-content">
+
+        <!-- ==================================================
+             CABEÇALHO DA PÁGINA
+        ================================================== -->
+
+        <div class="page-heading">
+
+          <div>
+
+            <h1>
+              Instrutores
+            </h1>
+
+            <p>
+              Gerencie os profissionais disponíveis
+              para as escalas e oficinas da YXZ.
+            </p>
+
+          </div>
+
+
+          <button
+            type="button"
+            class="btn btn-primary"
+            data-new-instructor
+          >
+            + Novo instrutor
+          </button>
+
+        </div>
+
+
+        <p
+          class="instructors-page-message"
+          data-instructors-message
+          role="status"
+          aria-live="polite"
+        ></p>
+
+
+        <!-- ==================================================
+             INDICADORES
+        ================================================== -->
+
+        <section
+          class="instructors-summary"
+          aria-label="Resumo dos instrutores"
+        >
+
+          <article class="card instructors-summary-card">
+
+            <span>
+              Total
+            </span>
+
+            <strong data-instructors-total>
+              —
+            </strong>
+
+          </article>
+
+
+          <article class="card instructors-summary-card">
+
+            <span>
+              Ativos
+            </span>
+
+            <strong data-instructors-active>
+              —
+            </strong>
+
+          </article>
+
+
+          <article class="card instructors-summary-card">
+
+            <span>
+              Inativos
+            </span>
+
+            <strong data-instructors-inactive>
+              —
+            </strong>
+
+          </article>
+
+        </section>
+
+
+        <!-- ==================================================
+             LISTA DE INSTRUTORES
+        ================================================== -->
+
+        <section
+          class="card instructors-card"
+          aria-labelledby="instructors-list-title"
+        >
+
+          <div class="instructors-card-header">
+
+            <div>
+
+              <h2 id="instructors-list-title">
+                Equipe de instrutores
+              </h2>
+
+              <p>
+                Cadastros inativos permanecem
+                disponíveis para preservar o histórico.
+              </p>
+
+            </div>
+
+          </div>
+
+
+          <div class="instructors-toolbar">
+
+            <div class="instructors-search">
+
+              <label
+                class="sr-only"
+                for="instructorsSearch"
+              >
+                Buscar instrutores
+              </label>
+
+              <input
+                id="instructorsSearch"
+                type="search"
+                placeholder="Buscar por nome, e-mail ou telefone"
+                autocomplete="off"
+                data-instructors-search
+              >
+
+            </div>
+
+
+            <div class="instructors-filter">
+
+              <label for="instructorsStatusFilter">
+                Status
+              </label>
+
+              <select
+                id="instructorsStatusFilter"
+                data-instructors-status-filter
+              >
+
+                <option value="all">
+                  Todos
+                </option>
+
+                <option value="active">
+                  Ativos
+                </option>
+
+                <option value="inactive">
+                  Inativos
+                </option>
+
+              </select>
+
+            </div>
+
+          </div>
+
+
+          <div class="instructors-table-wrapper">
+
+            <table class="instructors-table">
+
+              <thead>
+
+                <tr>
+
+                  <th scope="col">
+                    Instrutor
+                  </th>
+
+                  <th scope="col">
+                    Contato
+                  </th>
+
+                  <th scope="col">
+                    Status
+                  </th>
+
+                  <th scope="col">
+                    Ações
+                  </th>
+
+                </tr>
+
+              </thead>
+
+
+              <tbody data-instructors-table-body>
+
+                <tr>
+
+                  <td
+                    colspan="4"
+                    class="instructors-loading"
+                  >
+                    Carregando instrutores...
+                  </td>
+
+                </tr>
+
+              </tbody>
+
+            </table>
+
+          </div>
+
+
+          <div
+            class="instructors-empty"
+            data-instructors-empty
+            hidden
+          >
+
+            <strong>
+              Nenhum instrutor encontrado.
+            </strong>
+
+            <span>
+              Ajuste os filtros ou cadastre
+              um novo instrutor.
+            </span>
+
+          </div>
+
+        </section>
+
+      </main>
+
+    </div>
+
+  </div>
+
+
+  <!-- ==================================================
+       MODAL DE INSTRUTOR
+       Reutiliza o mesmo padrão visual da Central de Usuários
+  ================================================== -->
+
+  <dialog
+    class="users-dialog instructors-form-dialog"
+    id="instructorDialog"
+    aria-labelledby="instructorDialogTitle"
+  >
+
+    <form
+      class="users-dialog-form"
+      id="instructorForm"
+    >
+
+      <!-- CABEÇALHO -->
+
+      <header class="users-dialog-header">
+
+        <div>
+
+          <span
+            class="users-dialog-kicker"
+            data-instructor-dialog-kicker
+          >
+            Novo cadastro
+          </span>
+
+          <h2
+            id="instructorDialogTitle"
+            data-instructor-dialog-title
+          >
+            Novo instrutor
+          </h2>
+
+          <p class="instructors-dialog-description">
+            Informe os dados do profissional
+            que poderá ser incluído nas escalas.
+          </p>
+
+        </div>
+
+
+        <button
+          type="button"
+          class="users-dialog-close"
+          data-instructor-dialog-close
+          aria-label="Fechar"
+        >
+          ×
+        </button>
+
+      </header>
+
+
+      <!-- CONTEÚDO -->
+
+      <div class="users-dialog-body">
+
+        <div class="instructors-form-grid">
+
+          <!-- NOME -->
+
+          <div class="form-field instructors-form-full">
+
+            <label for="instructorName">
+              Nome completo
+            </label>
+
+            <input
+              id="instructorName"
+              type="text"
+              maxlength="160"
+              autocomplete="name"
+              placeholder="Ex.: Carlos Alberto Souza"
+              required
+              data-instructor-name
+            >
+
+          </div>
+
+
+          <!-- E-MAIL -->
+
+          <div class="form-field">
+
+            <label for="instructorEmail">
+              E-mail
+            </label>
+
+            <input
+              id="instructorEmail"
+              type="email"
+              maxlength="254"
+              autocomplete="email"
+              placeholder="nome@exemplo.com"
+              data-instructor-email
+            >
+
+          </div>
+
+
+          <!-- TELEFONE -->
+
+          <div class="form-field">
+
+            <label for="instructorPhone">
+              Telefone
+            </label>
+
+            <input
+              id="instructorPhone"
+              type="tel"
+              maxlength="40"
+              autocomplete="tel"
+              placeholder="(00) 00000-0000"
+              data-instructor-phone
+            >
+
+          </div>
+
+
+          <!-- OBSERVAÇÕES -->
+
+          <div class="form-field instructors-form-full">
+
+            <label for="instructorNotes">
+              Observações
+            </label>
+
+            <textarea
+              id="instructorNotes"
+              rows="4"
+              maxlength="1000"
+              placeholder="Informações adicionais sobre o instrutor..."
+              data-instructor-notes
+            ></textarea>
+
+            <small class="instructors-field-help">
+              Campo opcional para informações administrativas.
+            </small>
+
+          </div>
+
+        </div>
+
+
+        <!-- STATUS -->
+
+        <div class="instructors-form-section">
+
+          <p class="instructors-form-section-title">
+            Disponibilidade
+          </p>
+
+
+          <label class="users-active-control">
+
+            <input
+              type="checkbox"
+              data-instructor-active
+              checked
+            >
+
+            <span>
+
+              <strong>
+                Instrutor ativo
+              </strong>
+
+              <small>
+                Instrutores ativos poderão ser
+                selecionados em novas escalas.
+              </small>
+
+            </span>
+
+          </label>
+
+        </div>
+
+
+        <!-- INFORMAÇÃO -->
+
+        <div class="users-permission-box">
+
+          <div>
+
+            <strong>
+              Acesso ao portal
+            </strong>
+
+            <span>
+              Não necessário
+            </span>
+
+          </div>
+
+          <p>
+            Este cadastro representa um instrutor
+            da operação e não cria automaticamente
+            uma conta de acesso ao sistema.
+          </p>
+
+        </div>
+
+
+        <!-- MENSAGEM -->
+
+        <p
+          class="users-dialog-status"
+          data-instructor-status
+          role="status"
+          aria-live="polite"
+        ></p>
+
+      </div>
+
+
+      <!-- RODAPÉ -->
+
+      <footer class="users-dialog-footer">
+
+        <button
+          type="button"
+          class="btn btn-ghost"
+          data-instructor-dialog-close
+        >
+          Cancelar
+        </button>
+
+
+        <button
+          type="submit"
+          class="btn btn-primary"
+          data-instructor-save
+        >
+          Salvar instrutor
+        </button>
+
+      </footer>
+
+    </form>
+
+  </dialog>
+
+
+  <script
+    type="module"
+    src="/src/main.js"
+  ></script>
+
+</body>
+
+</html>
