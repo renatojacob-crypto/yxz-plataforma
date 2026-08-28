@@ -44,10 +44,6 @@
     hidden
   >
 
-    <!-- ==================================================
-         SIDEBAR CENTRALIZADA
-    ================================================== -->
-
     <aside
       class="sidebar"
       id="sidebar"
@@ -61,10 +57,6 @@
       aria-hidden="true"
     ></div>
 
-
-    <!-- ==================================================
-         PRINCIPAL
-    ================================================== -->
 
     <div class="app-main">
 
@@ -132,10 +124,6 @@
 
       <main class="app-content">
 
-        <!-- ==================================================
-             CABEÇALHO
-        ================================================== -->
-
         <div class="page-heading">
 
           <div>
@@ -145,8 +133,8 @@
             </h1>
 
             <p>
-              Confirme os eventos realizados,
-              participantes e instrutores presentes.
+              Registre a realização, os instrutores presentes
+              e as evidências fotográficas dos eventos.
             </p>
 
           </div>
@@ -187,6 +175,19 @@
           <article class="card executions-summary-card">
 
             <span>
+              Rascunhos
+            </span>
+
+            <strong data-executions-drafts>
+              —
+            </strong>
+
+          </article>
+
+
+          <article class="card executions-summary-card">
+
+            <span>
               Realizados
             </span>
 
@@ -200,10 +201,10 @@
           <article class="card executions-summary-card">
 
             <span>
-              Agendados sem escala
+              Sem evidência
             </span>
 
-            <strong data-executions-without-scale>
+            <strong data-executions-without-evidence>
               —
             </strong>
 
@@ -213,7 +214,7 @@
           <article class="card executions-summary-card">
 
             <span>
-              Participantes registrados
+              Participantes
             </span>
 
             <strong data-executions-participants>
@@ -243,18 +244,14 @@
               </h2>
 
               <p>
-                Registre a realização dos eventos
-                ou consulte execuções anteriores.
+                Registre ou continue as execuções
+                dos eventos programados.
               </p>
 
             </div>
 
           </div>
 
-
-          <!-- ==================================================
-               FILTROS
-          ================================================== -->
 
           <div class="executions-toolbar">
 
@@ -325,7 +322,7 @@
             <div class="executions-filter">
 
               <label for="executionsStatusFilter">
-                Status
+                Situação
               </label>
 
               <select
@@ -333,11 +330,15 @@
                 data-executions-status-filter
               >
                 <option value="all">
-                  Todos
+                  Todas
                 </option>
 
-                <option value="agendada">
+                <option value="pendente">
                   Pendentes
+                </option>
+
+                <option value="rascunho">
+                  Rascunhos
                 </option>
 
                 <option value="realizada">
@@ -384,10 +385,6 @@
           </div>
 
 
-          <!-- ==================================================
-               TABELA
-          ================================================== -->
-
           <div class="executions-table-wrapper">
 
             <table class="executions-table">
@@ -417,7 +414,7 @@
                   </th>
 
                   <th scope="col">
-                    Status
+                    Situação
                   </th>
 
                   <th scope="col">
@@ -460,8 +457,7 @@
             </strong>
 
             <span>
-              Ajuste os filtros para localizar
-              os eventos desejados.
+              Ajuste os filtros.
             </span>
 
           </div>
@@ -475,9 +471,9 @@
   </div>
 
 
-  <!-- ==================================================
-       MODAL DE EXECUÇÃO
-  ================================================== -->
+  <!-- ======================================================
+       MODAL
+  ======================================================= -->
 
   <dialog
     class="users-dialog executions-dialog"
@@ -509,8 +505,8 @@
           </h2>
 
           <p class="executions-dialog-description">
-            Confirme o que realmente aconteceu
-            durante o evento.
+            Confirme os dados realizados e adicione
+            de 1 a 6 evidências fotográficas.
           </p>
 
         </div>
@@ -531,7 +527,7 @@
       <div class="users-dialog-body">
 
         <!-- ==================================================
-             EVENTO PLANEJADO
+             EVENTO
         ================================================== -->
 
         <section class="executions-event-summary">
@@ -602,7 +598,7 @@
 
 
         <!-- ==================================================
-             DADOS REAIS
+             DADOS REALIZADOS
         ================================================== -->
 
         <section class="executions-form-section">
@@ -690,7 +686,7 @@
                 id="executionNotes"
                 rows="4"
                 maxlength="1500"
-                placeholder="Informações sobre a realização do evento..."
+                placeholder="Informações sobre a realização..."
                 data-execution-notes
               ></textarea>
 
@@ -717,7 +713,7 @@
 
               <p>
                 Confirme quais profissionais da escala
-                realmente participaram.
+                participaram efetivamente do evento.
               </p>
 
             </div>
@@ -736,11 +732,91 @@
           <div
             class="executions-instructor-list"
             data-execution-instructor-list
+          ></div>
+
+        </section>
+
+
+        <!-- ==================================================
+             EVIDÊNCIAS
+        ================================================== -->
+
+        <section class="executions-form-section">
+
+          <div class="executions-evidence-heading">
+
+            <div>
+
+              <p class="executions-form-section-title">
+                Evidências fotográficas
+              </p>
+
+              <p>
+                Adicione de 1 a 6 fotos.
+                Elas serão armazenadas no Google Drive.
+              </p>
+
+            </div>
+
+
+            <span
+              class="executions-photo-count"
+              data-execution-photo-count
+            >
+              0 de 6
+            </span>
+
+          </div>
+
+
+          <div class="executions-evidence-actions">
+
+            <input
+              id="executionPhotos"
+              type="file"
+              accept="image/jpeg,image/png,image/webp"
+              multiple
+              hidden
+              data-execution-photo-input
+            >
+
+
+            <button
+              type="button"
+              class="btn btn-ghost"
+              data-execution-add-photos
+            >
+              + Adicionar fotos
+            </button>
+
+
+            <span class="executions-evidence-help">
+              As imagens são otimizadas automaticamente
+              antes do envio.
+            </span>
+
+          </div>
+
+
+          <div
+            class="executions-photo-grid"
+            data-execution-photo-grid
+          ></div>
+
+
+          <div
+            class="executions-evidence-empty"
+            data-execution-photo-empty
           >
 
-            <p class="executions-loading">
-              Carregando instrutores...
-            </p>
+            <strong>
+              Nenhuma evidência adicionada.
+            </strong>
+
+            <span>
+              Pelo menos uma foto é obrigatória
+              para concluir a execução.
+            </span>
 
           </div>
 
@@ -750,13 +826,13 @@
         <div class="users-permission-box">
 
           <strong>
-            Horas reais
+            Evidência obrigatória
           </strong>
 
           <p>
-            Os horários registrados para cada instrutor
-            serão utilizados posteriormente no módulo
-            de Horas e Conferência.
+            É possível salvar um rascunho sem fotos.
+            Para concluir o evento, pelo menos uma
+            evidência precisa estar armazenada.
           </p>
 
         </div>
@@ -784,11 +860,20 @@
 
 
         <button
+          type="button"
+          class="btn btn-ghost"
+          data-execution-save-draft
+        >
+          Salvar rascunho
+        </button>
+
+
+        <button
           type="submit"
           class="btn btn-primary"
           data-execution-save
         >
-          Registrar execução
+          Concluir execução
         </button>
 
       </footer>

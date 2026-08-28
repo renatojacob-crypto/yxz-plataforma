@@ -12,6 +12,22 @@ const EVENT_TYPES = {
 };
 
 
+const MAX_PHOTOS =
+  6;
+
+
+const MAX_ORIGINAL_FILE_SIZE =
+  25 * 1024 * 1024;
+
+
+const TARGET_UPLOAD_SIZE =
+  4.5 * 1024 * 1024;
+
+
+const MAX_IMAGE_DIMENSION =
+  1920;
+
+
 let regionals = [];
 let schools = [];
 let instructors = [];
@@ -19,9 +35,19 @@ let events = [];
 let scales = [];
 let executions = [];
 let executionInstructors = [];
+let executionPhotos = [];
 
 let selectedEventId =
   null;
+
+let pendingPhotos =
+  [];
+
+let previewObjectUrls =
+  [];
+
+let photoRenderVersion =
+  0;
 
 
 /* =========================================================
@@ -40,14 +66,19 @@ function getElements() {
         "[data-executions-pending]",
       ),
 
+    drafts:
+      document.querySelector(
+        "[data-executions-drafts]",
+      ),
+
     completed:
       document.querySelector(
         "[data-executions-completed]",
       ),
 
-    withoutScale:
+    withoutEvidence:
       document.querySelector(
-        "[data-executions-without-scale]",
+        "[data-executions-without-evidence]",
       ),
 
     participants:
@@ -94,9 +125,6 @@ function getElements() {
       document.querySelector(
         "[data-executions-empty]",
       ),
-
-
-    /* MODAL */
 
     dialog:
       document.getElementById(
@@ -183,9 +211,39 @@ function getElements() {
         "[data-execution-selected-count]",
       ),
 
+    photoInput:
+      document.querySelector(
+        "[data-execution-photo-input]",
+      ),
+
+    addPhotosButton:
+      document.querySelector(
+        "[data-execution-add-photos]",
+      ),
+
+    photoGrid:
+      document.querySelector(
+        "[data-execution-photo-grid]",
+      ),
+
+    photoCount:
+      document.querySelector(
+        "[data-execution-photo-count]",
+      ),
+
+    photoEmpty:
+      document.querySelector(
+        "[data-execution-photo-empty]",
+      ),
+
     status:
       document.querySelector(
         "[data-execution-status]",
+      ),
+
+    saveDraft:
+      document.querySelector(
+        "[data-execution-save-draft]",
       ),
 
     save:
@@ -209,9 +267,12 @@ function normalizeText(
   value,
 ) {
   return String(
-    value || "",
+    value ||
+    "",
   )
-    .normalize("NFD")
+    .normalize(
+      "NFD",
+    )
     .replace(
       /[\u0300-\u036f]/g,
       "",
@@ -251,37 +312,33 @@ function formatTime(
   value,
 ) {
   return String(
-    value || "",
-  )
-    .slice(
-      0,
-      5,
-    );
+    value ||
+    "",
+  ).slice(
+    0,
+    5,
+  );
 }
 
 
 function getEventTypeLabel(
   value,
 ) {
-  if (
-    value ===
+  return value ===
     EVENT_TYPES.COMMUNITY_EVENT
-  ) {
-    return "Evento à Comunidade";
-  }
-
-
-  return "Oficina Educacional";
+      ? "Evento à Comunidade"
+      : "Oficina Educacional";
 }
 
 
 function getEventById(
-  eventId,
+  id,
 ) {
   return (
     events.find(
-      (event) =>
-        event.id === eventId,
+      (item) =>
+        item.id ===
+        id,
     ) ||
     null
   );
@@ -289,12 +346,13 @@ function getEventById(
 
 
 function getSchoolById(
-  schoolId,
+  id,
 ) {
   return (
     schools.find(
-      (school) =>
-        school.id === schoolId,
+      (item) =>
+        item.id ===
+        id,
     ) ||
     null
   );
@@ -302,12 +360,13 @@ function getSchoolById(
 
 
 function getRegionalById(
-  regionalId,
+  id,
 ) {
   return (
     regionals.find(
-      (regional) =>
-        regional.id === regionalId,
+      (item) =>
+        item.id ===
+        id,
     ) ||
     null
   );
@@ -315,12 +374,13 @@ function getRegionalById(
 
 
 function getInstructorById(
-  instructorId,
+  id,
 ) {
   return (
     instructors.find(
-      (instructor) =>
-        instructor.id === instructorId,
+      (item) =>
+        item.id ===
+        id,
     ) ||
     null
   );
@@ -332,8 +392,9 @@ function getExecutionForEvent(
 ) {
   return (
     executions.find(
-      (execution) =>
-        execution.evento_id === eventId,
+      (item) =>
+        item.evento_id ===
+        eventId,
     ) ||
     null
   );
@@ -344,8 +405,8 @@ function getScaleForEvent(
   eventId,
 ) {
   return scales.filter(
-    (scale) =>
-      scale.evento_id ===
+    (item) =>
+      item.evento_id ===
       eventId,
   );
 }
@@ -362,16 +423,71 @@ function getExecutionInstructors(
 }
 
 
+function getPhotosForExecution(
+  executionId,
+) {
+  if (!executionId) {
+    return [];
+  }
+
+
+  return executionPhotos
+    .filter(
+      (item) =>
+        item.execucao_id ===
+        executionId,
+    )
+    .sort(
+      (a, b) =>
+        a.ordem -
+        b.ordem,
+    );
+}
+
+
+function getExecutionState(
+  event,
+) {
+  if (
+    event.status ===
+    "cancelada"
+  ) {
+    return "cancelada";
+  }
+
+
+  const execution =
+    getExecutionForEvent(
+      event.id,
+    );
+
+
+  if (
+    execution?.status ===
+      "finalizada"
+
+    ||
+    event.status ===
+      "realizada"
+  ) {
+    return "realizada";
+  }
+
+
+  if (execution) {
+    return "rascunho";
+  }
+
+
+  return "pendente";
+}
+
+
 function setPageMessage(
   elements,
   message = "",
   state = "",
 ) {
-  if (!elements.message) {
-    return;
-  }
-
-
   elements.message.textContent =
     message;
 
@@ -386,11 +502,6 @@ function setDialogStatus(
   message = "",
   state = "",
 ) {
-  if (!elements.status) {
-    return;
-  }
-
-
   elements.status.textContent =
     message;
 
@@ -401,7 +512,7 @@ function setDialogStatus(
 
 
 /* =========================================================
-   CARREGAMENTO
+   DADOS
 ========================================================= */
 
 async function loadRegionals() {
@@ -422,10 +533,6 @@ async function loadRegionals() {
       `)
       .order(
         "ordem",
-        {
-          ascending:
-            true,
-        },
       );
 
 
@@ -435,7 +542,8 @@ async function loadRegionals() {
 
 
   regionals =
-    data || [];
+    data ||
+    [];
 }
 
 
@@ -450,18 +558,14 @@ async function loadSchools() {
       )
       .select(`
         id,
+        regional_id,
         nome,
         cidade,
         uf,
-        regional_id,
         ativo
       `)
       .order(
         "nome",
-        {
-          ascending:
-            true,
-        },
       );
 
 
@@ -471,7 +575,8 @@ async function loadSchools() {
 
 
   schools =
-    data || [];
+    data ||
+    [];
 }
 
 
@@ -493,10 +598,6 @@ async function loadInstructors() {
       `)
       .order(
         "nome",
-        {
-          ascending:
-            true,
-        },
       );
 
 
@@ -506,7 +607,8 @@ async function loadInstructors() {
 
 
   instructors =
-    data || [];
+    data ||
+    [];
 }
 
 
@@ -541,10 +643,6 @@ async function loadEvents() {
       )
       .order(
         "hora_inicio",
-        {
-          ascending:
-            true,
-        },
       );
 
 
@@ -554,7 +652,8 @@ async function loadEvents() {
 
 
   events =
-    data || [];
+    data ||
+    [];
 }
 
 
@@ -580,7 +679,8 @@ async function loadScales() {
 
 
   scales =
-    data || [];
+    data ||
+    [];
 }
 
 
@@ -601,6 +701,8 @@ async function loadExecutions() {
         hora_fim_real,
         participantes_reais,
         observacoes,
+        status,
+        finalizada_at,
         created_at,
         updated_at
       `);
@@ -612,7 +714,8 @@ async function loadExecutions() {
 
 
   executions =
-    data || [];
+    data ||
+    [];
 }
 
 
@@ -639,7 +742,45 @@ async function loadExecutionInstructors() {
 
 
   executionInstructors =
-    data || [];
+    data ||
+    [];
+}
+
+
+async function loadExecutionPhotos() {
+  const {
+    data,
+    error,
+  } =
+    await supabase
+      .from(
+        "execucao_fotos",
+      )
+      .select(`
+        id,
+        execucao_id,
+        nome_original,
+        nome_arquivo,
+        mime_type,
+        tamanho_bytes,
+        ordem,
+        legenda,
+        folder_path,
+        created_at
+      `)
+      .order(
+        "ordem",
+      );
+
+
+  if (error) {
+    throw error;
+  }
+
+
+  executionPhotos =
+    data ||
+    [];
 }
 
 
@@ -648,6 +789,7 @@ async function reloadOperationalData() {
     loadEvents(),
     loadExecutions(),
     loadExecutionInstructors(),
+    loadExecutionPhotos(),
   ]);
 }
 
@@ -659,15 +801,13 @@ async function reloadOperationalData() {
 function populateRegionalFilter(
   elements,
 ) {
-  const select =
-    elements.regionalFilter;
+  const previous =
+    elements.regionalFilter
+      .value;
 
 
-  const previousValue =
-    select.value;
-
-
-  select.replaceChildren();
+  elements.regionalFilter
+    .replaceChildren();
 
 
   const all =
@@ -684,13 +824,15 @@ function populateRegionalFilter(
     "Todas";
 
 
-  select.append(
-    all,
-  );
+  elements.regionalFilter
+    .append(
+      all,
+    );
 
 
   regionals.forEach(
     (regional) => {
+
       const option =
         document.createElement(
           "option",
@@ -705,24 +847,26 @@ function populateRegionalFilter(
         regional.nome;
 
 
-      select.append(
-        option,
-      );
+      elements.regionalFilter
+        .append(
+          option,
+        );
     },
   );
 
 
   if (
     Array.from(
-      select.options,
+      elements.regionalFilter
+        .options,
     ).some(
       (option) =>
         option.value ===
-        previousValue,
+        previous,
     )
   ) {
-    select.value =
-      previousValue;
+    elements.regionalFilter.value =
+      previous;
   }
 }
 
@@ -734,30 +878,51 @@ function populateRegionalFilter(
 function renderSummary(
   elements,
 ) {
-  const pending =
-    events.filter(
-      (event) =>
-        event.status ===
-        "agendada",
+  const states =
+    events.map(
+      (event) => ({
+        event,
+
+        state:
+          getExecutionState(
+            event,
+          ),
+      }),
     );
+
+
+  const pending =
+    states.filter(
+      (item) =>
+        item.state ===
+        "pendente",
+    ).length;
+
+
+  const drafts =
+    states.filter(
+      (item) =>
+        item.state ===
+        "rascunho",
+    ).length;
 
 
   const completed =
-    events.filter(
-      (event) =>
-        event.status ===
+    states.filter(
+      (item) =>
+        item.state ===
         "realizada",
-    );
+    ).length;
 
 
-  const withoutScale =
-    pending.filter(
-      (event) =>
-        getScaleForEvent(
-          event.id,
+  const withoutEvidence =
+    executions.filter(
+      (execution) =>
+        getPhotosForExecution(
+          execution.id,
         ).length ===
         0,
-    );
+    ).length;
 
 
   const participants =
@@ -765,34 +930,38 @@ function renderSummary(
       (
         total,
         execution,
-      ) => {
-        return (
-          total +
-          (
-            execution.participantes_reais ||
-            0
-          )
-        );
-      },
+      ) =>
+        total +
+        (
+          execution.participantes_reais ||
+          0
+        ),
+
       0,
     );
 
 
   elements.pending.textContent =
     String(
-      pending.length,
+      pending,
+    );
+
+
+  elements.drafts.textContent =
+    String(
+      drafts,
     );
 
 
   elements.completed.textContent =
     String(
-      completed.length,
+      completed,
     );
 
 
-  elements.withoutScale.textContent =
+  elements.withoutEvidence.textContent =
     String(
-      withoutScale.length,
+      withoutEvidence,
     );
 
 
@@ -824,7 +993,7 @@ function getFilteredEvents(
     elements.typeFilter.value;
 
 
-  const status =
+  const state =
     elements.statusFilter.value;
 
 
@@ -838,6 +1007,7 @@ function getFilteredEvents(
 
   return events.filter(
     (event) => {
+
       const school =
         getSchoolById(
           event.escola_id,
@@ -875,23 +1045,31 @@ function getFilteredEvents(
 
         && (
           regionalId ===
-            "all" ||
+            "all"
+
+          ||
           event.regional_id ===
             regionalId
         )
 
         && (
           type ===
-            "all" ||
+            "all"
+
+          ||
           event.tipo_evento ===
             type
         )
 
         && (
-          status ===
-            "all" ||
-          event.status ===
-            status
+          state ===
+            "all"
+
+          ||
+          getExecutionState(
+            event,
+          ) ===
+            state
         )
 
         && (
@@ -912,7 +1090,7 @@ function getFilteredEvents(
 
 
 /* =========================================================
-   CÉLULAS
+   TABELA
 ========================================================= */
 
 function createDateCell(
@@ -953,15 +1131,7 @@ function createDateCell(
 
 
   time.textContent =
-    (
-      formatTime(
-        event.hora_inicio,
-      ) +
-      "–" +
-      formatTime(
-        event.hora_fim,
-      )
-    );
+    `${formatTime(event.hora_inicio)}–${formatTime(event.hora_fim)}`;
 
 
   wrapper.append(
@@ -1097,6 +1267,7 @@ function createSchoolCell(
 
 
   if (location) {
+
     const span =
       document.createElement(
         "span",
@@ -1150,20 +1321,9 @@ function createRegionalCell(
   }
 
 
-  const span =
-    document.createElement(
-      "span",
-    );
-
-
-  span.textContent =
+  cell.textContent =
     regional?.nome ||
     "—";
-
-
-  cell.append(
-    span,
-  );
 
 
   return cell;
@@ -1186,23 +1346,8 @@ function createExecutionCell(
 
 
   if (!execution) {
-    const pending =
-      document.createElement(
-        "span",
-      );
-
-
-    pending.className =
-      "executions-pending-label";
-
-
-    pending.textContent =
-      "Pendente";
-
-
-    cell.append(
-      pending,
-    );
+    cell.textContent =
+      "—";
 
 
     return cell;
@@ -1238,41 +1383,38 @@ function createExecutionCell(
 
 
   time.textContent =
-    (
-      formatTime(
-        execution.hora_inicio_real,
-      ) +
-      "–" +
-      formatTime(
-        execution.hora_fim_real,
-      )
+    `${formatTime(execution.hora_inicio_real)}–${formatTime(execution.hora_fim_real)}`;
+
+
+  const photoTotal =
+    getPhotosForExecution(
+      execution.id,
+    ).length;
+
+
+  const photos =
+    document.createElement(
+      "small",
     );
+
+
+  photos.className =
+    photoTotal > 0
+      ? "executions-photo-indicator"
+      : "executions-photo-indicator executions-photo-indicator-empty";
+
+
+  photos.textContent =
+    photoTotal === 1
+      ? "1 foto"
+      : `${photoTotal} fotos`;
 
 
   wrapper.append(
     date,
     time,
+    photos,
   );
-
-
-  if (
-    execution.participantes_reais !==
-    null
-  ) {
-    const participants =
-      document.createElement(
-        "small",
-      );
-
-
-    participants.textContent =
-      `${execution.participantes_reais} participantes`;
-
-
-    wrapper.append(
-      participants,
-    );
-  }
 
 
   cell.append(
@@ -1284,7 +1426,7 @@ function createExecutionCell(
 }
 
 
-function createStatusCell(
+function createStateCell(
   event,
 ) {
   const cell =
@@ -1293,22 +1435,18 @@ function createStatusCell(
     );
 
 
-  const badge =
-    document.createElement(
-      "span",
-    );
-
-
-  badge.className =
-    (
-      "executions-status " +
-      `executions-status-${event.status}`
+  const state =
+    getExecutionState(
+      event,
     );
 
 
   const labels = {
-    agendada:
+    pendente:
       "Pendente",
+
+    rascunho:
+      "Rascunho",
 
     realizada:
       "Realizado",
@@ -1318,11 +1456,19 @@ function createStatusCell(
   };
 
 
+  const badge =
+    document.createElement(
+      "span",
+    );
+
+
+  badge.className =
+    `executions-status executions-status-${state}`;
+
+
   badge.textContent =
-    labels[
-      event.status
-    ] ||
-    event.status;
+    labels[state] ||
+    state;
 
 
   cell.append(
@@ -1344,37 +1490,22 @@ function createActionsCell(
     );
 
 
-  const execution =
-    getExecutionForEvent(
-      event.id,
-    );
-
-
   if (
     event.status ===
     "cancelada"
   ) {
-    const text =
-      document.createElement(
-        "span",
-      );
-
-
-    text.className =
-      "executions-readonly-label";
-
-
-    text.textContent =
-      "Cancelado";
-
-
-    cell.append(
-      text,
-    );
+    cell.textContent =
+      "—";
 
 
     return cell;
   }
+
+
+  const execution =
+    getExecutionForEvent(
+      event.id,
+    );
 
 
   const button =
@@ -1391,10 +1522,24 @@ function createActionsCell(
     "btn btn-ghost";
 
 
-  button.textContent =
+  if (
+    execution?.status ===
+    "finalizada"
+  ) {
+    button.textContent =
+      "Editar execução";
+
+  } else if (
     execution
-      ? "Editar execução"
-      : "Registrar execução";
+  ) {
+    button.textContent =
+      "Continuar execução";
+
+  } else {
+
+    button.textContent =
+      "Registrar execução";
+  }
 
 
   button.addEventListener(
@@ -1417,10 +1562,6 @@ function createActionsCell(
 }
 
 
-/* =========================================================
-   TABELA
-========================================================= */
-
 function renderTable(
   elements,
 ) {
@@ -1441,6 +1582,7 @@ function renderTable(
 
   filtered.forEach(
     (event) => {
+
       const row =
         document.createElement(
           "tr",
@@ -1468,7 +1610,7 @@ function renderTable(
           event,
         ),
 
-        createStatusCell(
+        createStateCell(
           event,
         ),
 
@@ -1479,9 +1621,10 @@ function renderTable(
       );
 
 
-      elements.tableBody.append(
-        row,
-      );
+      elements.tableBody
+        .append(
+          row,
+        );
     },
   );
 }
@@ -1502,7 +1645,7 @@ function render(
 
 
 /* =========================================================
-   CONTADOR DE PRESENTES
+   INSTRUTORES
 ========================================================= */
 
 function updateSelectedCount(
@@ -1516,16 +1659,13 @@ function updateSelectedCount(
       .length;
 
 
-  elements.selectedCount.textContent =
-    count === 1
-      ? "1 presente"
-      : `${count} presentes`;
+  elements.selectedCount
+    .textContent =
+      count === 1
+        ? "1 presente"
+        : `${count} presentes`;
 }
 
-
-/* =========================================================
-   ATIVAR / DESATIVAR HORÁRIOS DO INSTRUTOR
-========================================================= */
 
 function updateInstructorTimeFields(
   card,
@@ -1536,24 +1676,18 @@ function updateInstructorTimeFields(
     );
 
 
-  const timeInputs =
-    card.querySelectorAll(
+  card
+    .querySelectorAll(
       "input[type='time']",
+    )
+    .forEach(
+      (input) => {
+        input.disabled =
+          !checkbox.checked;
+      },
     );
-
-
-  timeInputs.forEach(
-    (input) => {
-      input.disabled =
-        !checkbox.checked;
-    },
-  );
 }
 
-
-/* =========================================================
-   INSTRUTORES DO EVENTO
-========================================================= */
 
 function renderExecutionInstructors(
   event,
@@ -1579,8 +1713,7 @@ function renderExecutionInstructors(
 
 
   if (
-    eventScale.length ===
-    0
+    !eventScale.length
   ) {
     const empty =
       document.createElement(
@@ -1602,25 +1735,26 @@ function renderExecutionInstructors(
       "Este evento não possui escala.";
 
 
-    const description =
+    const text =
       document.createElement(
         "span",
       );
 
 
-    description.textContent =
-      "A execução pode ser registrada sem instrutores, mas nenhuma hora será gerada.";
+    text.textContent =
+      "A execução poderá ser registrada sem horas de instrutores.";
 
 
     empty.append(
       title,
-      description,
+      text,
     );
 
 
-    elements.instructorList.append(
-      empty,
-    );
+    elements.instructorList
+      .append(
+        empty,
+      );
 
 
     updateSelectedCount(
@@ -1634,6 +1768,7 @@ function renderExecutionInstructors(
 
   eventScale.forEach(
     (scale) => {
+
       const instructor =
         getInstructorById(
           scale.instrutor_id,
@@ -1687,17 +1822,11 @@ function renderExecutionInstructors(
         instructor.id;
 
 
-      checkbox.dataset.executionInstructor =
-        instructor.id;
+      checkbox.dataset
+        .executionInstructor =
+          instructor.id;
 
 
-      /*
-       * Nova execução:
-       * instrutores da escala começam marcados.
-       *
-       * Edição:
-       * somente quem estava registrado como presente.
-       */
       checkbox.checked =
         execution
           ? Boolean(
@@ -1766,21 +1895,22 @@ function renderExecutionInstructors(
         "Entrada";
 
 
-      const start =
+      const startInput =
         document.createElement(
           "input",
         );
 
 
-      start.type =
+      startInput.type =
         "time";
 
 
-      start.dataset.executionInstructorStart =
-        instructor.id;
+      startInput.dataset
+        .executionInstructorStart =
+          instructor.id;
 
 
-      start.value =
+      startInput.value =
         formatTime(
           previousItem
             ?.hora_inicio_real ||
@@ -1791,7 +1921,7 @@ function renderExecutionInstructors(
 
 
       startField.append(
-        start,
+        startInput,
       );
 
 
@@ -1805,21 +1935,22 @@ function renderExecutionInstructors(
         "Saída";
 
 
-      const end =
+      const endInput =
         document.createElement(
           "input",
         );
 
 
-      end.type =
+      endInput.type =
         "time";
 
 
-      end.dataset.executionInstructorEnd =
-        instructor.id;
+      endInput.dataset
+        .executionInstructorEnd =
+          instructor.id;
 
 
-      end.value =
+      endInput.value =
         formatTime(
           previousItem
             ?.hora_fim_real ||
@@ -1830,7 +1961,7 @@ function renderExecutionInstructors(
 
 
       endField.append(
-        end,
+        endInput,
       );
 
 
@@ -1849,6 +1980,7 @@ function renderExecutionInstructors(
       checkbox.addEventListener(
         "change",
         () => {
+
           updateInstructorTimeFields(
             card,
           );
@@ -1861,9 +1993,10 @@ function renderExecutionInstructors(
       );
 
 
-      elements.instructorList.append(
-        card,
-      );
+      elements.instructorList
+        .append(
+          card,
+        );
 
 
       updateInstructorTimeFields(
@@ -1880,10 +2013,1918 @@ function renderExecutionInstructors(
 
 
 /* =========================================================
+   EDGE FUNCTION
+========================================================= */
+
+async function getFunctionErrorMessage(
+  error,
+) {
+  if (
+    error?.context instanceof
+    Response
+  ) {
+
+    try {
+
+      const response =
+        error.context.clone();
+
+
+      const data =
+        await response.json();
+
+
+      if (
+        data?.error
+      ) {
+        return data.error;
+      }
+
+
+      if (
+        data?.message
+      ) {
+        return data.message;
+      }
+
+    } catch {
+      // continua
+    }
+  }
+
+
+  return (
+    error?.message ||
+    "Não foi possível comunicar com o serviço de evidências."
+  );
+}
+
+
+async function invokeEvidenceFunction(
+  options = {},
+) {
+  const {
+    data,
+    error,
+    response,
+  } =
+    await supabase.functions
+      .invoke(
+        "evidencia-foto",
+        options,
+      );
+
+
+  if (error) {
+    throw new Error(
+      await getFunctionErrorMessage(
+        error,
+      ),
+    );
+  }
+
+
+  return {
+    data,
+    response,
+  };
+}
+
+
+/* =========================================================
+   COMPRESSÃO DA FOTO
+========================================================= */
+
+function canvasToBlob(
+  canvas,
+  quality,
+) {
+  return new Promise(
+    (
+      resolve,
+      reject,
+    ) => {
+
+      canvas.toBlob(
+        (blob) => {
+
+          if (!blob) {
+            reject(
+              new Error(
+                "Não foi possível processar a imagem.",
+              ),
+            );
+
+
+            return;
+          }
+
+
+          resolve(
+            blob,
+          );
+        },
+
+        "image/jpeg",
+
+        quality,
+      );
+    },
+  );
+}
+
+
+async function decodeImage(
+  file,
+) {
+  if (
+    "createImageBitmap"
+    in window
+  ) {
+
+    try {
+
+      const bitmap =
+        await createImageBitmap(
+          file,
+          {
+            imageOrientation:
+              "from-image",
+          },
+        );
+
+
+      return {
+        source:
+          bitmap,
+
+        width:
+          bitmap.width,
+
+        height:
+          bitmap.height,
+
+        close() {
+          bitmap.close();
+        },
+      };
+
+    } catch {
+      // fallback
+    }
+  }
+
+
+  const url =
+    URL.createObjectURL(
+      file,
+    );
+
+
+  const image =
+    new Image();
+
+
+  await new Promise(
+    (
+      resolve,
+      reject,
+    ) => {
+
+      image.onload =
+        resolve;
+
+
+      image.onerror =
+        () =>
+          reject(
+            new Error(
+              "Este formato de imagem não pôde ser processado.",
+            ),
+          );
+
+
+      image.src =
+        url;
+    },
+  );
+
+
+  return {
+    source:
+      image,
+
+    width:
+      image.naturalWidth,
+
+    height:
+      image.naturalHeight,
+
+    close() {
+      URL.revokeObjectURL(
+        url,
+      );
+    },
+  };
+}
+
+
+async function compressImage(
+  originalFile,
+) {
+  if (
+    originalFile.size >
+    MAX_ORIGINAL_FILE_SIZE
+  ) {
+    throw new Error(
+      `"${originalFile.name}" ultrapassa o limite de 25 MB para processamento.`,
+    );
+  }
+
+
+  const decoded =
+    await decodeImage(
+      originalFile,
+    );
+
+
+  try {
+
+    let maxDimension =
+      MAX_IMAGE_DIMENSION;
+
+
+    let quality =
+      0.84;
+
+
+    let finalBlob =
+      null;
+
+
+    for (
+      let attempt = 0;
+      attempt < 5;
+      attempt += 1
+    ) {
+
+      const ratio =
+        Math.min(
+          1,
+
+          maxDimension /
+            Math.max(
+              decoded.width,
+              decoded.height,
+            ),
+        );
+
+
+      const width =
+        Math.max(
+          1,
+
+          Math.round(
+            decoded.width *
+            ratio,
+          ),
+        );
+
+
+      const height =
+        Math.max(
+          1,
+
+          Math.round(
+            decoded.height *
+            ratio,
+          ),
+        );
+
+
+      const canvas =
+        document.createElement(
+          "canvas",
+        );
+
+
+      canvas.width =
+        width;
+
+
+      canvas.height =
+        height;
+
+
+      const context =
+        canvas.getContext(
+          "2d",
+        );
+
+
+      if (!context) {
+        throw new Error(
+          "O navegador não conseguiu preparar a imagem.",
+        );
+      }
+
+
+      context.fillStyle =
+        "#ffffff";
+
+
+      context.fillRect(
+        0,
+        0,
+        width,
+        height,
+      );
+
+
+      context.drawImage(
+        decoded.source,
+        0,
+        0,
+        width,
+        height,
+      );
+
+
+      finalBlob =
+        await canvasToBlob(
+          canvas,
+          quality,
+        );
+
+
+      if (
+        finalBlob.size <=
+        TARGET_UPLOAD_SIZE
+      ) {
+        break;
+      }
+
+
+      maxDimension =
+        Math.max(
+          1100,
+
+          Math.round(
+            maxDimension *
+            0.82,
+          ),
+        );
+
+
+      quality =
+        Math.max(
+          0.58,
+
+          quality -
+          0.08,
+        );
+    }
+
+
+    if (
+      !finalBlob ||
+      finalBlob.size >
+      5 * 1024 * 1024
+    ) {
+      throw new Error(
+        `Não foi possível reduzir "${originalFile.name}" para o tamanho permitido.`,
+      );
+    }
+
+
+    const baseName =
+      originalFile.name
+        .replace(
+          /\.[^.]+$/,
+          "",
+        )
+        .replace(
+          /[^\p{L}\p{N}\-_ ]/gu,
+          "",
+        )
+        .trim() ||
+      "foto";
+
+
+    return new File(
+      [
+        finalBlob,
+      ],
+
+      `${baseName}.jpg`,
+
+      {
+        type:
+          "image/jpeg",
+
+        lastModified:
+          Date.now(),
+      },
+    );
+
+  } finally {
+
+    decoded.close();
+  }
+}
+
+
+/* =========================================================
+   OBJECT URLS
+========================================================= */
+
+function cleanupPreviewUrls() {
+  previewObjectUrls
+    .forEach(
+      (url) => {
+        URL.revokeObjectURL(
+          url,
+        );
+      },
+    );
+
+
+  previewObjectUrls =
+    [];
+}
+
+
+/* =========================================================
+   DOWNLOAD PRIVADO
+========================================================= */
+
+async function loadPrivatePhotoBlob(
+  photo,
+) {
+  const {
+    data,
+  } =
+    await invokeEvidenceFunction({
+      body: {
+        action:
+          "download",
+
+        foto_id:
+          photo.id,
+      },
+    });
+
+
+  if (
+    !(data instanceof Blob)
+  ) {
+    throw new Error(
+      "A evidência não foi retornada como imagem.",
+    );
+  }
+
+
+  return new Blob(
+    [
+      data,
+    ],
+    {
+      type:
+        photo.mime_type ||
+        "image/jpeg",
+    },
+  );
+}
+
+
+/* =========================================================
+   CONTADOR DAS FOTOS
+========================================================= */
+
+function getCurrentExecutionPhotoCount() {
+  const execution =
+    getExecutionForEvent(
+      selectedEventId,
+    );
+
+
+  return (
+    getPhotosForExecution(
+      execution?.id,
+    ).length +
+    pendingPhotos.length
+  );
+}
+
+
+/* =========================================================
+   REMOVER FOTO PENDENTE
+========================================================= */
+
+async function removePendingPhoto(
+  pendingId,
+  elements,
+) {
+  pendingPhotos =
+    pendingPhotos.filter(
+      (item) =>
+        item.id !==
+        pendingId,
+    );
+
+
+  await renderPhotoEvidence(
+    elements,
+  );
+}
+
+
+/* =========================================================
+   REMOVER FOTO SALVA
+========================================================= */
+
+async function removeStoredPhoto(
+  photo,
+  elements,
+) {
+  const confirmed =
+    window.confirm(
+      "Deseja remover esta foto de evidência?",
+    );
+
+
+  if (!confirmed) {
+    return;
+  }
+
+
+  try {
+
+    setDialogStatus(
+      elements,
+      "Removendo foto...",
+      "loading",
+    );
+
+
+    await invokeEvidenceFunction({
+      method:
+        "DELETE",
+
+      body: {
+        foto_id:
+          photo.id,
+      },
+    });
+
+
+    await loadExecutionPhotos();
+
+
+    await renderPhotoEvidence(
+      elements,
+    );
+
+
+    render(
+      elements,
+    );
+
+
+    setDialogStatus(
+      elements,
+      "Foto removida com sucesso.",
+      "success",
+    );
+
+  } catch (
+    error
+  ) {
+
+    setDialogStatus(
+      elements,
+      error.message,
+      "error",
+    );
+  }
+}
+
+
+/* =========================================================
+   CARD
+========================================================= */
+
+function createPhotoCardBase(
+  titleText,
+) {
+  const card =
+    document.createElement(
+      "article",
+    );
+
+
+  card.className =
+    "executions-photo-card";
+
+
+  const preview =
+    document.createElement(
+      "div",
+    );
+
+
+  preview.className =
+    "executions-photo-preview";
+
+
+  const title =
+    document.createElement(
+      "strong",
+    );
+
+
+  title.className =
+    "executions-photo-title";
+
+
+  title.textContent =
+    titleText;
+
+
+  card.append(
+    preview,
+    title,
+  );
+
+
+  return {
+    card,
+    preview,
+  };
+}
+
+
+/* =========================================================
+   RENDER FOTOS
+========================================================= */
+
+async function renderPhotoEvidence(
+  elements,
+) {
+  const version =
+    ++photoRenderVersion;
+
+
+  cleanupPreviewUrls();
+
+
+  const execution =
+    getExecutionForEvent(
+      selectedEventId,
+    );
+
+
+  const storedPhotos =
+    getPhotosForExecution(
+      execution?.id,
+    );
+
+
+  elements.photoGrid
+    .replaceChildren();
+
+
+  const total =
+    storedPhotos.length +
+    pendingPhotos.length;
+
+
+  elements.photoCount.textContent =
+    `${total} de ${MAX_PHOTOS}`;
+
+
+  elements.photoEmpty.hidden =
+    total >
+    0;
+
+
+  elements.addPhotosButton.disabled =
+    total >=
+    MAX_PHOTOS;
+
+
+  /* =======================================================
+     FOTOS SALVAS
+  ======================================================= */
+
+  storedPhotos.forEach(
+    (photo) => {
+
+      const {
+        card,
+        preview,
+      } =
+        createPhotoCardBase(
+          `Foto ${photo.ordem}`,
+        );
+
+
+      const loading =
+        document.createElement(
+          "span",
+        );
+
+
+      loading.className =
+        "executions-photo-loading";
+
+
+      loading.textContent =
+        "Carregando...";
+
+
+      preview.append(
+        loading,
+      );
+
+
+      const caption =
+        document.createElement(
+          "input",
+        );
+
+
+      caption.type =
+        "text";
+
+
+      caption.maxLength =
+        300;
+
+
+      caption.placeholder =
+        "Legenda opcional";
+
+
+      caption.value =
+        photo.legenda ||
+        "";
+
+
+      caption.addEventListener(
+        "input",
+        () => {
+          photo.legenda =
+            caption.value;
+        },
+      );
+
+
+      caption.addEventListener(
+        "change",
+        async () => {
+
+          const {
+            error,
+          } =
+            await supabase.rpc(
+              "update_execution_photo_caption",
+              {
+                p_foto_id:
+                  photo.id,
+
+                p_legenda:
+                  caption.value
+                    .trim() ||
+                  null,
+              },
+            );
+
+
+          if (error) {
+
+            setDialogStatus(
+              elements,
+              "Não foi possível salvar a legenda.",
+              "error",
+            );
+
+          } else {
+
+            setDialogStatus(
+              elements,
+              "Legenda salva.",
+              "success",
+            );
+          }
+        },
+      );
+
+
+      const remove =
+        document.createElement(
+          "button",
+        );
+
+
+      remove.type =
+        "button";
+
+
+      remove.className =
+        "executions-photo-remove";
+
+
+      remove.textContent =
+        "Remover";
+
+
+      remove.addEventListener(
+        "click",
+        async () => {
+
+          await removeStoredPhoto(
+            photo,
+            elements,
+          );
+        },
+      );
+
+
+      card.append(
+        caption,
+        remove,
+      );
+
+
+      elements.photoGrid
+        .append(
+          card,
+        );
+
+
+      /*
+       * Carregamento privado assíncrono.
+       */
+      (async () => {
+
+        try {
+
+          const blob =
+            await loadPrivatePhotoBlob(
+              photo,
+            );
+
+
+          const objectUrl =
+            URL.createObjectURL(
+              blob,
+            );
+
+
+          if (
+            version !==
+            photoRenderVersion
+          ) {
+
+            URL.revokeObjectURL(
+              objectUrl,
+            );
+
+
+            return;
+          }
+
+
+          previewObjectUrls.push(
+            objectUrl,
+          );
+
+
+          const image =
+            document.createElement(
+              "img",
+            );
+
+
+          image.src =
+            objectUrl;
+
+
+          image.alt =
+            photo.legenda ||
+            `Evidência ${photo.ordem}`;
+
+
+          preview.replaceChildren(
+            image,
+          );
+
+        } catch (
+          error
+        ) {
+
+          console.error(
+            "[YXZ] Não foi possível carregar preview:",
+            error,
+          );
+
+
+          if (
+            version ===
+            photoRenderVersion
+          ) {
+            preview.textContent =
+              "Não foi possível carregar.";
+          }
+        }
+      })();
+    },
+  );
+
+
+  /* =======================================================
+     FOTOS PENDENTES
+  ======================================================= */
+
+  pendingPhotos.forEach(
+    (
+      photo,
+      index,
+    ) => {
+
+      const {
+        card,
+        preview,
+      } =
+        createPhotoCardBase(
+          `Nova foto ${storedPhotos.length + index + 1}`,
+        );
+
+
+      card.classList.add(
+        "executions-photo-card-pending",
+      );
+
+
+      const objectUrl =
+        URL.createObjectURL(
+          photo.file,
+        );
+
+
+      previewObjectUrls.push(
+        objectUrl,
+      );
+
+
+      const image =
+        document.createElement(
+          "img",
+        );
+
+
+      image.src =
+        objectUrl;
+
+
+      image.alt =
+        "Nova evidência fotográfica";
+
+
+      preview.append(
+        image,
+      );
+
+
+      const badge =
+        document.createElement(
+          "span",
+        );
+
+
+      badge.className =
+        "executions-photo-pending-badge";
+
+
+      badge.textContent =
+        "Aguardando envio";
+
+
+      const caption =
+        document.createElement(
+          "input",
+        );
+
+
+      caption.type =
+        "text";
+
+
+      caption.maxLength =
+        300;
+
+
+      caption.placeholder =
+        "Legenda opcional";
+
+
+      caption.value =
+        photo.legenda;
+
+
+      caption.addEventListener(
+        "input",
+        () => {
+          photo.legenda =
+            caption.value;
+        },
+      );
+
+
+      const remove =
+        document.createElement(
+          "button",
+        );
+
+
+      remove.type =
+        "button";
+
+
+      remove.className =
+        "executions-photo-remove";
+
+
+      remove.textContent =
+        "Remover";
+
+
+      remove.addEventListener(
+        "click",
+        async () => {
+
+          await removePendingPhoto(
+            photo.id,
+            elements,
+          );
+        },
+      );
+
+
+      card.append(
+        badge,
+        caption,
+        remove,
+      );
+
+
+      elements.photoGrid
+        .append(
+          card,
+        );
+    },
+  );
+}
+
+
+/* =========================================================
+   SELEÇÃO DE ARQUIVOS
+========================================================= */
+
+async function handlePhotoSelection(
+  fileList,
+  elements,
+) {
+  const files =
+    Array.from(
+      fileList ||
+      [],
+    );
+
+
+  if (!files.length) {
+    return;
+  }
+
+
+  const available =
+    MAX_PHOTOS -
+    getCurrentExecutionPhotoCount();
+
+
+  if (
+    available <= 0
+  ) {
+
+    setDialogStatus(
+      elements,
+      "O limite de 6 fotos já foi atingido.",
+      "error",
+    );
+
+
+    return;
+  }
+
+
+  const selected =
+    files.slice(
+      0,
+      available,
+    );
+
+
+  try {
+
+    for (
+      let index = 0;
+      index < selected.length;
+      index += 1
+    ) {
+
+      const original =
+        selected[index];
+
+
+      setDialogStatus(
+        elements,
+        `Preparando foto ${index + 1} de ${selected.length}...`,
+        "loading",
+      );
+
+
+      const compressed =
+        await compressImage(
+          original,
+        );
+
+
+      pendingPhotos.push({
+        id:
+          crypto.randomUUID(),
+
+        originalName:
+          original.name,
+
+        file:
+          compressed,
+
+        legenda:
+          "",
+      });
+    }
+
+
+    await renderPhotoEvidence(
+      elements,
+    );
+
+
+    const ignored =
+      files.length -
+      selected.length;
+
+
+    if (
+      ignored >
+      0
+    ) {
+
+      setDialogStatus(
+        elements,
+        `${ignored} arquivo(s) não foram incluídos porque o limite é de 6 fotos.`,
+        "info",
+      );
+
+    } else {
+
+      setDialogStatus(
+        elements,
+        "Fotos preparadas para envio.",
+        "success",
+      );
+    }
+
+  } catch (
+    error
+  ) {
+
+    setDialogStatus(
+      elements,
+      error.message ||
+      "Não foi possível processar uma das imagens.",
+      "error",
+    );
+
+  } finally {
+
+    elements.photoInput.value =
+      "";
+  }
+}
+
+
+/* =========================================================
+   INSTRUTORES SELECIONADOS
+========================================================= */
+
+function getSelectedExecutionInstructors(
+  elements,
+) {
+  const result =
+    [];
+
+
+  const checkboxes =
+    elements.instructorList
+      .querySelectorAll(
+        "input[data-execution-instructor]:checked",
+      );
+
+
+  checkboxes.forEach(
+    (checkbox) => {
+
+      const instructorId =
+        checkbox.value;
+
+
+      const start =
+        elements.instructorList
+          .querySelector(
+            `[data-execution-instructor-start="${instructorId}"]`,
+          )
+          ?.value;
+
+
+      const end =
+        elements.instructorList
+          .querySelector(
+            `[data-execution-instructor-end="${instructorId}"]`,
+          )
+          ?.value;
+
+
+      result.push({
+        instrutor_id:
+          instructorId,
+
+        hora_inicio_real:
+          start,
+
+        hora_fim_real:
+          end,
+      });
+    },
+  );
+
+
+  return result;
+}
+
+
+/* =========================================================
+   VALIDAR FORMULÁRIO
+========================================================= */
+
+function collectExecutionPayload(
+  elements,
+) {
+  const event =
+    getEventById(
+      selectedEventId,
+    );
+
+
+  if (!event) {
+    throw new Error(
+      "Evento não encontrado.",
+    );
+  }
+
+
+  const realDate =
+    elements.realDate.value;
+
+
+  const start =
+    elements.startTime.value;
+
+
+  const end =
+    elements.endTime.value;
+
+
+  if (!realDate) {
+    throw new Error(
+      "Informe a data realizada.",
+    );
+  }
+
+
+  if (
+    !start ||
+    !end
+  ) {
+    throw new Error(
+      "Informe o horário realizado.",
+    );
+  }
+
+
+  if (
+    end <=
+    start
+  ) {
+    throw new Error(
+      "O horário final precisa ser posterior ao horário inicial.",
+    );
+  }
+
+
+  const participantText =
+    elements.participantsInput
+      .value
+      .trim();
+
+
+  const participants =
+    participantText
+      ? Number(
+          participantText,
+        )
+      : null;
+
+
+  if (
+    participants !==
+      null
+
+    &&
+    (
+      !Number.isInteger(
+        participants,
+      )
+
+      ||
+      participants < 0
+    )
+  ) {
+    throw new Error(
+      "Informe uma quantidade válida de participantes.",
+    );
+  }
+
+
+  const selectedInstructors =
+    getSelectedExecutionInstructors(
+      elements,
+    );
+
+
+  selectedInstructors.forEach(
+    (item) => {
+
+      const instructor =
+        getInstructorById(
+          item.instrutor_id,
+        );
+
+
+      if (
+        !item.hora_inicio_real ||
+        !item.hora_fim_real
+      ) {
+        throw new Error(
+          `Informe os horários de "${instructor?.nome || "instrutor"}".`,
+        );
+      }
+
+
+      if (
+        item.hora_fim_real <=
+        item.hora_inicio_real
+      ) {
+        throw new Error(
+          `O horário de "${instructor?.nome || "instrutor"}" é inválido.`,
+        );
+      }
+
+
+      if (
+        item.hora_inicio_real <
+          start
+
+        ||
+        item.hora_fim_real >
+          end
+      ) {
+        throw new Error(
+          `O horário de "${instructor?.nome || "instrutor"}" precisa estar dentro do horário real do evento.`,
+        );
+      }
+    },
+  );
+
+
+  return {
+    event,
+
+    realDate,
+
+    start,
+
+    end,
+
+    participants,
+
+    notes:
+      elements.notes.value
+        .trim() ||
+      null,
+
+    selectedInstructors,
+  };
+}
+
+
+/* =========================================================
+   SALVAR DADOS DA EXECUÇÃO
+========================================================= */
+
+async function saveExecutionData(
+  payload,
+) {
+  const {
+    data,
+    error,
+  } =
+    await supabase.rpc(
+      "register_event_execution",
+      {
+        p_evento_id:
+          payload.event.id,
+
+        p_data_real:
+          payload.realDate,
+
+        p_hora_inicio_real:
+          payload.start,
+
+        p_hora_fim_real:
+          payload.end,
+
+        p_participantes_reais:
+          payload.participants,
+
+        p_observacoes:
+          payload.notes,
+
+        p_instrutores:
+          payload.selectedInstructors,
+      },
+    );
+
+
+  if (error) {
+    throw error;
+  }
+
+
+  return data;
+}
+
+
+/* =========================================================
+   SALVAR LEGENDAS
+========================================================= */
+
+async function saveExistingCaptions(
+  executionId,
+) {
+  const photos =
+    getPhotosForExecution(
+      executionId,
+    );
+
+
+  for (
+    const photo
+    of photos
+  ) {
+
+    const {
+      error,
+    } =
+      await supabase.rpc(
+        "update_execution_photo_caption",
+        {
+          p_foto_id:
+            photo.id,
+
+          p_legenda:
+            photo.legenda
+              ?.trim() ||
+            null,
+        },
+      );
+
+
+    if (error) {
+      throw error;
+    }
+  }
+}
+
+
+/* =========================================================
+   SINCRONIZAR PASTA
+========================================================= */
+
+async function syncExistingPhotoFolder(
+  executionId,
+) {
+  if (
+    getPhotosForExecution(
+      executionId,
+    ).length ===
+    0
+  ) {
+    return;
+  }
+
+
+  await invokeEvidenceFunction({
+    body: {
+      action:
+        "sync-folder",
+
+      execucao_id:
+        executionId,
+    },
+  });
+}
+
+
+/* =========================================================
+   UPLOAD DA FILA
+========================================================= */
+
+async function uploadPendingPhotos(
+  executionId,
+  elements,
+) {
+  const queue =
+    [
+      ...pendingPhotos,
+    ];
+
+
+  let current =
+    0;
+
+
+  try {
+
+    for (
+      const photo
+      of queue
+    ) {
+
+      current +=
+        1;
+
+
+      setDialogStatus(
+        elements,
+        `Enviando foto ${current} de ${queue.length}...`,
+        "loading",
+      );
+
+
+      const formData =
+        new FormData();
+
+
+      formData.append(
+        "execucao_id",
+        executionId,
+      );
+
+
+      formData.append(
+        "legenda",
+        photo.legenda ||
+        "",
+      );
+
+
+      formData.append(
+        "nome_original",
+        photo.originalName,
+      );
+
+
+      formData.append(
+        "file",
+        photo.file,
+      );
+
+
+      await invokeEvidenceFunction({
+        body:
+          formData,
+      });
+
+
+      pendingPhotos =
+        pendingPhotos.filter(
+          (item) =>
+            item.id !==
+            photo.id,
+        );
+    }
+
+  } catch (
+    error
+  ) {
+
+    await loadExecutionPhotos();
+
+
+    await renderPhotoEvidence(
+      elements,
+    );
+
+
+    throw error;
+  }
+
+
+  await loadExecutionPhotos();
+}
+
+
+/* =========================================================
+   SALVAR / FINALIZAR
+========================================================= */
+
+async function persistExecution(
+  elements,
+  {
+    finalize = false,
+  } = {},
+) {
+  let payload;
+
+
+  try {
+
+    payload =
+      collectExecutionPayload(
+        elements,
+      );
+
+  } catch (
+    error
+  ) {
+
+    setDialogStatus(
+      elements,
+      error.message,
+      "error",
+    );
+
+
+    return;
+  }
+
+
+  elements.save.disabled =
+    true;
+
+
+  elements.saveDraft.disabled =
+    true;
+
+
+  elements.addPhotosButton.disabled =
+    true;
+
+
+  try {
+
+    setDialogStatus(
+      elements,
+      "Salvando dados da execução...",
+      "loading",
+    );
+
+
+    /* =====================================================
+       1. SALVAR DADOS
+    ===================================================== */
+
+    const executionId =
+      await saveExecutionData(
+        payload,
+      );
+
+
+    /* =====================================================
+       2. LEGENDAS
+    ===================================================== */
+
+    await saveExistingCaptions(
+      executionId,
+    );
+
+
+    /* =====================================================
+       3. REORGANIZAR FOTOS ANTIGAS SE DATA MUDOU
+    ===================================================== */
+
+    await syncExistingPhotoFolder(
+      executionId,
+    );
+
+
+    /* =====================================================
+       4. UPLOAD NOVAS FOTOS
+    ===================================================== */
+
+    await uploadPendingPhotos(
+      executionId,
+      elements,
+    );
+
+
+    /* =====================================================
+       5. RECARREGAR
+    ===================================================== */
+
+    await Promise.all([
+      loadExecutions(),
+      loadExecutionInstructors(),
+      loadExecutionPhotos(),
+    ]);
+
+
+    /* =====================================================
+       RASCUNHO
+    ===================================================== */
+
+    if (!finalize) {
+
+      await loadEvents();
+
+
+      render(
+        elements,
+      );
+
+
+      closeExecutionDialog(
+        elements,
+      );
+
+
+      setPageMessage(
+        elements,
+        "Rascunho salvo com sucesso.",
+        "success",
+      );
+
+
+      return;
+    }
+
+
+    /* =====================================================
+       EVIDÊNCIA OBRIGATÓRIA
+    ===================================================== */
+
+    const photoCount =
+      getPhotosForExecution(
+        executionId,
+      ).length;
+
+
+    if (
+      photoCount <
+      1
+    ) {
+
+      await renderPhotoEvidence(
+        elements,
+      );
+
+
+      render(
+        elements,
+      );
+
+
+      setDialogStatus(
+        elements,
+        "Os dados foram salvos como rascunho. Adicione pelo menos uma foto para concluir a execução.",
+        "error",
+      );
+
+
+      return;
+    }
+
+
+    /* =====================================================
+       FINALIZAR
+    ===================================================== */
+
+    setDialogStatus(
+      elements,
+      "Finalizando execução...",
+      "loading",
+    );
+
+
+    const {
+      error: finalizeError,
+    } =
+      await supabase.rpc(
+        "finalize_event_execution",
+        {
+          p_evento_id:
+            payload.event.id,
+        },
+      );
+
+
+    if (
+      finalizeError
+    ) {
+      throw finalizeError;
+    }
+
+
+    await reloadOperationalData();
+
+
+    render(
+      elements,
+    );
+
+
+    closeExecutionDialog(
+      elements,
+    );
+
+
+    setPageMessage(
+      elements,
+      "Execução concluída com sucesso.",
+      "success",
+    );
+
+  } catch (
+    error
+  ) {
+
+    console.error(
+      "[YXZ] Erro ao salvar execução:",
+      error,
+    );
+
+
+    setDialogStatus(
+      elements,
+      error?.message ||
+      "Não foi possível salvar a execução.",
+      "error",
+    );
+
+  } finally {
+
+    elements.save.disabled =
+      false;
+
+
+    elements.saveDraft.disabled =
+      false;
+
+
+    elements.addPhotosButton.disabled =
+      getCurrentExecutionPhotoCount() >=
+      MAX_PHOTOS;
+  }
+}
+
+
+/* =========================================================
    ABRIR MODAL
 ========================================================= */
 
-function openExecutionDialog(
+async function openExecutionDialog(
   eventId,
   elements,
 ) {
@@ -1900,6 +3941,13 @@ function openExecutionDialog(
 
   selectedEventId =
     event.id;
+
+
+  pendingPhotos =
+    [];
+
+
+  cleanupPreviewUrls();
 
 
   const school =
@@ -1920,22 +3968,35 @@ function openExecutionDialog(
     );
 
 
+  const finalized =
+    execution?.status ===
+    "finalizada";
+
+
   elements.kicker.textContent =
-    execution
-      ? "Execução registrada"
-      : "Evento realizado";
+    finalized
+      ? "Execução finalizada"
+      : execution
+        ? "Rascunho existente"
+        : "Evento realizado";
 
 
   elements.title.textContent =
-    execution
+    finalized
       ? "Editar execução"
-      : "Registrar execução";
+      : execution
+        ? "Continuar execução"
+        : "Registrar execução";
+
+
+  elements.saveDraft.hidden =
+    finalized;
 
 
   elements.save.textContent =
-    execution
+    finalized
       ? "Salvar alterações"
-      : "Registrar execução";
+      : "Concluir execução";
 
 
   elements.eventType.textContent =
@@ -1972,15 +4033,7 @@ function openExecutionDialog(
 
 
   elements.eventTime.textContent =
-    (
-      formatTime(
-        event.hora_inicio,
-      ) +
-      "–" +
-      formatTime(
-        event.hora_fim,
-      )
-    );
+    `${formatTime(event.hora_inicio)}–${formatTime(event.hora_fim)}`;
 
 
   elements.realDate.value =
@@ -2025,7 +4078,13 @@ function openExecutionDialog(
   );
 
 
-  elements.dialog.showModal();
+  await renderPhotoEvidence(
+    elements,
+  );
+
+
+  elements.dialog
+    .showModal();
 }
 
 
@@ -2038,6 +4097,17 @@ function closeExecutionDialog(
 ) {
   selectedEventId =
     null;
+
+
+  pendingPhotos =
+    [];
+
+
+  photoRenderVersion +=
+    1;
+
+
+  cleanupPreviewUrls();
 
 
   if (
@@ -2054,388 +4124,14 @@ function closeExecutionDialog(
 
 
 /* =========================================================
-   MONTAR LISTA DE INSTRUTORES
-========================================================= */
-
-function getSelectedExecutionInstructors(
-  elements,
-) {
-  const selected =
-    [];
-
-
-  const checkboxes =
-    elements.instructorList
-      .querySelectorAll(
-        "input[data-execution-instructor]:checked",
-      );
-
-
-  for (
-    const checkbox
-    of checkboxes
-  ) {
-    const instructorId =
-      checkbox.value;
-
-
-    const start =
-      elements.instructorList
-        .querySelector(
-          `[data-execution-instructor-start="${instructorId}"]`,
-        )
-        ?.value;
-
-
-    const end =
-      elements.instructorList
-        .querySelector(
-          `[data-execution-instructor-end="${instructorId}"]`,
-        )
-        ?.value;
-
-
-    selected.push({
-      instrutor_id:
-        instructorId,
-
-      hora_inicio_real:
-        start,
-
-      hora_fim_real:
-        end,
-    });
-  }
-
-
-  return selected;
-}
-
-
-/* =========================================================
-   SALVAR EXECUÇÃO
-========================================================= */
-
-async function saveExecution(
-  elements,
-) {
-  const event =
-    getEventById(
-      selectedEventId,
-    );
-
-
-  if (!event) {
-    return;
-  }
-
-
-  const realDate =
-    elements.realDate.value;
-
-
-  const start =
-    elements.startTime.value;
-
-
-  const end =
-    elements.endTime.value;
-
-
-  const participantValue =
-    elements.participantsInput
-      .value
-      .trim();
-
-
-  const participants =
-    participantValue
-      ? Number(
-          participantValue,
-        )
-      : null;
-
-
-  const notes =
-    elements.notes.value
-      .trim() ||
-    null;
-
-
-  if (!realDate) {
-    setDialogStatus(
-      elements,
-      "Informe a data realizada.",
-      "error",
-    );
-
-
-    return;
-  }
-
-
-  if (
-    !start ||
-    !end
-  ) {
-    setDialogStatus(
-      elements,
-      "Informe o horário real do evento.",
-      "error",
-    );
-
-
-    return;
-  }
-
-
-  if (
-    end <=
-    start
-  ) {
-    setDialogStatus(
-      elements,
-      "O horário final precisa ser posterior ao horário inicial.",
-      "error",
-    );
-
-
-    return;
-  }
-
-
-  if (
-    participants !==
-      null
-
-    &&
-    (
-      !Number.isInteger(
-        participants,
-      )
-
-      ||
-      participants < 0
-    )
-  ) {
-    setDialogStatus(
-      elements,
-      "Informe uma quantidade válida de participantes.",
-      "error",
-    );
-
-
-    return;
-  }
-
-
-  const selectedInstructors =
-    getSelectedExecutionInstructors(
-      elements,
-    );
-
-
-  for (
-    const item
-    of selectedInstructors
-  ) {
-    const instructor =
-      getInstructorById(
-        item.instrutor_id,
-      );
-
-
-    if (
-      !item.hora_inicio_real ||
-      !item.hora_fim_real
-    ) {
-      setDialogStatus(
-        elements,
-        `Informe os horários de "${instructor?.nome || "instrutor"}".`,
-        "error",
-      );
-
-
-      return;
-    }
-
-
-    if (
-      item.hora_fim_real <=
-      item.hora_inicio_real
-    ) {
-      setDialogStatus(
-        elements,
-        `O horário de "${instructor?.nome || "instrutor"}" é inválido.`,
-        "error",
-      );
-
-
-      return;
-    }
-
-
-    if (
-      item.hora_inicio_real <
-        start
-
-      ||
-      item.hora_fim_real >
-        end
-    ) {
-      setDialogStatus(
-        elements,
-        `O horário de "${instructor?.nome || "instrutor"}" precisa estar dentro do horário real do evento.`,
-        "error",
-      );
-
-
-      return;
-    }
-  }
-
-
-  const eventScale =
-    getScaleForEvent(
-      event.id,
-    );
-
-
-  if (
-    eventScale.length > 0 &&
-    selectedInstructors.length === 0
-  ) {
-    const confirmed =
-      window.confirm(
-        "Nenhum instrutor da escala foi marcado como presente. Deseja continuar?",
-      );
-
-
-    if (!confirmed) {
-      return;
-    }
-  }
-
-
-  const wasEditing =
-    Boolean(
-      getExecutionForEvent(
-        event.id,
-      ),
-    );
-
-
-  elements.save.disabled =
-    true;
-
-
-  elements.save.textContent =
-    "Salvando...";
-
-
-  setDialogStatus(
-    elements,
-    "Salvando execução...",
-    "loading",
-  );
-
-
-  try {
-    const {
-      error,
-    } =
-      await supabase
-        .rpc(
-          "register_event_execution",
-          {
-            p_evento_id:
-              event.id,
-
-            p_data_real:
-              realDate,
-
-            p_hora_inicio_real:
-              start,
-
-            p_hora_fim_real:
-              end,
-
-            p_participantes_reais:
-              participants,
-
-            p_observacoes:
-              notes,
-
-            p_instrutores:
-              selectedInstructors,
-          },
-        );
-
-
-    if (error) {
-      throw error;
-    }
-
-
-    await reloadOperationalData();
-
-
-    render(
-      elements,
-    );
-
-
-    closeExecutionDialog(
-      elements,
-    );
-
-
-    setPageMessage(
-      elements,
-      wasEditing
-        ? "Execução atualizada com sucesso."
-        : "Evento registrado como realizado com sucesso.",
-      "success",
-    );
-
-  } catch (error) {
-
-    console.error(
-      "[YXZ] Não foi possível registrar a execução:",
-      error,
-    );
-
-
-    setDialogStatus(
-      elements,
-      error?.message ||
-      "Não foi possível registrar a execução.",
-      "error",
-    );
-
-  } finally {
-
-    elements.save.disabled =
-      false;
-
-
-    elements.save.textContent =
-      wasEditing
-        ? "Salvar alterações"
-        : "Registrar execução";
-  }
-}
-
-
-/* =========================================================
-   EVENTOS
+   EVENTOS DA INTERFACE
 ========================================================= */
 
 function bindEvents(
   elements,
 ) {
   elements.search
-    ?.addEventListener(
+    .addEventListener(
       "input",
       () => {
         renderTable(
@@ -2453,28 +4149,76 @@ function bindEvents(
     elements.dateEnd,
   ].forEach(
     (element) => {
-      element
-        ?.addEventListener(
-          "change",
-          () => {
-            renderTable(
-              elements,
-            );
-          },
-        );
+
+      element.addEventListener(
+        "change",
+        () => {
+
+          renderTable(
+            elements,
+          );
+        },
+      );
     },
   );
 
 
+  elements.addPhotosButton
+    .addEventListener(
+      "click",
+      () => {
+
+        elements.photoInput
+          .click();
+      },
+    );
+
+
+  elements.photoInput
+    .addEventListener(
+      "change",
+      async () => {
+
+        await handlePhotoSelection(
+          elements.photoInput.files,
+          elements,
+        );
+      },
+    );
+
+
+  elements.saveDraft
+    .addEventListener(
+      "click",
+      async () => {
+
+        await persistExecution(
+          elements,
+          {
+            finalize:
+              false,
+          },
+        );
+      },
+    );
+
+
   elements.form
-    ?.addEventListener(
+    .addEventListener(
       "submit",
-      async (event) => {
+      async (
+        event,
+      ) => {
+
         event.preventDefault();
 
 
-        await saveExecution(
+        await persistExecution(
           elements,
+          {
+            finalize:
+              true,
+          },
         );
       },
     );
@@ -2483,9 +4227,11 @@ function bindEvents(
   elements.closeButtons
     .forEach(
       (button) => {
+
         button.addEventListener(
           "click",
           () => {
+
             closeExecutionDialog(
               elements,
             );
@@ -2496,17 +4242,38 @@ function bindEvents(
 
 
   elements.dialog
-    ?.addEventListener(
+    .addEventListener(
       "click",
-      (event) => {
+      (
+        event,
+      ) => {
+
         if (
           event.target ===
           elements.dialog
         ) {
+
           closeExecutionDialog(
             elements,
           );
         }
+      },
+    );
+
+
+  elements.dialog
+    .addEventListener(
+      "cancel",
+      (
+        event,
+      ) => {
+
+        event.preventDefault();
+
+
+        closeExecutionDialog(
+          elements,
+        );
       },
     );
 }
@@ -2527,6 +4294,7 @@ export async function initExecucoesPage() {
 
 
   try {
+
     setPageMessage(
       elements,
       "Carregando execuções...",
@@ -2542,6 +4310,7 @@ export async function initExecucoesPage() {
       loadScales(),
       loadExecutions(),
       loadExecutionInstructors(),
+      loadExecutionPhotos(),
     ]);
 
 
@@ -2560,7 +4329,9 @@ export async function initExecucoesPage() {
       "",
     );
 
-  } catch (error) {
+  } catch (
+    error
+  ) {
 
     console.error(
       "[YXZ] Não foi possível carregar Execuções:",
@@ -2569,7 +4340,7 @@ export async function initExecucoesPage() {
 
 
     elements.tableBody
-      ?.replaceChildren();
+      .replaceChildren();
 
 
     setPageMessage(
