@@ -81,6 +81,11 @@ export default defineConfig({
           process.cwd(),
           "app/previsoes.html",
         ),
+
+        gastos: resolve(
+          process.cwd(),
+          "app/gastos.html",
+        ),
       },
     },
   },

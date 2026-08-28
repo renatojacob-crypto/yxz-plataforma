@@ -1,0 +1,975 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <meta
+    name="description"
+    content="Gastos reais da Plataforma YXZ"
+  >
+
+  <meta
+    name="robots"
+    content="noindex, nofollow"
+  >
+
+  <meta
+    name="theme-color"
+    content="#0f2c25"
+  >
+
+  <title>
+    Gastos | YXZ Plataforma
+  </title>
+
+  <link
+    rel="icon"
+    href="/assets/favicon.png"
+    type="image/png"
+  >
+</head>
+
+
+<body data-app-page="gastos">
+
+  <div
+    class="app-shell"
+    data-app-shell
+    hidden
+  >
+
+    <aside
+      class="sidebar"
+      id="sidebar"
+      aria-label="Menu lateral"
+    ></aside>
+
+
+    <div
+      class="sidebar-overlay"
+      data-sidebar-close
+      aria-hidden="true"
+    ></div>
+
+
+    <div class="app-main">
+
+      <header class="app-header">
+
+        <div class="header-left">
+
+          <button
+            type="button"
+            class="mobile-menu-button"
+            data-sidebar-toggle
+            aria-label="Abrir menu"
+            aria-expanded="false"
+            aria-controls="sidebar"
+          >
+            <span aria-hidden="true">
+              ☰
+            </span>
+          </button>
+
+
+          <div class="header-context">
+            Gastos Reais
+          </div>
+
+        </div>
+
+
+        <div class="header-user">
+
+          <div
+            class="user-avatar"
+            data-auth-avatar
+            aria-hidden="true"
+          >
+            YXZ
+          </div>
+
+
+          <div class="user-info">
+
+            <strong data-auth-name>
+              Usuário
+            </strong>
+
+            <span data-auth-cargo>
+              Carregando...
+            </span>
+
+          </div>
+
+
+          <button
+            type="button"
+            class="btn btn-ghost"
+            data-auth-logout
+          >
+            Sair
+          </button>
+
+        </div>
+
+      </header>
+
+
+      <main class="app-content">
+
+        <div class="page-heading">
+
+          <div>
+
+            <h1>
+              Gastos Reais
+            </h1>
+
+            <p>
+              Registre os custos efetivamente realizados
+              em cada evento.
+            </p>
+
+          </div>
+
+
+          <button
+            type="button"
+            class="btn btn-ghost"
+            data-expenses-refresh
+          >
+            Atualizar
+          </button>
+
+        </div>
+
+
+        <p
+          class="expenses-page-message"
+          data-expenses-message
+          role="status"
+          aria-live="polite"
+        ></p>
+
+
+        <!-- ==================================================
+             FILTROS
+        ================================================== -->
+
+        <section
+          class="card expenses-filter-card"
+          aria-labelledby="expenses-filter-title"
+        >
+
+          <div class="expenses-filter-heading">
+
+            <div>
+
+              <h2 id="expenses-filter-title">
+                Consulta
+              </h2>
+
+              <p>
+                A competência considera a data do evento,
+                permitindo comparação direta com a previsão.
+              </p>
+
+            </div>
+
+          </div>
+
+
+          <div class="expenses-filters">
+
+            <div class="expenses-filter-field">
+
+              <label for="expensesMonth">
+                Competência
+              </label>
+
+              <input
+                id="expensesMonth"
+                type="month"
+                required
+                data-expenses-month
+              >
+
+            </div>
+
+
+            <div class="expenses-filter-field">
+
+              <label for="expensesRegional">
+                Regional
+              </label>
+
+              <select
+                id="expensesRegional"
+                data-expenses-regional
+              >
+
+                <option value="">
+                  Todas
+                </option>
+
+              </select>
+
+            </div>
+
+
+            <div class="expenses-filter-field">
+
+              <label for="expensesType">
+                Tipo
+              </label>
+
+              <select
+                id="expensesType"
+                data-expenses-type
+              >
+
+                <option value="">
+                  Todos
+                </option>
+
+                <option value="oficina_educacional">
+                  Oficina Educacional
+                </option>
+
+                <option value="evento_comunidade">
+                  Evento à Comunidade
+                </option>
+
+              </select>
+
+            </div>
+
+
+            <div class="expenses-filter-field">
+
+              <label for="expensesStatus">
+                Situação
+              </label>
+
+              <select
+                id="expensesStatus"
+                data-expenses-status
+              >
+
+                <option value="">
+                  Todas
+                </option>
+
+                <option value="agendada">
+                  Agendados
+                </option>
+
+                <option value="realizada">
+                  Realizados
+                </option>
+
+                <option value="cancelada">
+                  Cancelados
+                </option>
+
+              </select>
+
+            </div>
+
+
+            <div
+              class="expenses-filter-field expenses-search-field"
+            >
+
+              <label for="expensesSearch">
+                Buscar
+              </label>
+
+              <input
+                id="expensesSearch"
+                type="search"
+                autocomplete="off"
+                placeholder="Evento, escola ou Regional"
+                data-expenses-search
+              >
+
+            </div>
+
+          </div>
+
+        </section>
+
+
+        <!-- ==================================================
+             RESUMO
+        ================================================== -->
+
+        <section
+          class="expenses-summary"
+          aria-label="Resumo dos gastos"
+        >
+
+          <article class="card expenses-summary-card">
+
+            <span>
+              Total realizado
+            </span>
+
+            <strong data-expenses-total>
+              —
+            </strong>
+
+          </article>
+
+
+          <article class="card expenses-summary-card">
+
+            <span>
+              Eventos com gastos
+            </span>
+
+            <strong data-expenses-events-with>
+              —
+            </strong>
+
+          </article>
+
+
+          <article class="card expenses-summary-card">
+
+            <span>
+              Eventos sem gastos
+            </span>
+
+            <strong data-expenses-events-without>
+              —
+            </strong>
+
+          </article>
+
+
+          <article class="card expenses-summary-card">
+
+            <span>
+              Itens lançados
+            </span>
+
+            <strong data-expenses-items>
+              —
+            </strong>
+
+          </article>
+
+
+          <article class="card expenses-summary-card">
+
+            <span>
+              Média por evento
+            </span>
+
+            <strong data-expenses-average>
+              —
+            </strong>
+
+          </article>
+
+        </section>
+
+
+        <!-- ==================================================
+             TABELA
+        ================================================== -->
+
+        <section
+          class="card expenses-table-card"
+          aria-labelledby="expenses-table-title"
+        >
+
+          <div class="expenses-table-heading">
+
+            <div>
+
+              <h2 id="expenses-table-title">
+                Gastos por evento
+              </h2>
+
+              <p data-expenses-period-label>
+                —
+              </p>
+
+            </div>
+
+          </div>
+
+
+          <div class="expenses-table-wrapper">
+
+            <table class="expenses-table">
+
+              <thead>
+
+                <tr>
+
+                  <th>
+                    Data
+                  </th>
+
+                  <th>
+                    Evento
+                  </th>
+
+                  <th>
+                    Escola
+                  </th>
+
+                  <th>
+                    Regional
+                  </th>
+
+                  <th>
+                    Deslocamento
+                  </th>
+
+                  <th>
+                    Alimentação
+                  </th>
+
+                  <th>
+                    Hospedagem
+                  </th>
+
+                  <th>
+                    Materiais
+                  </th>
+
+                  <th>
+                    Outros
+                  </th>
+
+                  <th>
+                    Total
+                  </th>
+
+                  <th>
+                    Ações
+                  </th>
+
+                </tr>
+
+              </thead>
+
+
+              <tbody data-expenses-table-body>
+
+                <tr>
+
+                  <td
+                    colspan="11"
+                    class="expenses-loading"
+                  >
+                    Carregando gastos...
+                  </td>
+
+                </tr>
+
+              </tbody>
+
+            </table>
+
+          </div>
+
+
+          <div
+            class="expenses-empty"
+            data-expenses-empty
+            hidden
+          >
+
+            <strong>
+              Nenhum evento encontrado.
+            </strong>
+
+            <span>
+              Ajuste a competência ou os filtros.
+            </span>
+
+          </div>
+
+        </section>
+
+      </main>
+
+    </div>
+
+  </div>
+
+
+  <!-- ======================================================
+       MODAL
+  ======================================================= -->
+
+  <dialog
+    class="users-dialog expenses-dialog"
+    id="expenseDialog"
+    aria-labelledby="expenseDialogTitle"
+  >
+
+    <div class="users-dialog-form">
+
+      <header class="users-dialog-header">
+
+        <div>
+
+          <span class="users-dialog-kicker">
+            Financeiro realizado
+          </span>
+
+          <h2
+            id="expenseDialogTitle"
+            data-expense-dialog-title
+          >
+            Gastos do evento
+          </h2>
+
+          <p class="expenses-dialog-description">
+            Registre os custos efetivamente realizados.
+          </p>
+
+        </div>
+
+
+        <button
+          type="button"
+          class="users-dialog-close"
+          data-expense-dialog-close
+          aria-label="Fechar"
+        >
+          ×
+        </button>
+
+      </header>
+
+
+      <div class="users-dialog-body">
+
+        <!-- ==================================================
+             EVENTO
+        ================================================== -->
+
+        <section class="expenses-event-summary">
+
+          <div>
+
+            <span
+              class="expenses-event-type"
+              data-expense-event-type
+            >
+              —
+            </span>
+
+            <strong data-expense-event-name>
+              Evento
+            </strong>
+
+            <span data-expense-event-school>
+              Escola
+            </span>
+
+          </div>
+
+
+          <div class="expenses-event-meta">
+
+            <div>
+
+              <span>
+                Regional
+              </span>
+
+              <strong data-expense-event-regional>
+                —
+              </strong>
+
+            </div>
+
+
+            <div>
+
+              <span>
+                Data do evento
+              </span>
+
+              <strong data-expense-event-date>
+                —
+              </strong>
+
+            </div>
+
+
+            <div>
+
+              <span>
+                Total realizado
+              </span>
+
+              <strong data-expense-event-total>
+                R$ 0,00
+              </strong>
+
+            </div>
+
+          </div>
+
+        </section>
+
+
+        <!-- ==================================================
+             ITENS
+        ================================================== -->
+
+        <section class="expenses-form-section">
+
+          <div class="expenses-section-heading">
+
+            <div>
+
+              <p class="expenses-section-title">
+                Gastos lançados
+              </p>
+
+              <p>
+                Um evento pode ter vários lançamentos
+                na mesma categoria.
+              </p>
+
+            </div>
+
+
+            <span
+              class="expenses-item-count"
+              data-expense-item-count
+            >
+              0 itens
+            </span>
+
+          </div>
+
+
+          <div class="expenses-items-table-wrapper">
+
+            <table class="expenses-items-table">
+
+              <thead>
+
+                <tr>
+
+                  <th>
+                    Data
+                  </th>
+
+                  <th>
+                    Categoria
+                  </th>
+
+                  <th>
+                    Descrição
+                  </th>
+
+                  <th>
+                    Qtd.
+                  </th>
+
+                  <th>
+                    Unitário
+                  </th>
+
+                  <th>
+                    Total
+                  </th>
+
+                  <th>
+                    Ações
+                  </th>
+
+                </tr>
+
+              </thead>
+
+
+              <tbody data-expense-items-body>
+
+                <tr>
+
+                  <td
+                    colspan="7"
+                    class="expenses-items-empty"
+                  >
+                    Nenhum gasto lançado.
+                  </td>
+
+                </tr>
+
+              </tbody>
+
+            </table>
+
+          </div>
+
+        </section>
+
+
+        <!-- ==================================================
+             EDITOR
+        ================================================== -->
+
+        <section
+          class="expenses-form-section"
+          data-expense-editor
+        >
+
+          <div class="expenses-section-heading">
+
+            <div>
+
+              <p
+                class="expenses-section-title"
+                data-expense-editor-title
+              >
+                Novo gasto
+              </p>
+
+              <p>
+                Informe o valor efetivamente pago ou utilizado.
+              </p>
+
+            </div>
+
+          </div>
+
+
+          <form id="expenseItemForm">
+
+            <div class="expenses-item-form-grid">
+
+              <div class="form-field">
+
+                <label for="expenseDate">
+                  Data do gasto *
+                </label>
+
+                <input
+                  id="expenseDate"
+                  type="date"
+                  required
+                  data-expense-date
+                >
+
+              </div>
+
+
+              <div class="form-field">
+
+                <label for="expenseCategory">
+                  Categoria *
+                </label>
+
+                <select
+                  id="expenseCategory"
+                  required
+                  data-expense-category
+                ></select>
+
+              </div>
+
+
+              <div class="form-field expenses-description-field">
+
+                <label for="expenseDescription">
+                  Descrição *
+                </label>
+
+                <input
+                  id="expenseDescription"
+                  type="text"
+                  maxlength="300"
+                  required
+                  placeholder="Ex.: Combustível e pedágio"
+                  data-expense-description
+                >
+
+              </div>
+
+
+              <div class="form-field">
+
+                <label for="expenseQuantity">
+                  Quantidade *
+                </label>
+
+                <input
+                  id="expenseQuantity"
+                  type="number"
+                  min="0.01"
+                  step="0.01"
+                  value="1"
+                  required
+                  data-expense-quantity
+                >
+
+              </div>
+
+
+              <div class="form-field">
+
+                <label for="expenseUnitValue">
+                  Valor unitário *
+                </label>
+
+                <input
+                  id="expenseUnitValue"
+                  type="number"
+                  min="0.01"
+                  step="0.01"
+                  required
+                  placeholder="0,00"
+                  data-expense-unit-value
+                >
+
+              </div>
+
+
+              <div class="form-field expenses-total-field">
+
+                <label>
+                  Total
+                </label>
+
+                <strong data-expense-line-total>
+                  R$ 0,00
+                </strong>
+
+              </div>
+
+
+              <div class="form-field">
+
+                <label for="expenseSupplier">
+                  Fornecedor
+                </label>
+
+                <input
+                  id="expenseSupplier"
+                  type="text"
+                  maxlength="200"
+                  placeholder="Ex.: Posto Central"
+                  data-expense-supplier
+                >
+
+              </div>
+
+
+              <div class="form-field">
+
+                <label for="expenseDocument">
+                  Referência do comprovante
+                </label>
+
+                <input
+                  id="expenseDocument"
+                  type="text"
+                  maxlength="200"
+                  placeholder="Ex.: NF 12345"
+                  data-expense-document
+                >
+
+              </div>
+
+
+              <div class="form-field expenses-form-full">
+
+                <label for="expenseNotes">
+                  Observações
+                </label>
+
+                <textarea
+                  id="expenseNotes"
+                  rows="3"
+                  maxlength="500"
+                  placeholder="Informações opcionais..."
+                  data-expense-notes
+                ></textarea>
+
+              </div>
+
+            </div>
+
+
+            <div class="expenses-editor-actions">
+
+              <button
+                type="button"
+                class="btn btn-ghost"
+                data-expense-editor-cancel
+                hidden
+              >
+                Cancelar edição
+              </button>
+
+
+              <button
+                type="submit"
+                class="btn btn-primary"
+                data-expense-save-item
+              >
+                Adicionar gasto
+              </button>
+
+            </div>
+
+          </form>
+
+        </section>
+
+
+        <p
+          class="users-dialog-status"
+          data-expense-status
+          role="status"
+          aria-live="polite"
+        ></p>
+
+      </div>
+
+
+      <footer class="users-dialog-footer">
+
+        <button
+          type="button"
+          class="btn btn-primary"
+          data-expense-dialog-close
+        >
+          Concluir
+        </button>
+
+      </footer>
+
+    </div>
+
+  </dialog>
+
+
+  <script
+    type="module"
+    src="/src/main.js"
+  ></script>
+
+</body>
+
+</html>

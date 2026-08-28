@@ -23,6 +23,7 @@ import "./css/execucoes.css";
 import "./css/horas.css";
 import "./css/conferencia.css";
 import "./css/previsoes.css";
+import "./css/gastos.css";
 
 
 /* =========================================================
@@ -59,10 +60,6 @@ import {
 } from "./js/auth.js";
 
 
-/* =========================================================
-   AUXILIAR
-========================================================= */
-
 function inicializarModulo(
   nome,
   callback,
@@ -85,10 +82,6 @@ function inicializarModulo(
   }
 }
 
-
-/* =========================================================
-   APP
-========================================================= */
 
 function mostrarAplicacao() {
   const appShell =
@@ -202,6 +195,16 @@ function authorizeCurrentPage(
   ) {
     return requirePermission(
       "previsoes.visualizar",
+    );
+  }
+
+
+  if (
+    page ===
+    "gastos"
+  ) {
+    return requirePermission(
+      "gastos.visualizar",
     );
   }
 
@@ -358,6 +361,24 @@ async function iniciarPaginaAtual() {
 
 
     await initPrevisoesPage();
+
+    return;
+  }
+
+
+  if (
+    page ===
+    "gastos"
+  ) {
+    const {
+      initGastosPage,
+    } =
+      await import(
+        "./js/gastos-page.js"
+      );
+
+
+    await initGastosPage();
 
     return;
   }

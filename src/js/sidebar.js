@@ -105,7 +105,7 @@ const MENU_SECTIONS = [
       {
         page: "gastos",
         label: "Gastos",
-        href: "#",
+        href: "/app/gastos.html",
         icon: "$",
         permission: "gastos.visualizar",
       },
