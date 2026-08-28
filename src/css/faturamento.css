@@ -1,0 +1,644 @@
+/* =========================================================
+   YXZ PLATAFORMA
+   FATURAMENTO MENSAL
+========================================================= */
+
+
+/* =========================================================
+   CABEÇALHO
+========================================================= */
+
+.billing-heading-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+
+/* =========================================================
+   MENSAGEM
+========================================================= */
+
+.billing-page-message {
+  min-height: 1.4rem;
+  margin: 0 0 1rem;
+  font-size: 0.9rem;
+}
+
+
+.billing-page-message:empty {
+  min-height: 0;
+  margin-bottom: 0;
+}
+
+
+.billing-page-message[data-state="loading"] {
+  color: #667085;
+}
+
+
+.billing-page-message[data-state="success"] {
+  color: #027a48;
+}
+
+
+.billing-page-message[data-state="error"] {
+  color: #b42318;
+}
+
+
+.billing-page-message[data-state="info"] {
+  color: #175cd3;
+}
+
+
+/* =========================================================
+   FILTROS
+========================================================= */
+
+.billing-filter-card {
+  margin-bottom: 1.25rem;
+  padding: 1.2rem;
+}
+
+
+.billing-filters {
+  display: grid;
+  grid-template-columns:
+    minmax(170px, 0.75fr)
+    minmax(240px, 1fr)
+    minmax(280px, 1.2fr);
+  gap: 1rem;
+  align-items: end;
+}
+
+
+.billing-filter-field {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+
+.billing-filter-field label {
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+
+.billing-filter-field input,
+.billing-filter-field select,
+.billing-inline-filters select,
+.billing-dialog select {
+  width: 100%;
+  min-height: 44px;
+  padding: 0.7rem 0.8rem;
+  border: 1px solid #d0d5dd;
+  border-radius: 10px;
+  background: #ffffff;
+  color: inherit;
+  font: inherit;
+}
+
+
+.billing-period-box {
+  display: flex;
+  min-height: 70px;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.3rem;
+  padding: 0.8rem 1rem;
+  border: 1px solid #eaecf0;
+  border-radius: 12px;
+  background: #f9fafb;
+}
+
+
+.billing-period-box span {
+  color: #667085;
+  font-size: 0.78rem;
+}
+
+
+/* =========================================================
+   RESUMO
+========================================================= */
+
+.billing-summary {
+  display: grid;
+  grid-template-columns:
+    repeat(5, minmax(0, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+
+.billing-summary-card {
+  display: flex;
+  min-height: 96px;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 1.1rem 1.2rem;
+}
+
+
+.billing-summary-card span {
+  color: #667085;
+  font-size: 0.82rem;
+}
+
+
+.billing-summary-card strong {
+  font-size: 1.55rem;
+}
+
+
+/* =========================================================
+   SEÇÃO
+========================================================= */
+
+.billing-section {
+  margin-bottom: 1.5rem;
+}
+
+
+.billing-section-heading {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.9rem;
+}
+
+
+.billing-section-heading h2 {
+  margin: 0;
+}
+
+
+.billing-section-heading p {
+  margin: 0.35rem 0 0;
+  color: #667085;
+}
+
+
+/* =========================================================
+   MODELOS
+========================================================= */
+
+.billing-model-grid {
+  display: grid;
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+
+.billing-model-card {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1.1rem 1.2rem;
+}
+
+
+.billing-model-card-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+
+.billing-model-card-header h3 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+
+.billing-model-card-header > div > span {
+  display: block;
+  margin-top: 0.3rem;
+  color: #667085;
+  font-size: 0.76rem;
+}
+
+
+.billing-model-status {
+  display: inline-flex;
+  min-height: 26px;
+  align-items: center;
+  padding: 0.22rem 0.6rem;
+  border-radius: 999px;
+  white-space: nowrap;
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+
+
+.billing-model-status-ready {
+  background: #ecfdf3;
+  color: #027a48;
+}
+
+
+.billing-model-status-warning {
+  background: #fff6ed;
+  color: #b54708;
+}
+
+
+.billing-model-status-empty {
+  background: #f2f4f7;
+  color: #475467;
+}
+
+
+.billing-model-metrics {
+  display: grid;
+  grid-template-columns:
+    repeat(4, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+
+.billing-model-metric {
+  min-width: 0;
+  padding: 0.8rem;
+  border: 1px solid #eaecf0;
+  border-radius: 10px;
+  background: #f9fafb;
+}
+
+
+.billing-model-metric span,
+.billing-model-metric strong {
+  display: block;
+}
+
+
+.billing-model-metric span {
+  color: #667085;
+  font-size: 0.7rem;
+}
+
+
+.billing-model-metric strong {
+  margin-top: 0.25rem;
+  overflow: hidden;
+  font-size: 0.96rem;
+  text-overflow: ellipsis;
+}
+
+
+.billing-model-card-footer {
+  color: #667085;
+  font-size: 0.76rem;
+}
+
+
+/* =========================================================
+   CARDS / CABEÇALHO
+========================================================= */
+
+.billing-card {
+  margin-bottom: 1.5rem;
+  overflow: hidden;
+}
+
+
+.billing-card-heading {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: end;
+  padding: 1.2rem 1rem;
+}
+
+
+.billing-card-heading h2 {
+  margin: 0;
+}
+
+
+.billing-card-heading p {
+  margin: 0.35rem 0 0;
+  color: #667085;
+  font-size: 0.84rem;
+}
+
+
+.billing-inline-filters {
+  display: flex;
+  min-width: 180px;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+
+.billing-inline-filters label {
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+
+/* =========================================================
+   TABELAS
+========================================================= */
+
+.billing-table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
+
+.billing-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+
+.billing-mapping-table {
+  min-width: 960px;
+}
+
+
+.billing-preview-table {
+  min-width: 1350px;
+}
+
+
+.billing-table th,
+.billing-table td {
+  padding: 0.9rem 0.8rem;
+  border-top: 1px solid #eaecf0;
+  text-align: left;
+  vertical-align: middle;
+}
+
+
+.billing-table th {
+  color: #667085;
+  font-size: 0.74rem;
+  font-weight: 600;
+}
+
+
+.billing-table tbody tr:hover {
+  background: #fcfcfd;
+}
+
+
+.billing-event-cell,
+.billing-school-cell,
+.billing-destination {
+  display: flex;
+  min-width: 150px;
+  flex-direction: column;
+  gap: 0.22rem;
+}
+
+
+.billing-event-cell span,
+.billing-school-cell span,
+.billing-destination span {
+  color: #667085;
+  font-size: 0.72rem;
+}
+
+
+/* =========================================================
+   BADGES
+========================================================= */
+
+.billing-badge {
+  display: inline-flex;
+  min-height: 26px;
+  align-items: center;
+  padding: 0.22rem 0.6rem;
+  border-radius: 999px;
+  white-space: nowrap;
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+
+
+.billing-badge-ready {
+  background: #ecfdf3;
+  color: #027a48;
+}
+
+
+.billing-badge-unmapped {
+  background: #fef3f2;
+  color: #b42318;
+}
+
+
+/* =========================================================
+   PENDÊNCIAS
+========================================================= */
+
+.billing-pending-details {
+  min-width: 150px;
+}
+
+
+.billing-pending-details summary {
+  color: #b54708;
+  font-size: 0.76rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+
+.billing-pending-details ul {
+  min-width: 230px;
+  margin: 0.65rem 0 0;
+  padding-left: 1rem;
+  color: #475467;
+  font-size: 0.74rem;
+}
+
+
+.billing-pending-details li + li {
+  margin-top: 0.25rem;
+}
+
+
+/* =========================================================
+   VAZIO / LOADING
+========================================================= */
+
+.billing-loading {
+  padding: 2rem !important;
+  color: #667085;
+  text-align: center !important;
+}
+
+
+.billing-empty {
+  padding: 2.5rem 1rem;
+  text-align: center;
+}
+
+
+.billing-empty strong,
+.billing-empty span {
+  display: block;
+}
+
+
+.billing-empty span {
+  margin-top: 0.4rem;
+  color: #667085;
+}
+
+
+/* =========================================================
+   MODAL
+========================================================= */
+
+.billing-dialog {
+  width: min(680px, calc(100% - 2rem));
+}
+
+
+.billing-dialog-description {
+  max-width: 520px;
+  margin: 0.45rem 0 0;
+  color: #667085;
+  font-size: 0.9rem;
+}
+
+
+.billing-mapping-summary {
+  display: grid;
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+  gap: 0.8rem;
+  padding: 1rem;
+  border: 1px solid #eaecf0;
+  border-radius: 12px;
+  background: #f9fafb;
+}
+
+
+.billing-mapping-summary > div {
+  min-width: 0;
+}
+
+
+.billing-mapping-summary span,
+.billing-mapping-summary strong {
+  display: block;
+}
+
+
+.billing-mapping-summary span {
+  color: #667085;
+  font-size: 0.72rem;
+}
+
+
+.billing-mapping-summary strong {
+  margin-top: 0.2rem;
+  overflow-wrap: anywhere;
+}
+
+
+.billing-mapping-summary-full {
+  grid-column: 1 / -1;
+}
+
+
+.billing-field-help {
+  display: block;
+  margin-top: 0.35rem;
+  color: #667085;
+  font-size: 0.75rem;
+}
+
+
+/* =========================================================
+   RESPONSIVO
+========================================================= */
+
+@media (max-width: 1200px) {
+
+  .billing-summary {
+    grid-template-columns:
+      repeat(3, minmax(0, 1fr));
+  }
+
+
+  .billing-model-metrics {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+
+}
+
+
+@media (max-width: 900px) {
+
+  .billing-filters,
+  .billing-model-grid {
+    grid-template-columns: 1fr;
+  }
+
+
+  .billing-card-heading {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+
+  .billing-inline-filters {
+    width: 100%;
+  }
+
+}
+
+
+@media (max-width: 650px) {
+
+  .billing-summary {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+
+
+  .billing-heading-actions {
+    width: 100%;
+    flex-direction: column;
+  }
+
+
+  .billing-heading-actions .btn {
+    width: 100%;
+  }
+
+
+  .billing-mapping-summary {
+    grid-template-columns: 1fr;
+  }
+
+
+  .billing-mapping-summary-full {
+    grid-column: auto;
+  }
+
+}
+
+
+@media (max-width: 460px) {
+
+  .billing-summary,
+  .billing-model-metrics {
+    grid-template-columns: 1fr;
+  }
+
+}

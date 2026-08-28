@@ -1,0 +1,711 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <meta
+    name="description"
+    content="Faturamento mensal da Plataforma YXZ"
+  >
+
+  <meta
+    name="robots"
+    content="noindex, nofollow"
+  >
+
+  <meta
+    name="theme-color"
+    content="#0f2c25"
+  >
+
+  <title>
+    Faturamento Mensal | YXZ Plataforma
+  </title>
+
+  <link
+    rel="icon"
+    href="/assets/favicon.png"
+    type="image/png"
+  >
+</head>
+
+
+<body data-app-page="faturamento">
+
+  <div
+    class="app-shell"
+    data-app-shell
+    hidden
+  >
+
+    <aside
+      class="sidebar"
+      id="sidebar"
+      aria-label="Menu lateral"
+    ></aside>
+
+
+    <div
+      class="sidebar-overlay"
+      data-sidebar-close
+      aria-hidden="true"
+    ></div>
+
+
+    <div class="app-main">
+
+      <header class="app-header">
+
+        <div class="header-left">
+
+          <button
+            type="button"
+            class="mobile-menu-button"
+            data-sidebar-toggle
+            aria-label="Abrir menu"
+            aria-expanded="false"
+            aria-controls="sidebar"
+          >
+            <span aria-hidden="true">
+              ☰
+            </span>
+          </button>
+
+
+          <div class="header-context">
+            Faturamento Mensal
+          </div>
+
+        </div>
+
+
+        <div class="header-user">
+
+          <div
+            class="user-avatar"
+            data-auth-avatar
+            aria-hidden="true"
+          >
+            YXZ
+          </div>
+
+
+          <div class="user-info">
+
+            <strong data-auth-name>
+              Usuário
+            </strong>
+
+            <span data-auth-cargo>
+              Carregando...
+            </span>
+
+          </div>
+
+
+          <button
+            type="button"
+            class="btn btn-ghost"
+            data-auth-logout
+          >
+            Sair
+          </button>
+
+        </div>
+
+      </header>
+
+
+      <main class="app-content">
+
+        <div class="page-heading">
+
+          <div>
+
+            <h1>
+              Faturamento Mensal
+            </h1>
+
+            <p>
+              Confira as execuções do período 21 → 20,
+              valide os dados e associe cada atividade
+              ao relatório oficial correspondente.
+            </p>
+
+          </div>
+
+
+          <div class="billing-heading-actions">
+
+            <button
+              type="button"
+              class="btn btn-ghost"
+              data-billing-refresh
+            >
+              Atualizar
+            </button>
+
+
+            <button
+              type="button"
+              class="btn btn-primary"
+              data-billing-generate
+              disabled
+              title="O gerador dos arquivos oficiais será conectado na próxima etapa."
+            >
+              Gerar arquivos oficiais
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <p
+          class="billing-page-message"
+          data-billing-message
+          role="status"
+          aria-live="polite"
+        ></p>
+
+
+        <!-- ==================================================
+             FILTROS
+        ================================================== -->
+
+        <section class="card billing-filter-card">
+
+          <div class="billing-filters">
+
+            <div class="billing-filter-field">
+
+              <label for="billingMonth">
+                Competência
+              </label>
+
+              <input
+                id="billingMonth"
+                type="month"
+                required
+                data-billing-month
+              >
+
+            </div>
+
+
+            <div class="billing-filter-field">
+
+              <label for="billingRegional">
+                Regional
+              </label>
+
+              <select
+                id="billingRegional"
+                data-billing-regional
+              >
+
+                <option value="">
+                  Todas
+                </option>
+
+              </select>
+
+            </div>
+
+
+            <div class="billing-period-box">
+
+              <span>
+                Período de faturamento
+              </span>
+
+              <strong data-billing-period>
+                —
+              </strong>
+
+            </div>
+
+          </div>
+
+        </section>
+
+
+        <!-- ==================================================
+             RESUMO
+        ================================================== -->
+
+        <section
+          class="billing-summary"
+          aria-label="Resumo do faturamento"
+        >
+
+          <article class="card billing-summary-card">
+
+            <span>
+              Execuções no período
+            </span>
+
+            <strong data-billing-total>
+              —
+            </strong>
+
+          </article>
+
+
+          <article class="card billing-summary-card">
+
+            <span>
+              Mapeadas
+            </span>
+
+            <strong data-billing-mapped>
+              —
+            </strong>
+
+          </article>
+
+
+          <article class="card billing-summary-card">
+
+            <span>
+              Prontas
+            </span>
+
+            <strong data-billing-ready>
+              —
+            </strong>
+
+          </article>
+
+
+          <article class="card billing-summary-card">
+
+            <span>
+              Com pendências
+            </span>
+
+            <strong data-billing-pending>
+              —
+            </strong>
+
+          </article>
+
+
+          <article class="card billing-summary-card">
+
+            <span>
+              Sem mapeamento
+            </span>
+
+            <strong data-billing-unmapped>
+              —
+            </strong>
+
+          </article>
+
+        </section>
+
+
+        <!-- ==================================================
+             MODELOS
+        ================================================== -->
+
+        <section class="billing-section">
+
+          <div class="billing-section-heading">
+
+            <div>
+
+              <h2>
+                Modelos oficiais
+              </h2>
+
+              <p>
+                Resumo do que será enviado para cada
+                documento de faturamento.
+              </p>
+
+            </div>
+
+          </div>
+
+
+          <div
+            class="billing-model-grid"
+            data-billing-model-grid
+          ></div>
+
+        </section>
+
+
+        <!-- ==================================================
+             MAPEAMENTO
+        ================================================== -->
+
+        <section
+          class="card billing-card"
+          aria-labelledby="billing-mapping-title"
+        >
+
+          <div class="billing-card-heading">
+
+            <div>
+
+              <h2 id="billing-mapping-title">
+                Atividades e mapeamento
+              </h2>
+
+              <p>
+                Cada combinação de Regional, tipo e atividade
+                deve apontar para um item do relatório oficial.
+              </p>
+
+            </div>
+
+
+            <div class="billing-inline-filters">
+
+              <label for="billingMappingStatus">
+                Situação
+              </label>
+
+              <select
+                id="billingMappingStatus"
+                data-billing-mapping-status
+              >
+                <option value="all">
+                  Todas
+                </option>
+
+                <option value="unmapped">
+                  Sem mapeamento
+                </option>
+
+                <option value="mapped">
+                  Mapeadas
+                </option>
+              </select>
+
+            </div>
+
+          </div>
+
+
+          <div class="billing-table-wrapper">
+
+            <table class="billing-table billing-mapping-table">
+
+              <thead>
+
+                <tr>
+                  <th>Regional</th>
+                  <th>Tipo</th>
+                  <th>Atividade</th>
+                  <th>Destino</th>
+                  <th>Ação</th>
+                </tr>
+
+              </thead>
+
+
+              <tbody data-billing-mapping-body>
+
+                <tr>
+
+                  <td
+                    colspan="5"
+                    class="billing-loading"
+                  >
+                    Carregando atividades...
+                  </td>
+
+                </tr>
+
+              </tbody>
+
+            </table>
+
+          </div>
+
+
+          <div
+            class="billing-empty"
+            data-billing-mapping-empty
+            hidden
+          >
+
+            <strong>
+              Nenhuma atividade encontrada.
+            </strong>
+
+            <span>
+              Ajuste o filtro de Regional ou situação.
+            </span>
+
+          </div>
+
+        </section>
+
+
+        <!-- ==================================================
+             EXECUÇÕES DO PERÍODO
+        ================================================== -->
+
+        <section
+          class="card billing-card"
+          aria-labelledby="billing-preview-title"
+        >
+
+          <div class="billing-card-heading">
+
+            <div>
+
+              <h2 id="billing-preview-title">
+                Execuções do período
+              </h2>
+
+              <p>
+                Pré-validação dos dados que serão utilizados
+                nos documentos de faturamento.
+              </p>
+
+            </div>
+
+          </div>
+
+
+          <div class="billing-table-wrapper">
+
+            <table class="billing-table billing-preview-table">
+
+              <thead>
+
+                <tr>
+                  <th>Data</th>
+                  <th>Evento</th>
+                  <th>Escola / Cidade</th>
+                  <th>Regional</th>
+                  <th>Relatório</th>
+                  <th>Participantes</th>
+                  <th>Horas</th>
+                  <th>Fotos</th>
+                  <th>Situação</th>
+                </tr>
+
+              </thead>
+
+
+              <tbody data-billing-preview-body>
+
+                <tr>
+
+                  <td
+                    colspan="9"
+                    class="billing-loading"
+                  >
+                    Carregando faturamento...
+                  </td>
+
+                </tr>
+
+              </tbody>
+
+            </table>
+
+          </div>
+
+
+          <div
+            class="billing-empty"
+            data-billing-preview-empty
+            hidden
+          >
+
+            <strong>
+              Nenhuma execução finalizada encontrada.
+            </strong>
+
+            <span>
+              Não há execuções realizadas neste período
+              para os filtros selecionados.
+            </span>
+
+          </div>
+
+        </section>
+
+      </main>
+
+    </div>
+
+  </div>
+
+
+  <!-- ======================================================
+       MODAL DE MAPEAMENTO
+  ======================================================= -->
+
+  <dialog
+    class="users-dialog billing-dialog"
+    id="billingMappingDialog"
+    aria-labelledby="billingMappingDialogTitle"
+  >
+
+    <form
+      class="users-dialog-form"
+      id="billingMappingForm"
+    >
+
+      <header class="users-dialog-header">
+
+        <div>
+
+          <span class="users-dialog-kicker">
+            Regra de faturamento
+          </span>
+
+          <h2 id="billingMappingDialogTitle">
+            Mapear atividade
+          </h2>
+
+          <p class="billing-dialog-description">
+            Escolha em qual modelo e item esta atividade
+            deverá ser contabilizada.
+          </p>
+
+        </div>
+
+
+        <button
+          type="button"
+          class="users-dialog-close"
+          data-billing-dialog-close
+          aria-label="Fechar"
+        >
+          ×
+        </button>
+
+      </header>
+
+
+      <div class="users-dialog-body">
+
+        <section class="billing-mapping-summary">
+
+          <div>
+
+            <span>
+              Regional
+            </span>
+
+            <strong data-billing-dialog-regional>
+              —
+            </strong>
+
+          </div>
+
+
+          <div>
+
+            <span>
+              Tipo
+            </span>
+
+            <strong data-billing-dialog-type>
+              —
+            </strong>
+
+          </div>
+
+
+          <div class="billing-mapping-summary-full">
+
+            <span>
+              Atividade
+            </span>
+
+            <strong data-billing-dialog-activity>
+              —
+            </strong>
+
+          </div>
+
+        </section>
+
+
+        <div class="form-field">
+
+          <label for="billingDestination">
+            Destino do faturamento *
+          </label>
+
+          <select
+            id="billingDestination"
+            required
+            data-billing-dialog-destination
+          >
+
+            <option value="">
+              Selecione...
+            </option>
+
+          </select>
+
+          <span class="billing-field-help">
+            A regra será utilizada nas próximas competências
+            para a mesma Regional, tipo e atividade.
+          </span>
+
+        </div>
+
+
+        <p
+          class="users-dialog-status"
+          data-billing-dialog-status
+          role="status"
+          aria-live="polite"
+        ></p>
+
+      </div>
+
+
+      <footer class="users-dialog-footer">
+
+        <button
+          type="button"
+          class="btn btn-ghost"
+          data-billing-dialog-close
+        >
+          Cancelar
+        </button>
+
+
+        <button
+          type="submit"
+          class="btn btn-primary"
+          data-billing-dialog-save
+        >
+          Salvar mapeamento
+        </button>
+
+      </footer>
+
+    </form>
+
+  </dialog>
+
+
+  <script
+    type="module"
+    src="/src/main.js"
+  ></script>
+
+</body>
+
+</html>

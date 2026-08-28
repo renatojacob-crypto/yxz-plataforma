@@ -134,6 +134,15 @@ const MENU_SECTIONS = [
       },
 
       {
+        page: "faturamento",
+        label: "Faturamento",
+        href: "/app/faturamento.html",
+        icon: "▧",
+        permission: "relatorios.visualizar",
+      },
+
+
+      {
         page: "usuarios",
         label: "Usuários",
         href: "/app/usuarios.html",

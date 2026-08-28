@@ -91,9 +91,15 @@ export default defineConfig({
           process.cwd(),
           "app/comparativo.html",
         ),
+
         relatorios: resolve(
           process.cwd(),
           "app/relatorios.html",
+        ),
+
+        faturamento: resolve(
+          process.cwd(),
+          "app/faturamento.html",
         ),
       },
     },

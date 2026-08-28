@@ -22,6 +22,7 @@ import "./css/previsoes.css";
 import "./css/gastos.css";
 import "./css/comparativo.css";
 import "./css/relatorios.css";
+import "./css/faturamento.css";
 
 
 import {
@@ -204,6 +205,15 @@ function authorizeCurrentPage(
   if (
     page ===
     "relatorios"
+  ) {
+    return requirePermission(
+      "relatorios.visualizar",
+    );
+  }
+
+  if (
+    page ===
+    "faturamento"
   ) {
     return requirePermission(
       "relatorios.visualizar",
@@ -418,6 +428,23 @@ async function iniciarPaginaAtual() {
 
     return;
   }
+
+  if (
+  page ===
+  "faturamento"
+) {
+  const {
+    initFaturamentoPage,
+  } =
+    await import(
+      "./js/faturamento-page.js"
+    );
+
+
+  await initFaturamentoPage();
+
+  return;
+}
 }
 
 
