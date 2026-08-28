@@ -4,6 +4,8 @@ import {
 
 
 let instructors = [];
+let regionals = [];
+let instructorRegionals = [];
 
 let selectedInstructorId =
   null;
@@ -35,6 +37,11 @@ function getElements() {
         "[data-instructors-inactive]",
       ),
 
+    withoutRegion:
+      document.querySelector(
+        "[data-instructors-without-region]",
+      ),
+
     search:
       document.querySelector(
         "[data-instructors-search]",
@@ -43,6 +50,11 @@ function getElements() {
     statusFilter:
       document.querySelector(
         "[data-instructors-status-filter]",
+      ),
+
+    regionalFilter:
+      document.querySelector(
+        "[data-instructors-regional-filter]",
       ),
 
     tableBody:
@@ -59,6 +71,9 @@ function getElements() {
       document.querySelector(
         "[data-new-instructor]",
       ),
+
+
+    /* MODAL */
 
     dialog:
       document.getElementById(
@@ -100,9 +115,14 @@ function getElements() {
         "[data-instructor-notes]",
       ),
 
-    activeControl:
+    activeInput:
       document.querySelector(
         "[data-instructor-active]",
+      ),
+
+    regionalsContainer:
+      document.querySelector(
+        "[data-instructor-regionals]",
       ),
 
     status:
@@ -127,7 +147,7 @@ function getElements() {
    UTILIDADES
 ========================================================= */
 
-function normalizeSearchText(
+function normalizeText(
   value,
 ) {
   return String(
@@ -137,6 +157,10 @@ function normalizeSearchText(
     .replace(
       /[\u0300-\u036f]/g,
       "",
+    )
+    .replace(
+      /\s+/g,
+      " ",
     )
     .toLowerCase()
     .trim();
@@ -158,42 +182,70 @@ function normalizeOptionalText(
 }
 
 
-function getInitials(
-  name,
+function getInstructorById(
+  instructorId,
 ) {
-  const words =
-    String(
-      name || "",
-    )
-      .trim()
-      .split(/\s+/)
-      .filter(Boolean);
-
-
-  if (!words.length) {
-    return "YX";
-  }
-
-
-  if (
-    words.length ===
-    1
-  ) {
-    return words[0]
-      .slice(
-        0,
-        2,
-      )
-      .toUpperCase();
-  }
-
-
   return (
-    words[0][0] +
-    words[
-      words.length - 1
-    ][0]
-  ).toUpperCase();
+    instructors.find(
+      (instructor) =>
+        instructor.id ===
+        instructorId,
+    ) ||
+    null
+  );
+}
+
+
+function getRegionalById(
+  regionalId,
+) {
+  return (
+    regionals.find(
+      (regional) =>
+        regional.id ===
+        regionalId,
+    ) ||
+    null
+  );
+}
+
+
+function getRegionalIdsForInstructor(
+  instructorId,
+) {
+  return instructorRegionals
+    .filter(
+      (relation) =>
+        relation.instrutor_id ===
+        instructorId,
+    )
+    .map(
+      (relation) =>
+        relation.regional_id,
+    );
+}
+
+
+function getRegionalsForInstructor(
+  instructorId,
+) {
+  return getRegionalIdsForInstructor(
+    instructorId,
+  )
+    .map(
+      (regionalId) =>
+        getRegionalById(
+          regionalId,
+        ),
+    )
+    .filter(
+      Boolean,
+    )
+    .sort(
+      (a, b) =>
+        (a.ordem || 0) -
+        (b.ordem || 0),
+    );
 }
 
 
@@ -236,7 +288,7 @@ function setDialogStatus(
 
 
 /* =========================================================
-   DADOS
+   CARREGAMENTO
 ========================================================= */
 
 async function loadInstructors() {
@@ -280,6 +332,79 @@ async function loadInstructors() {
 }
 
 
+async function loadRegionals() {
+  const {
+    data,
+    error,
+  } =
+    await supabase
+      .from(
+        "regionais",
+      )
+      .select(`
+        id,
+        nome,
+        codigo,
+        ativo,
+        ordem
+      `)
+      .order(
+        "ordem",
+        {
+          ascending:
+            true,
+        },
+      );
+
+
+  if (error) {
+    throw error;
+  }
+
+
+  regionals =
+    Array.isArray(data)
+      ? data
+      : [];
+}
+
+
+async function loadInstructorRegionals() {
+  const {
+    data,
+    error,
+  } =
+    await supabase
+      .from(
+        "instrutor_regionais",
+      )
+      .select(`
+        instrutor_id,
+        regional_id,
+        created_at
+      `);
+
+
+  if (error) {
+    throw error;
+  }
+
+
+  instructorRegionals =
+    Array.isArray(data)
+      ? data
+      : [];
+}
+
+
+async function reloadData() {
+  await Promise.all([
+    loadInstructors(),
+    loadInstructorRegionals(),
+  ]);
+}
+
+
 /* =========================================================
    RESUMO
 ========================================================= */
@@ -299,25 +424,294 @@ function renderSummary(
 
 
   const inactive =
-    total - active;
+    total -
+    active;
 
 
-  if (elements.total) {
-    elements.total.textContent =
-      String(total);
+  const withoutRegion =
+    instructors.filter(
+      (instructor) =>
+        getRegionalIdsForInstructor(
+          instructor.id,
+        ).length === 0,
+    ).length;
+
+
+  elements.total.textContent =
+    String(
+      total,
+    );
+
+
+  elements.active.textContent =
+    String(
+      active,
+    );
+
+
+  elements.inactive.textContent =
+    String(
+      inactive,
+    );
+
+
+  elements.withoutRegion.textContent =
+    String(
+      withoutRegion,
+    );
+}
+
+
+/* =========================================================
+   FILTRO DE REGIONAIS
+========================================================= */
+
+function populateRegionalFilter(
+  elements,
+) {
+  if (!elements.regionalFilter) {
+    return;
   }
 
 
-  if (elements.active) {
-    elements.active.textContent =
-      String(active);
+  const previousValue =
+    elements.regionalFilter.value;
+
+
+  elements.regionalFilter
+    .replaceChildren();
+
+
+  const allOption =
+    document.createElement(
+      "option",
+    );
+
+
+  allOption.value =
+    "all";
+
+
+  allOption.textContent =
+    "Todas";
+
+
+  elements.regionalFilter.append(
+    allOption,
+  );
+
+
+  const noneOption =
+    document.createElement(
+      "option",
+    );
+
+
+  noneOption.value =
+    "none";
+
+
+  noneOption.textContent =
+    "Sem Regional";
+
+
+  elements.regionalFilter.append(
+    noneOption,
+  );
+
+
+  regionals.forEach(
+    (regional) => {
+      const option =
+        document.createElement(
+          "option",
+        );
+
+
+      option.value =
+        regional.id;
+
+
+      option.textContent =
+        regional.nome;
+
+
+      elements.regionalFilter.append(
+        option,
+      );
+    },
+  );
+
+
+  if (
+    Array.from(
+      elements.regionalFilter.options,
+    ).some(
+      (option) =>
+        option.value ===
+        previousValue,
+    )
+  ) {
+    elements.regionalFilter.value =
+      previousValue;
+  }
+}
+
+
+/* =========================================================
+   CHECKBOXES DAS REGIONAIS
+========================================================= */
+
+function renderRegionalCheckboxes(
+  elements,
+  selectedIds = [],
+) {
+  const container =
+    elements.regionalsContainer;
+
+
+  if (!container) {
+    return;
   }
 
 
-  if (elements.inactive) {
-    elements.inactive.textContent =
-      String(inactive);
+  container.replaceChildren();
+
+
+  const activeRegionals =
+    regionals.filter(
+      (regional) =>
+        regional.ativo,
+    );
+
+
+  if (!activeRegionals.length) {
+    const message =
+      document.createElement(
+        "span",
+      );
+
+
+    message.className =
+      "instructors-regionals-loading";
+
+
+    message.textContent =
+      "Nenhuma Regional ativa disponível.";
+
+
+    container.append(
+      message,
+    );
+
+
+    return;
   }
+
+
+  activeRegionals.forEach(
+    (regional) => {
+      const label =
+        document.createElement(
+          "label",
+        );
+
+
+      label.className =
+        "instructors-regional-option";
+
+
+      const input =
+        document.createElement(
+          "input",
+        );
+
+
+      input.type =
+        "checkbox";
+
+
+      input.value =
+        regional.id;
+
+
+      input.checked =
+        selectedIds.includes(
+          regional.id,
+        );
+
+
+      input.dataset.instructorRegional =
+        regional.id;
+
+
+      const content =
+        document.createElement(
+          "span",
+        );
+
+
+      const title =
+        document.createElement(
+          "strong",
+        );
+
+
+      title.textContent =
+        regional.nome;
+
+
+      const description =
+        document.createElement(
+          "small",
+        );
+
+
+      description.textContent =
+        "Instrutor disponível para escalas nesta Regional.";
+
+
+      content.append(
+        title,
+        description,
+      );
+
+
+      label.append(
+        input,
+        content,
+      );
+
+
+      container.append(
+        label,
+      );
+    },
+  );
+}
+
+
+function getSelectedRegionalIds(
+  elements,
+) {
+  if (!elements.regionalsContainer) {
+    return [];
+  }
+
+
+  return Array.from(
+    elements.regionalsContainer
+      .querySelectorAll(
+        "input[data-instructor-regional]:checked",
+      ),
+  )
+    .map(
+      (input) =>
+        input.value,
+    )
+    .filter(
+      Boolean,
+    );
 }
 
 
@@ -329,7 +723,7 @@ function getFilteredInstructors(
   elements,
 ) {
   const search =
-    normalizeSearchText(
+    normalizeText(
       elements.search
         ?.value,
     );
@@ -341,15 +735,23 @@ function getFilteredInstructors(
     "all";
 
 
+  const regional =
+    elements.regionalFilter
+      ?.value ||
+    "all";
+
+
   return instructors.filter(
     (instructor) => {
       const searchable =
-        normalizeSearchText(
+        normalizeText(
           [
             instructor.nome,
             instructor.email,
             instructor.telefone,
-          ].join(" "),
+          ].join(
+            " ",
+          ),
         );
 
 
@@ -375,9 +777,41 @@ function getFilteredInstructors(
         );
 
 
+      const instructorRegionalIds =
+        getRegionalIdsForInstructor(
+          instructor.id,
+        );
+
+
+      let matchesRegional =
+        true;
+
+
+      if (
+        regional ===
+        "none"
+      ) {
+        matchesRegional =
+          instructorRegionalIds
+            .length === 0;
+
+      } else if (
+        regional !==
+        "all"
+      ) {
+
+        matchesRegional =
+          instructorRegionalIds
+            .includes(
+              regional,
+            );
+      }
+
+
       return (
         matchesSearch &&
-        matchesStatus
+        matchesStatus &&
+        matchesRegional
       );
     },
   );
@@ -385,7 +819,56 @@ function getFilteredInstructors(
 
 
 /* =========================================================
-   TABELA
+   AVATAR
+========================================================= */
+
+function getInitials(
+  name,
+) {
+  const parts =
+    String(
+      name || "",
+    )
+      .trim()
+      .split(
+        /\s+/,
+      )
+      .filter(
+        Boolean,
+      );
+
+
+  if (!parts.length) {
+    return "—";
+  }
+
+
+  if (
+    parts.length ===
+    1
+  ) {
+    return parts[0]
+      .slice(
+        0,
+        2,
+      )
+      .toUpperCase();
+  }
+
+
+  return (
+    parts[0][0] +
+    parts[
+      parts.length -
+      1
+    ][0]
+  )
+    .toUpperCase();
+}
+
+
+/* =========================================================
+   CÉLULA INSTRUTOR
 ========================================================= */
 
 function createInstructorCell(
@@ -397,22 +880,25 @@ function createInstructorCell(
     );
 
 
-  const wrapper =
+  const person =
     document.createElement(
       "div",
     );
 
-  wrapper.className =
+
+  person.className =
     "instructors-person";
 
 
   const avatar =
     document.createElement(
-      "span",
+      "div",
     );
+
 
   avatar.className =
     "instructors-person-avatar";
+
 
   avatar.textContent =
     getInitials(
@@ -431,16 +917,18 @@ function createInstructorCell(
       "strong",
     );
 
+
   name.textContent =
     instructor.nome;
 
 
-  const caption =
+  const access =
     document.createElement(
       "span",
     );
 
-  caption.textContent =
+
+  access.textContent =
     instructor.profile_id
       ? "Conta vinculada"
       : "Sem acesso ao portal";
@@ -448,24 +936,28 @@ function createInstructorCell(
 
   info.append(
     name,
-    caption,
+    access,
   );
 
 
-  wrapper.append(
+  person.append(
     avatar,
     info,
   );
 
 
   cell.append(
-    wrapper,
+    person,
   );
 
 
   return cell;
 }
 
+
+/* =========================================================
+   CONTATO
+========================================================= */
 
 function createContactCell(
   instructor,
@@ -481,33 +973,167 @@ function createContactCell(
       "div",
     );
 
+
   wrapper.className =
     "instructors-contact";
 
 
-  const email =
+  if (
+    instructor.email
+  ) {
+    const email =
+      document.createElement(
+        "span",
+      );
+
+
+    email.textContent =
+      instructor.email;
+
+
+    wrapper.append(
+      email,
+    );
+  }
+
+
+  if (
+    instructor.telefone
+  ) {
+    const phone =
+      document.createElement(
+        "small",
+      );
+
+
+    phone.textContent =
+      instructor.telefone;
+
+
+    wrapper.append(
+      phone,
+    );
+  }
+
+
+  if (
+    !instructor.email &&
+    !instructor.telefone
+  ) {
+    const empty =
+      document.createElement(
+        "span",
+      );
+
+
+    empty.textContent =
+      "—";
+
+
+    wrapper.append(
+      empty,
+    );
+  }
+
+
+  cell.append(
+    wrapper,
+  );
+
+
+  return cell;
+}
+
+
+/* =========================================================
+   REGIONAIS
+========================================================= */
+
+function createRegionalsCell(
+  instructor,
+) {
+  const cell =
     document.createElement(
-      "span",
+      "td",
     );
 
-  email.textContent =
-    instructor.email ||
-    "E-mail não informado";
 
-
-  const phone =
-    document.createElement(
-      "small",
+  const assignedRegionals =
+    getRegionalsForInstructor(
+      instructor.id,
     );
 
-  phone.textContent =
-    instructor.telefone ||
-    "Telefone não informado";
+
+  const wrapper =
+    document.createElement(
+      "div",
+    );
 
 
-  wrapper.append(
-    email,
-    phone,
+  wrapper.className =
+    "instructors-regional-badges";
+
+
+  if (
+    !assignedRegionals.length
+  ) {
+    const empty =
+      document.createElement(
+        "span",
+      );
+
+
+    empty.className =
+      "instructors-regional-empty";
+
+
+    empty.textContent =
+      "Sem Regional";
+
+
+    wrapper.append(
+      empty,
+    );
+
+
+    cell.append(
+      wrapper,
+    );
+
+
+    return cell;
+  }
+
+
+  assignedRegionals.forEach(
+    (regional) => {
+      const badge =
+        document.createElement(
+          "span",
+        );
+
+
+      badge.className =
+        "instructors-regional-badge";
+
+
+      if (
+        regional.codigo
+      ) {
+        badge.classList.add(
+          `instructors-regional-${regional.codigo}`,
+        );
+      }
+
+
+      badge.textContent =
+        regional.nome;
+
+
+      wrapper.append(
+        badge,
+      );
+    },
   );
 
 
@@ -519,6 +1145,10 @@ function createContactCell(
   return cell;
 }
 
+
+/* =========================================================
+   STATUS
+========================================================= */
 
 function createStatusCell(
   instructor,
@@ -537,14 +1167,8 @@ function createStatusCell(
 
   badge.className =
     instructor.ativo
-      ? (
-        "instructors-status " +
-        "instructors-status-active"
-      )
-      : (
-        "instructors-status " +
-        "instructors-status-inactive"
-      );
+      ? "instructors-status instructors-status-active"
+      : "instructors-status instructors-status-inactive";
 
 
   badge.textContent =
@@ -562,7 +1186,43 @@ function createStatusCell(
 }
 
 
-function createActionCell(
+/* =========================================================
+   AÇÕES
+========================================================= */
+
+function createButton(
+  label,
+  callback,
+) {
+  const button =
+    document.createElement(
+      "button",
+    );
+
+
+  button.type =
+    "button";
+
+
+  button.className =
+    "btn btn-ghost";
+
+
+  button.textContent =
+    label;
+
+
+  button.addEventListener(
+    "click",
+    callback,
+  );
+
+
+  return button;
+}
+
+
+function createActionsCell(
   instructor,
   elements,
 ) {
@@ -577,71 +1237,37 @@ function createActionCell(
       "div",
     );
 
+
   actions.className =
     "instructors-actions";
 
 
-  const editButton =
-    document.createElement(
-      "button",
-    );
-
-
-  editButton.type =
-    "button";
-
-  editButton.className =
-    "btn btn-ghost";
-
-  editButton.textContent =
-    "Editar";
-
-
-  editButton.addEventListener(
-    "click",
-    () => {
-      openEditDialog(
-        instructor.id,
-        elements,
-      );
-    },
-  );
-
-
-  const statusButton =
-    document.createElement(
-      "button",
-    );
-
-
-  statusButton.type =
-    "button";
-
-  statusButton.className =
-    "btn btn-ghost";
-
-
-  statusButton.textContent =
-    instructor.ativo
-      ? "Inativar"
-      : "Ativar";
-
-
-  statusButton.addEventListener(
-    "click",
-    async () => {
-      await toggleInstructorStatus(
-        instructor,
-        statusButton,
-        elements,
-      );
-    },
+  actions.append(
+    createButton(
+      "Editar",
+      () => {
+        openEditDialog(
+          instructor.id,
+          elements,
+        );
+      },
+    ),
   );
 
 
   actions.append(
-    editButton,
-    statusButton,
+    createButton(
+      instructor.ativo
+        ? "Inativar"
+        : "Ativar",
+
+      async () => {
+        await toggleInstructorStatus(
+          instructor.id,
+          elements,
+        );
+      },
+    ),
   );
 
 
@@ -653,6 +1279,10 @@ function createActionCell(
   return cell;
 }
 
+
+/* =========================================================
+   TABELA
+========================================================= */
 
 function renderTable(
   elements,
@@ -674,7 +1304,8 @@ function renderTable(
 
   if (elements.empty) {
     elements.empty.hidden =
-      filtered.length > 0;
+      filtered.length >
+      0;
   }
 
 
@@ -695,21 +1326,24 @@ function renderTable(
           instructor,
         ),
 
+        createRegionalsCell(
+          instructor,
+        ),
+
         createStatusCell(
           instructor,
         ),
 
-        createActionCell(
+        createActionsCell(
           instructor,
           elements,
         ),
       );
 
 
-      elements.tableBody
-        .append(
-          row,
-        );
+      elements.tableBody.append(
+        row,
+      );
     },
   );
 }
@@ -723,6 +1357,11 @@ function render(
   );
 
 
+  populateRegionalFilter(
+    elements,
+  );
+
+
   renderTable(
     elements,
   );
@@ -730,82 +1369,67 @@ function render(
 
 
 /* =========================================================
-   NOVO INSTRUTOR
+   MODAL
 ========================================================= */
 
-function openCreateDialog(
+function resetForm(
   elements,
 ) {
-  selectedInstructorId =
-    null;
-
-
   elements.form
     ?.reset();
 
 
+  selectedInstructorId =
+    null;
+
+
   if (
-    elements.activeControl
+    elements.activeInput
   ) {
-    elements.activeControl.checked =
+    elements.activeInput.checked =
       true;
   }
 
 
-  if (
-    elements.dialogKicker
-  ) {
-    elements.dialogKicker.textContent =
-      "Novo cadastro";
-  }
-
-
-  if (
-    elements.dialogTitle
-  ) {
-    elements.dialogTitle.textContent =
-      "Novo instrutor";
-  }
-
-
-  if (
-    elements.save
-  ) {
-    elements.save.textContent =
-      "Salvar instrutor";
-  }
+  renderRegionalCheckboxes(
+    elements,
+    [],
+  );
 
 
   setDialogStatus(
     elements,
   );
+}
 
 
-  elements.dialog
-    ?.showModal();
+function openCreateDialog(
+  elements,
+) {
+  resetForm(
+    elements,
+  );
+
+
+  elements.dialogKicker.textContent =
+    "Novo cadastro";
+
+
+  elements.dialogTitle.textContent =
+    "Novo instrutor";
+
+
+  elements.save.textContent =
+    "Salvar instrutor";
+
+
+  elements.dialog.showModal();
 
 
   requestAnimationFrame(
     () => {
-      elements.name
-        ?.focus();
+      elements.name.focus();
     },
-  );
-}
-
-
-/* =========================================================
-   EDITAR INSTRUTOR
-========================================================= */
-
-function getSelectedInstructor() {
-  return (
-    instructors.find(
-      (instructor) =>
-        instructor.id ===
-        selectedInstructorId,
-    ) ||
-    null
   );
 }
 
@@ -815,17 +1439,12 @@ function openEditDialog(
   elements,
 ) {
   const instructor =
-    instructors.find(
-      (item) =>
-        item.id ===
-        instructorId,
+    getInstructorById(
+      instructorId,
     );
 
 
-  if (
-    !instructor ||
-    !elements.dialog
-  ) {
+  if (!instructor) {
     return;
   }
 
@@ -834,74 +1453,53 @@ function openEditDialog(
     instructor.id;
 
 
-  if (
-    elements.dialogKicker
-  ) {
-    elements.dialogKicker.textContent =
-      "Cadastro existente";
-  }
+  elements.form.reset();
 
 
-  if (
-    elements.dialogTitle
-  ) {
-    elements.dialogTitle.textContent =
-      "Editar instrutor";
-  }
+  elements.dialogKicker.textContent =
+    "Cadastro existente";
 
 
-  if (
-    elements.name
-  ) {
-    elements.name.value =
-      instructor.nome ||
-      "";
-  }
+  elements.dialogTitle.textContent =
+    "Editar instrutor";
 
 
-  if (
-    elements.email
-  ) {
-    elements.email.value =
-      instructor.email ||
-      "";
-  }
+  elements.name.value =
+    instructor.nome ||
+    "";
 
 
-  if (
-    elements.phone
-  ) {
-    elements.phone.value =
-      instructor.telefone ||
-      "";
-  }
+  elements.email.value =
+    instructor.email ||
+    "";
 
 
-  if (
-    elements.notes
-  ) {
-    elements.notes.value =
-      instructor.observacoes ||
-      "";
-  }
+  elements.phone.value =
+    instructor.telefone ||
+    "";
 
 
-  if (
-    elements.activeControl
-  ) {
-    elements.activeControl.checked =
-      Boolean(
-        instructor.ativo,
-      );
-  }
+  elements.notes.value =
+    instructor.observacoes ||
+    "";
 
 
-  if (
-    elements.save
-  ) {
-    elements.save.textContent =
-      "Salvar alterações";
-  }
+  elements.activeInput.checked =
+    Boolean(
+      instructor.ativo,
+    );
+
+
+  renderRegionalCheckboxes(
+    elements,
+    getRegionalIdsForInstructor(
+      instructor.id,
+    ),
+  );
+
+
+  elements.save.textContent =
+    "Salvar alterações";
 
 
   setDialogStatus(
@@ -910,20 +1508,8 @@ function openEditDialog(
 
 
   elements.dialog.showModal();
-
-
-  requestAnimationFrame(
-    () => {
-      elements.name
-        ?.focus();
-    },
-  );
 }
 
-
-/* =========================================================
-   FECHAR
-========================================================= */
 
 function closeDialog(
   elements,
@@ -933,8 +1519,7 @@ function closeDialog(
 
 
   if (
-    elements.dialog
-      ?.open
+    elements.dialog?.open
   ) {
     elements.dialog.close();
   }
@@ -947,77 +1532,84 @@ function closeDialog(
 
 
 /* =========================================================
-   ERROS
+   SINCRONIZAR REGIONAIS
 ========================================================= */
 
-function getDatabaseErrorMessage(
-  error,
+async function syncInstructorRegionals(
+  instructorId,
+  regionalIds,
 ) {
-  if (
-    error?.code ===
-    "23505"
-  ) {
-    return (
-      "Já existe um instrutor cadastrado com este e-mail."
-    );
+  const {
+    error,
+  } =
+    await supabase
+      .rpc(
+        "sync_instructor_regionals",
+        {
+          p_instrutor_id:
+            instructorId,
+
+          p_regional_ids:
+            regionalIds,
+        },
+      );
+
+
+  if (error) {
+    throw error;
   }
-
-
-  if (
-    error?.code ===
-    "42501"
-  ) {
-    return (
-      "Você não possui permissão para realizar esta operação."
-    );
-  }
-
-
-  return (
-    "Não foi possível salvar o instrutor."
-  );
 }
 
 
 /* =========================================================
-   SALVAR
+   SALVAR INSTRUTOR
 ========================================================= */
 
 async function saveInstructor(
   elements,
 ) {
+  const isEditing =
+    Boolean(
+      selectedInstructorId,
+    );
+
+
+  const instructorId =
+    selectedInstructorId;
+
+
   const nome =
-    elements.name
-      ?.value
-      .trim() ||
-    "";
+    elements.name.value
+      .trim();
 
 
   const email =
     normalizeOptionalText(
-      elements.email
-        ?.value,
+      elements.email.value,
     );
 
 
   const telefone =
     normalizeOptionalText(
-      elements.phone
-        ?.value,
+      elements.phone.value,
     );
 
 
   const observacoes =
     normalizeOptionalText(
-      elements.notes
-        ?.value,
+      elements.notes.value,
     );
 
 
   const ativo =
     Boolean(
-      elements.activeControl
-        ?.checked,
+      elements.activeInput.checked,
+    );
+
+
+  const regionalIds =
+    getSelectedRegionalIds(
+      elements,
     );
 
 
@@ -1029,41 +1621,33 @@ async function saveInstructor(
     );
 
 
-    elements.name
-      ?.focus();
+    elements.name.focus();
 
 
     return;
   }
 
 
-  const isEditing =
-    Boolean(
-      selectedInstructorId,
+  /*
+   * A partir de agora todo cadastro novo precisa
+   * possuir ao menos uma Regional.
+   *
+   * Instrutores antigos sem Regional continuarão
+   * aparecendo na listagem até serem atualizados.
+   */
+  if (
+    regionalIds.length ===
+    0
+  ) {
+    setDialogStatus(
+      elements,
+      "Selecione pelo menos uma Regional atendida pelo instrutor.",
+      "error",
     );
 
 
-  const instructorId =
-    selectedInstructorId;
-
-
-  if (
-    elements.save
-  ) {
-    elements.save.disabled =
-      true;
-
-
-    elements.save.textContent =
-      "Salvando...";
+    return;
   }
-
-
-  setDialogStatus(
-    elements,
-    "Salvando instrutor...",
-    "loading",
-  );
 
 
   const payload = {
@@ -1079,14 +1663,30 @@ async function saveInstructor(
   };
 
 
+  elements.save.disabled =
+    true;
+
+
+  elements.save.textContent =
+    "Salvando...";
+
+
+  setDialogStatus(
+    elements,
+    "Salvando instrutor...",
+    "loading",
+  );
+
+
   try {
-    let result;
+    let savedInstructorId;
 
 
-    if (
-      isEditing
-    ) {
-      result =
+    if (isEditing) {
+      const {
+        data,
+        error,
+      } =
         await supabase
           .from(
             "instrutores",
@@ -1098,22 +1698,26 @@ async function saveInstructor(
             "id",
             instructorId,
           )
-          .select(`
-            id,
-            profile_id,
-            nome,
-            email,
-            telefone,
-            ativo,
-            observacoes,
-            created_at,
-            updated_at
-          `)
+          .select(
+            "id",
+          )
           .single();
+
+
+      if (error) {
+        throw error;
+      }
+
+
+      savedInstructorId =
+        data.id;
 
     } else {
 
-      result =
+      const {
+        data,
+        error,
+      } =
         await supabase
           .from(
             "instrutores",
@@ -1121,29 +1725,36 @@ async function saveInstructor(
           .insert(
             payload,
           )
-          .select(`
-            id,
-            profile_id,
-            nome,
-            email,
-            telefone,
-            ativo,
-            observacoes,
-            created_at,
-            updated_at
-          `)
+          .select(
+            "id",
+          )
           .single();
+
+
+      if (error) {
+        throw error;
+      }
+
+
+      savedInstructorId =
+        data.id;
     }
 
 
-    if (
-      result.error
-    ) {
-      throw result.error;
-    }
+    /*
+     * Sincronização das Regionais.
+     *
+     * A RPC executa a remoção das relações antigas
+     * e inclusão das novas dentro de uma transação
+     * do PostgreSQL.
+     */
+    await syncInstructorRegionals(
+      savedInstructorId,
+      regionalIds,
+    );
 
 
-    await loadInstructors();
+    await reloadData();
 
 
     render(
@@ -1165,33 +1776,60 @@ async function saveInstructor(
     );
 
   } catch (error) {
+
     console.error(
       "[YXZ] Não foi possível salvar o instrutor:",
       error,
     );
 
 
+    if (
+      error?.code ===
+      "23505"
+    ) {
+      setDialogStatus(
+        elements,
+        "Já existe um instrutor utilizando este e-mail.",
+        "error",
+      );
+
+
+      return;
+    }
+
+
+    if (
+      error?.code ===
+      "42501"
+    ) {
+      setDialogStatus(
+        elements,
+        "Você não possui permissão para alterar instrutores.",
+        "error",
+      );
+
+
+      return;
+    }
+
+
     setDialogStatus(
       elements,
-      getDatabaseErrorMessage(
-        error,
-      ),
+      error?.message ||
+      "Não foi possível salvar o instrutor.",
       "error",
     );
 
   } finally {
-    if (
-      elements.save
-    ) {
-      elements.save.disabled =
-        false;
+
+    elements.save.disabled =
+      false;
 
 
-      elements.save.textContent =
-        isEditing
-          ? "Salvar alterações"
-          : "Salvar instrutor";
-    }
+    elements.save.textContent =
+      isEditing
+        ? "Salvar alterações"
+        : "Salvar instrutor";
   }
 }
 
@@ -1201,23 +1839,30 @@ async function saveInstructor(
 ========================================================= */
 
 async function toggleInstructorStatus(
-  instructor,
-  button,
+  instructorId,
   elements,
 ) {
-  const nextStatus =
+  const instructor =
+    getInstructorById(
+      instructorId,
+    );
+
+
+  if (!instructor) {
+    return;
+  }
+
+
+  const newStatus =
     !instructor.ativo;
 
 
   if (
-    !nextStatus
+    !newStatus
   ) {
     const confirmed =
       window.confirm(
-        (
-          `Deseja inativar ${instructor.nome}? ` +
-          "O instrutor deixará de aparecer em novas escalas."
-        ),
+        `Deseja inativar o instrutor "${instructor.nome}"?`,
       );
 
 
@@ -1227,21 +1872,16 @@ async function toggleInstructorStatus(
   }
 
 
-  const originalText =
-    button.textContent;
-
-
-  button.disabled =
-    true;
-
-
-  button.textContent =
-    nextStatus
-      ? "Ativando..."
-      : "Inativando...";
-
-
   try {
+    setPageMessage(
+      elements,
+      newStatus
+        ? "Ativando instrutor..."
+        : "Inativando instrutor...",
+      "loading",
+    );
+
+
     const {
       error,
     } =
@@ -1251,7 +1891,7 @@ async function toggleInstructorStatus(
         )
         .update({
           ativo:
-            nextStatus,
+            newStatus,
         })
         .eq(
           "id",
@@ -1274,37 +1914,23 @@ async function toggleInstructorStatus(
 
     setPageMessage(
       elements,
-      nextStatus
-        ? (
-          `${instructor.nome} foi ativado.`
-        )
-        : (
-          `${instructor.nome} foi inativado.`
-        ),
+      newStatus
+        ? "Instrutor ativado com sucesso."
+        : "Instrutor inativado com sucesso.",
       "success",
     );
 
   } catch (error) {
+
     console.error(
       "[YXZ] Não foi possível alterar o status do instrutor:",
       error,
     );
 
 
-    button.disabled =
-      false;
-
-
-    button.textContent =
-      originalText;
-
-
     setPageMessage(
       elements,
-      (
-        "Não foi possível alterar o status " +
-        "do instrutor."
-      ),
+      "Não foi possível alterar o status do instrutor.",
       "error",
     );
   }
@@ -1323,6 +1949,35 @@ function bindEvents(
       "click",
       () => {
         openCreateDialog(
+          elements,
+        );
+      },
+    );
+
+
+  elements.closeButtons
+    .forEach(
+      (button) => {
+        button.addEventListener(
+          "click",
+          () => {
+            closeDialog(
+              elements,
+            );
+          },
+        );
+      },
+    );
+
+
+  elements.form
+    ?.addEventListener(
+      "submit",
+      async (event) => {
+        event.preventDefault();
+
+
+        await saveInstructor(
           elements,
         );
       },
@@ -1351,16 +2006,12 @@ function bindEvents(
     );
 
 
-  elements.closeButtons
-    .forEach(
-      (button) => {
-        button.addEventListener(
-          "click",
-          () => {
-            closeDialog(
-              elements,
-            );
-          },
+  elements.regionalFilter
+    ?.addEventListener(
+      "change",
+      () => {
+        renderTable(
+          elements,
         );
       },
     );
@@ -1378,20 +2029,6 @@ function bindEvents(
             elements,
           );
         }
-      },
-    );
-
-
-  elements.form
-    ?.addEventListener(
-      "submit",
-      async (event) => {
-        event.preventDefault();
-
-
-        await saveInstructor(
-          elements,
-        );
       },
     );
 }
@@ -1419,7 +2056,16 @@ export async function initInstrutoresPage() {
     );
 
 
-    await loadInstructors();
+    await Promise.all([
+      loadInstructors(),
+      loadRegionals(),
+      loadInstructorRegionals(),
+    ]);
+
+
+    renderRegionalCheckboxes(
+      elements,
+    );
 
 
     render(
@@ -1433,26 +2079,20 @@ export async function initInstrutoresPage() {
     );
 
   } catch (error) {
+
     console.error(
       "[YXZ] Não foi possível carregar os instrutores:",
       error,
     );
 
 
-    if (
-      elements.tableBody
-    ) {
-      elements.tableBody
-        .replaceChildren();
-    }
+    elements.tableBody
+      ?.replaceChildren();
 
 
     setPageMessage(
       elements,
-      (
-        "Não foi possível carregar " +
-        "a lista de instrutores."
-      ),
+      "Não foi possível carregar o módulo de Instrutores.",
       "error",
     );
   }

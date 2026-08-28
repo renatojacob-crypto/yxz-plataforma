@@ -1,3 +1,13 @@
+/* =========================================================
+   YXZ PLATAFORMA
+   ENTRY POINT
+========================================================= */
+
+
+/* =========================================================
+   CSS
+========================================================= */
+
 import "./css/tokens.css";
 import "./css/base.css";
 import "./css/components.css";
@@ -8,7 +18,13 @@ import "./css/app.css";
 import "./css/usuarios.css";
 import "./css/instrutores.css";
 import "./css/agendamentos.css";
+import "./css/escalas.css";
+import "./css/execucoes.css";
 
+
+/* =========================================================
+   INTERFACE
+========================================================= */
 
 import {
   initSidebar,
@@ -16,9 +32,18 @@ import {
 
 
 import {
+  renderSidebar,
+} from "./js/sidebar.js";
+
+
+import {
   initFeedback,
 } from "./js/feedback.js";
 
+
+/* =========================================================
+   AUTENTICAÇÃO
+========================================================= */
 
 import {
   initLogoutButtons,
@@ -30,6 +55,10 @@ import {
   watchAuthState,
 } from "./js/auth.js";
 
+
+/* =========================================================
+   AUXILIAR
+========================================================= */
 
 function inicializarModulo(
   nome,
@@ -82,7 +111,7 @@ function getCurrentPage() {
 
 
 /* =========================================================
-   AUTORIZAÇÃO DA PÁGINA
+   AUTORIZAÇÃO
 ========================================================= */
 
 function authorizeCurrentPage(
@@ -120,12 +149,34 @@ function authorizeCurrentPage(
   }
 
 
+  if (
+    page ===
+    "escalas"
+  ) {
+    return requirePermission(
+      PERMISSIONS
+        .SCHEDULES_VIEW,
+    );
+  }
+
+
+  if (
+    page ===
+    "execucoes"
+  ) {
+    return requirePermission(
+      PERMISSIONS
+        .WORKSHOPS_REGISTER_EXECUTION,
+    );
+  }
+
+
   return true;
 }
 
 
 /* =========================================================
-   MÓDULOS DAS PÁGINAS
+   PÁGINAS
 ========================================================= */
 
 async function iniciarPaginaAtual() {
@@ -184,6 +235,47 @@ async function iniciarPaginaAtual() {
 
 
     await initAgendamentosPage();
+
+
+    return;
+  }
+
+
+  if (
+    page ===
+    "escalas"
+  ) {
+    const {
+      initEscalasPage,
+    } =
+      await import(
+        "./js/escalas-page.js"
+      );
+
+
+    await initEscalasPage();
+
+
+    return;
+  }
+
+
+  if (
+    page ===
+    "execucoes"
+  ) {
+    const {
+      initExecucoesPage,
+    } =
+      await import(
+        "./js/execucoes-page.js"
+      );
+
+
+    await initExecucoesPage();
+
+
+    return;
   }
 }
 
@@ -214,6 +306,12 @@ async function iniciarAplicacao() {
     ) {
       return;
     }
+
+
+    inicializarModulo(
+      "Renderização da Sidebar",
+      renderSidebar,
+    );
 
 
     renderAuthenticatedUser(

@@ -2,6 +2,7 @@ import {
   defineConfig,
 } from "vite";
 
+
 import {
   resolve,
 } from "node:path";
@@ -54,6 +55,16 @@ export default defineConfig({
         agendamentos: resolve(
           process.cwd(),
           "app/agendamentos.html",
+        ),
+
+        escalas: resolve(
+          process.cwd(),
+          "app/escalas.html",
+        ),
+
+        execucoes: resolve(
+          process.cwd(),
+          "app/execucoes.html",
         ),
       },
     },

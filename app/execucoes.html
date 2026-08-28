@@ -1,0 +1,808 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <meta
+    name="description"
+    content="Registro de execução dos eventos da Plataforma YXZ"
+  >
+
+  <meta
+    name="robots"
+    content="noindex, nofollow"
+  >
+
+  <meta
+    name="theme-color"
+    content="#0f2c25"
+  >
+
+  <title>
+    Execuções | YXZ Plataforma
+  </title>
+
+  <link
+    rel="icon"
+    href="/assets/favicon.png"
+    type="image/png"
+  >
+</head>
+
+
+<body data-app-page="execucoes">
+
+  <div
+    class="app-shell"
+    data-app-shell
+    hidden
+  >
+
+    <!-- ==================================================
+         SIDEBAR CENTRALIZADA
+    ================================================== -->
+
+    <aside
+      class="sidebar"
+      id="sidebar"
+      aria-label="Menu lateral"
+    ></aside>
+
+
+    <div
+      class="sidebar-overlay"
+      data-sidebar-close
+      aria-hidden="true"
+    ></div>
+
+
+    <!-- ==================================================
+         PRINCIPAL
+    ================================================== -->
+
+    <div class="app-main">
+
+      <header class="app-header">
+
+        <div class="header-left">
+
+          <button
+            type="button"
+            class="mobile-menu-button"
+            data-sidebar-toggle
+            aria-label="Abrir menu"
+            aria-expanded="false"
+            aria-controls="sidebar"
+          >
+            <span aria-hidden="true">
+              ☰
+            </span>
+          </button>
+
+
+          <div class="header-context">
+            Execução de Eventos
+          </div>
+
+        </div>
+
+
+        <div class="header-user">
+
+          <div
+            class="user-avatar"
+            data-auth-avatar
+            aria-hidden="true"
+          >
+            YXZ
+          </div>
+
+
+          <div class="user-info">
+
+            <strong data-auth-name>
+              Usuário
+            </strong>
+
+            <span data-auth-cargo>
+              Carregando...
+            </span>
+
+          </div>
+
+
+          <button
+            type="button"
+            class="btn btn-ghost"
+            data-auth-logout
+          >
+            Sair
+          </button>
+
+        </div>
+
+      </header>
+
+
+      <main class="app-content">
+
+        <!-- ==================================================
+             CABEÇALHO
+        ================================================== -->
+
+        <div class="page-heading">
+
+          <div>
+
+            <h1>
+              Execução de Eventos
+            </h1>
+
+            <p>
+              Confirme os eventos realizados,
+              participantes e instrutores presentes.
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <p
+          class="executions-page-message"
+          data-executions-message
+          role="status"
+          aria-live="polite"
+        ></p>
+
+
+        <!-- ==================================================
+             RESUMO
+        ================================================== -->
+
+        <section
+          class="executions-summary"
+          aria-label="Resumo das execuções"
+        >
+
+          <article class="card executions-summary-card">
+
+            <span>
+              Pendentes
+            </span>
+
+            <strong data-executions-pending>
+              —
+            </strong>
+
+          </article>
+
+
+          <article class="card executions-summary-card">
+
+            <span>
+              Realizados
+            </span>
+
+            <strong data-executions-completed>
+              —
+            </strong>
+
+          </article>
+
+
+          <article class="card executions-summary-card">
+
+            <span>
+              Agendados sem escala
+            </span>
+
+            <strong data-executions-without-scale>
+              —
+            </strong>
+
+          </article>
+
+
+          <article class="card executions-summary-card">
+
+            <span>
+              Participantes registrados
+            </span>
+
+            <strong data-executions-participants>
+              —
+            </strong>
+
+          </article>
+
+        </section>
+
+
+        <!-- ==================================================
+             LISTAGEM
+        ================================================== -->
+
+        <section
+          class="card executions-card"
+          aria-labelledby="executions-list-title"
+        >
+
+          <div class="executions-card-header">
+
+            <div>
+
+              <h2 id="executions-list-title">
+                Eventos
+              </h2>
+
+              <p>
+                Registre a realização dos eventos
+                ou consulte execuções anteriores.
+              </p>
+
+            </div>
+
+          </div>
+
+
+          <!-- ==================================================
+               FILTROS
+          ================================================== -->
+
+          <div class="executions-toolbar">
+
+            <div class="executions-search">
+
+              <label
+                class="sr-only"
+                for="executionsSearch"
+              >
+                Buscar evento
+              </label>
+
+              <input
+                id="executionsSearch"
+                type="search"
+                autocomplete="off"
+                placeholder="Buscar evento ou escola"
+                data-executions-search
+              >
+
+            </div>
+
+
+            <div class="executions-filter">
+
+              <label for="executionsRegionalFilter">
+                Regional
+              </label>
+
+              <select
+                id="executionsRegionalFilter"
+                data-executions-regional-filter
+              >
+                <option value="all">
+                  Todas
+                </option>
+              </select>
+
+            </div>
+
+
+            <div class="executions-filter">
+
+              <label for="executionsTypeFilter">
+                Tipo
+              </label>
+
+              <select
+                id="executionsTypeFilter"
+                data-executions-type-filter
+              >
+                <option value="all">
+                  Todos
+                </option>
+
+                <option value="oficina_educacional">
+                  Oficina Educacional
+                </option>
+
+                <option value="evento_comunidade">
+                  Evento à Comunidade
+                </option>
+              </select>
+
+            </div>
+
+
+            <div class="executions-filter">
+
+              <label for="executionsStatusFilter">
+                Status
+              </label>
+
+              <select
+                id="executionsStatusFilter"
+                data-executions-status-filter
+              >
+                <option value="all">
+                  Todos
+                </option>
+
+                <option value="agendada">
+                  Pendentes
+                </option>
+
+                <option value="realizada">
+                  Realizados
+                </option>
+
+                <option value="cancelada">
+                  Cancelados
+                </option>
+              </select>
+
+            </div>
+
+
+            <div class="executions-filter">
+
+              <label for="executionsDateStart">
+                De
+              </label>
+
+              <input
+                id="executionsDateStart"
+                type="date"
+                data-executions-date-start
+              >
+
+            </div>
+
+
+            <div class="executions-filter">
+
+              <label for="executionsDateEnd">
+                Até
+              </label>
+
+              <input
+                id="executionsDateEnd"
+                type="date"
+                data-executions-date-end
+              >
+
+            </div>
+
+          </div>
+
+
+          <!-- ==================================================
+               TABELA
+          ================================================== -->
+
+          <div class="executions-table-wrapper">
+
+            <table class="executions-table">
+
+              <thead>
+
+                <tr>
+
+                  <th scope="col">
+                    Data
+                  </th>
+
+                  <th scope="col">
+                    Evento
+                  </th>
+
+                  <th scope="col">
+                    Escola
+                  </th>
+
+                  <th scope="col">
+                    Regional
+                  </th>
+
+                  <th scope="col">
+                    Execução
+                  </th>
+
+                  <th scope="col">
+                    Status
+                  </th>
+
+                  <th scope="col">
+                    Ações
+                  </th>
+
+                </tr>
+
+              </thead>
+
+
+              <tbody data-executions-table-body>
+
+                <tr>
+
+                  <td
+                    colspan="7"
+                    class="executions-loading"
+                  >
+                    Carregando eventos...
+                  </td>
+
+                </tr>
+
+              </tbody>
+
+            </table>
+
+          </div>
+
+
+          <div
+            class="executions-empty"
+            data-executions-empty
+            hidden
+          >
+
+            <strong>
+              Nenhum evento encontrado.
+            </strong>
+
+            <span>
+              Ajuste os filtros para localizar
+              os eventos desejados.
+            </span>
+
+          </div>
+
+        </section>
+
+      </main>
+
+    </div>
+
+  </div>
+
+
+  <!-- ==================================================
+       MODAL DE EXECUÇÃO
+  ================================================== -->
+
+  <dialog
+    class="users-dialog executions-dialog"
+    id="executionDialog"
+    aria-labelledby="executionDialogTitle"
+  >
+
+    <form
+      class="users-dialog-form"
+      id="executionForm"
+    >
+
+      <header class="users-dialog-header">
+
+        <div>
+
+          <span
+            class="users-dialog-kicker"
+            data-execution-dialog-kicker
+          >
+            Evento realizado
+          </span>
+
+          <h2
+            id="executionDialogTitle"
+            data-execution-dialog-title
+          >
+            Registrar execução
+          </h2>
+
+          <p class="executions-dialog-description">
+            Confirme o que realmente aconteceu
+            durante o evento.
+          </p>
+
+        </div>
+
+
+        <button
+          type="button"
+          class="users-dialog-close"
+          data-execution-dialog-close
+          aria-label="Fechar"
+        >
+          ×
+        </button>
+
+      </header>
+
+
+      <div class="users-dialog-body">
+
+        <!-- ==================================================
+             EVENTO PLANEJADO
+        ================================================== -->
+
+        <section class="executions-event-summary">
+
+          <div class="executions-event-main">
+
+            <span
+              class="executions-event-type"
+              data-execution-event-type
+            >
+              —
+            </span>
+
+            <strong data-execution-event-name>
+              Evento
+            </strong>
+
+            <span data-execution-event-school>
+              Escola
+            </span>
+
+          </div>
+
+
+          <div class="executions-event-details">
+
+            <div>
+
+              <span>
+                Regional
+              </span>
+
+              <strong data-execution-event-regional>
+                —
+              </strong>
+
+            </div>
+
+
+            <div>
+
+              <span>
+                Previsto
+              </span>
+
+              <strong data-execution-event-date>
+                —
+              </strong>
+
+            </div>
+
+
+            <div>
+
+              <span>
+                Horário previsto
+              </span>
+
+              <strong data-execution-event-time>
+                —
+              </strong>
+
+            </div>
+
+          </div>
+
+        </section>
+
+
+        <!-- ==================================================
+             DADOS REAIS
+        ================================================== -->
+
+        <section class="executions-form-section">
+
+          <p class="executions-form-section-title">
+            Dados realizados
+          </p>
+
+
+          <div class="executions-form-grid">
+
+            <div class="form-field">
+
+              <label for="executionDate">
+                Data realizada *
+              </label>
+
+              <input
+                id="executionDate"
+                type="date"
+                required
+                data-execution-date
+              >
+
+            </div>
+
+
+            <div class="form-field">
+
+              <label for="executionParticipants">
+                Participantes reais
+              </label>
+
+              <input
+                id="executionParticipants"
+                type="number"
+                min="0"
+                step="1"
+                placeholder="Ex.: 28"
+                data-execution-participants
+              >
+
+            </div>
+
+
+            <div class="form-field">
+
+              <label for="executionStartTime">
+                Hora inicial real *
+              </label>
+
+              <input
+                id="executionStartTime"
+                type="time"
+                required
+                data-execution-start-time
+              >
+
+            </div>
+
+
+            <div class="form-field">
+
+              <label for="executionEndTime">
+                Hora final real *
+              </label>
+
+              <input
+                id="executionEndTime"
+                type="time"
+                required
+                data-execution-end-time
+              >
+
+            </div>
+
+
+            <div class="form-field executions-form-full">
+
+              <label for="executionNotes">
+                Observações
+              </label>
+
+              <textarea
+                id="executionNotes"
+                rows="4"
+                maxlength="1500"
+                placeholder="Informações sobre a realização do evento..."
+                data-execution-notes
+              ></textarea>
+
+            </div>
+
+          </div>
+
+        </section>
+
+
+        <!-- ==================================================
+             INSTRUTORES
+        ================================================== -->
+
+        <section class="executions-form-section">
+
+          <div class="executions-instructors-heading">
+
+            <div>
+
+              <p class="executions-form-section-title">
+                Instrutores presentes
+              </p>
+
+              <p>
+                Confirme quais profissionais da escala
+                realmente participaram.
+              </p>
+
+            </div>
+
+
+            <span
+              class="executions-selected-count"
+              data-execution-selected-count
+            >
+              0 presentes
+            </span>
+
+          </div>
+
+
+          <div
+            class="executions-instructor-list"
+            data-execution-instructor-list
+          >
+
+            <p class="executions-loading">
+              Carregando instrutores...
+            </p>
+
+          </div>
+
+        </section>
+
+
+        <div class="users-permission-box">
+
+          <strong>
+            Horas reais
+          </strong>
+
+          <p>
+            Os horários registrados para cada instrutor
+            serão utilizados posteriormente no módulo
+            de Horas e Conferência.
+          </p>
+
+        </div>
+
+
+        <p
+          class="users-dialog-status"
+          data-execution-status
+          role="status"
+          aria-live="polite"
+        ></p>
+
+      </div>
+
+
+      <footer class="users-dialog-footer">
+
+        <button
+          type="button"
+          class="btn btn-ghost"
+          data-execution-dialog-close
+        >
+          Cancelar
+        </button>
+
+
+        <button
+          type="submit"
+          class="btn btn-primary"
+          data-execution-save
+        >
+          Registrar execução
+        </button>
+
+      </footer>
+
+    </form>
+
+  </dialog>
+
+
+  <script
+    type="module"
+    src="/src/main.js"
+  ></script>
+
+</body>
+
+</html>

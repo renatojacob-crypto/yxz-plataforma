@@ -1,0 +1,715 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <meta
+    name="description"
+    content="Escalas de eventos da Plataforma YXZ"
+  >
+
+  <meta
+    name="robots"
+    content="noindex, nofollow"
+  >
+
+  <meta
+    name="theme-color"
+    content="#0f2c25"
+  >
+
+  <title>
+    Escalas | YXZ Plataforma
+  </title>
+
+  <link
+    rel="icon"
+    href="/assets/favicon.png"
+    type="image/png"
+  >
+</head>
+
+
+<body data-app-page="escalas">
+
+  <div
+    class="app-shell"
+    data-app-shell
+    hidden
+  >
+
+    <!-- ==================================================
+         SIDEBAR CENTRALIZADA
+    ================================================== -->
+
+    <aside
+      class="sidebar"
+      id="sidebar"
+      aria-label="Menu lateral"
+    ></aside>
+
+
+    <div
+      class="sidebar-overlay"
+      data-sidebar-close
+      aria-hidden="true"
+    ></div>
+
+
+    <!-- ==================================================
+         PRINCIPAL
+    ================================================== -->
+
+    <div class="app-main">
+
+      <header class="app-header">
+
+        <div class="header-left">
+
+          <button
+            type="button"
+            class="mobile-menu-button"
+            data-sidebar-toggle
+            aria-label="Abrir menu"
+            aria-expanded="false"
+            aria-controls="sidebar"
+          >
+            <span aria-hidden="true">
+              ☰
+            </span>
+          </button>
+
+
+          <div class="header-context">
+            Escalas de Eventos
+          </div>
+
+        </div>
+
+
+        <div class="header-user">
+
+          <div
+            class="user-avatar"
+            data-auth-avatar
+            aria-hidden="true"
+          >
+            YXZ
+          </div>
+
+
+          <div class="user-info">
+
+            <strong data-auth-name>
+              Usuário
+            </strong>
+
+            <span data-auth-cargo>
+              Carregando...
+            </span>
+
+          </div>
+
+
+          <button
+            type="button"
+            class="btn btn-ghost"
+            data-auth-logout
+          >
+            Sair
+          </button>
+
+        </div>
+
+      </header>
+
+
+      <main class="app-content">
+
+        <!-- ==================================================
+             CABEÇALHO
+        ================================================== -->
+
+        <div class="page-heading">
+
+          <div>
+
+            <h1>
+              Escalas
+            </h1>
+
+            <p>
+              Defina os instrutores responsáveis
+              pelos eventos programados.
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <p
+          class="scales-page-message"
+          data-scales-message
+          role="status"
+          aria-live="polite"
+        ></p>
+
+
+        <!-- ==================================================
+             RESUMO
+        ================================================== -->
+
+        <section
+          class="scales-summary"
+          aria-label="Resumo das escalas"
+        >
+
+          <article class="card scales-summary-card">
+
+            <span>
+              Eventos agendados
+            </span>
+
+            <strong data-scales-events>
+              —
+            </strong>
+
+          </article>
+
+
+          <article class="card scales-summary-card">
+
+            <span>
+              Com escala
+            </span>
+
+            <strong data-scales-with-scale>
+              —
+            </strong>
+
+          </article>
+
+
+          <article class="card scales-summary-card">
+
+            <span>
+              Sem escala
+            </span>
+
+            <strong data-scales-without-scale>
+              —
+            </strong>
+
+          </article>
+
+
+          <article class="card scales-summary-card">
+
+            <span>
+              Instrutores escalados
+            </span>
+
+            <strong data-scales-instructors>
+              —
+            </strong>
+
+          </article>
+
+        </section>
+
+
+        <!-- ==================================================
+             LISTAGEM
+        ================================================== -->
+
+        <section
+          class="card scales-card"
+          aria-labelledby="scales-list-title"
+        >
+
+          <div class="scales-card-header">
+
+            <div>
+
+              <h2 id="scales-list-title">
+                Eventos e escalas
+              </h2>
+
+              <p>
+                Selecione um evento agendado
+                para definir sua equipe.
+              </p>
+
+            </div>
+
+          </div>
+
+
+          <!-- ==================================================
+               FILTROS
+          ================================================== -->
+
+          <div class="scales-toolbar">
+
+            <div class="scales-search">
+
+              <label
+                class="sr-only"
+                for="scalesSearch"
+              >
+                Buscar evento
+              </label>
+
+              <input
+                id="scalesSearch"
+                type="search"
+                autocomplete="off"
+                placeholder="Buscar evento ou escola"
+                data-scales-search
+              >
+
+            </div>
+
+
+            <div class="scales-filter">
+
+              <label for="scalesRegionalFilter">
+                Regional
+              </label>
+
+              <select
+                id="scalesRegionalFilter"
+                data-scales-regional-filter
+              >
+                <option value="all">
+                  Todas
+                </option>
+              </select>
+
+            </div>
+
+
+            <div class="scales-filter">
+
+              <label for="scalesTypeFilter">
+                Tipo
+              </label>
+
+              <select
+                id="scalesTypeFilter"
+                data-scales-type-filter
+              >
+                <option value="all">
+                  Todos
+                </option>
+
+                <option value="oficina_educacional">
+                  Oficina Educacional
+                </option>
+
+                <option value="evento_comunidade">
+                  Evento à Comunidade
+                </option>
+              </select>
+
+            </div>
+
+
+            <div class="scales-filter">
+
+              <label for="scalesStatusFilter">
+                Status
+              </label>
+
+              <select
+                id="scalesStatusFilter"
+                data-scales-status-filter
+              >
+                <option value="agendada">
+                  Agendados
+                </option>
+
+                <option value="all">
+                  Todos
+                </option>
+
+                <option value="realizada">
+                  Realizados
+                </option>
+
+                <option value="cancelada">
+                  Cancelados
+                </option>
+              </select>
+
+            </div>
+
+
+            <div class="scales-filter">
+
+              <label for="scalesDateStart">
+                De
+              </label>
+
+              <input
+                id="scalesDateStart"
+                type="date"
+                data-scales-date-start
+              >
+
+            </div>
+
+
+            <div class="scales-filter">
+
+              <label for="scalesDateEnd">
+                Até
+              </label>
+
+              <input
+                id="scalesDateEnd"
+                type="date"
+                data-scales-date-end
+              >
+
+            </div>
+
+          </div>
+
+
+          <!-- ==================================================
+               TABELA
+          ================================================== -->
+
+          <div class="scales-table-wrapper">
+
+            <table class="scales-table">
+
+              <thead>
+
+                <tr>
+
+                  <th scope="col">
+                    Data
+                  </th>
+
+                  <th scope="col">
+                    Evento
+                  </th>
+
+                  <th scope="col">
+                    Escola
+                  </th>
+
+                  <th scope="col">
+                    Regional
+                  </th>
+
+                  <th scope="col">
+                    Escala
+                  </th>
+
+                  <th scope="col">
+                    Ações
+                  </th>
+
+                </tr>
+
+              </thead>
+
+
+              <tbody data-scales-table-body>
+
+                <tr>
+
+                  <td
+                    colspan="6"
+                    class="scales-loading"
+                  >
+                    Carregando escalas...
+                  </td>
+
+                </tr>
+
+              </tbody>
+
+            </table>
+
+          </div>
+
+
+          <div
+            class="scales-empty"
+            data-scales-empty
+            hidden
+          >
+
+            <strong>
+              Nenhum evento encontrado.
+            </strong>
+
+            <span>
+              Ajuste os filtros para localizar
+              os eventos desejados.
+            </span>
+
+          </div>
+
+        </section>
+
+      </main>
+
+    </div>
+
+  </div>
+
+
+  <!-- ==================================================
+       MODAL DE ESCALA
+  ================================================== -->
+
+  <dialog
+    class="users-dialog scales-dialog"
+    id="scaleDialog"
+    aria-labelledby="scaleDialogTitle"
+  >
+
+    <form
+      class="users-dialog-form"
+      id="scaleForm"
+    >
+
+      <header class="users-dialog-header">
+
+        <div>
+
+          <span class="users-dialog-kicker">
+            Equipe do evento
+          </span>
+
+          <h2 id="scaleDialogTitle">
+            Montar escala
+          </h2>
+
+          <p class="scales-dialog-description">
+            Selecione os instrutores que participarão
+            deste evento.
+          </p>
+
+        </div>
+
+
+        <button
+          type="button"
+          class="users-dialog-close"
+          data-scale-dialog-close
+          aria-label="Fechar"
+        >
+          ×
+        </button>
+
+      </header>
+
+
+      <div class="users-dialog-body">
+
+        <!-- ==================================================
+             EVENTO
+        ================================================== -->
+
+        <section class="scales-event-summary">
+
+          <div class="scales-event-summary-main">
+
+            <span class="scales-event-type" data-scale-event-type>
+              —
+            </span>
+
+            <strong data-scale-event-name>
+              Evento
+            </strong>
+
+            <span data-scale-event-school>
+              Escola
+            </span>
+
+          </div>
+
+
+          <div class="scales-event-summary-details">
+
+            <div>
+
+              <span>
+                Regional
+              </span>
+
+              <strong data-scale-event-regional>
+                —
+              </strong>
+
+            </div>
+
+
+            <div>
+
+              <span>
+                Data
+              </span>
+
+              <strong data-scale-event-date>
+                —
+              </strong>
+
+            </div>
+
+
+            <div>
+
+              <span>
+                Horário
+              </span>
+
+              <strong data-scale-event-time>
+                —
+              </strong>
+
+            </div>
+
+          </div>
+
+        </section>
+
+
+        <!-- ==================================================
+             BUSCA
+        ================================================== -->
+
+        <section class="scales-form-section">
+
+          <div class="scales-instructor-heading">
+
+            <div>
+
+              <h3>
+                Instrutores disponíveis
+              </h3>
+
+              <p>
+                A lista considera somente profissionais
+                relacionados à Regional deste evento.
+              </p>
+
+            </div>
+
+
+            <span
+              class="scales-selected-count"
+              data-scale-selected-count
+            >
+              0 selecionados
+            </span>
+
+          </div>
+
+
+          <div class="scales-instructor-search">
+
+            <label
+              class="sr-only"
+              for="scaleInstructorSearch"
+            >
+              Buscar instrutor
+            </label>
+
+            <input
+              id="scaleInstructorSearch"
+              type="search"
+              autocomplete="off"
+              placeholder="Buscar instrutor..."
+              data-scale-instructor-search
+            >
+
+          </div>
+
+
+          <div
+            class="scales-instructor-list"
+            data-scale-instructor-list
+          >
+
+            <p class="scales-loading">
+              Carregando instrutores...
+            </p>
+
+          </div>
+
+        </section>
+
+
+        <div class="users-permission-box">
+
+          <strong>
+            Proteção contra conflitos
+          </strong>
+
+          <p>
+            Instrutores já escalados em outro evento
+            no mesmo horário aparecem como indisponíveis.
+            O banco também valida o conflito antes de salvar.
+          </p>
+
+        </div>
+
+
+        <p
+          class="users-dialog-status"
+          data-scale-status
+          role="status"
+          aria-live="polite"
+        ></p>
+
+      </div>
+
+
+      <footer class="users-dialog-footer">
+
+        <button
+          type="button"
+          class="btn btn-ghost"
+          data-scale-dialog-close
+        >
+          Cancelar
+        </button>
+
+
+        <button
+          type="submit"
+          class="btn btn-primary"
+          data-scale-save
+        >
+          Salvar escala
+        </button>
+
+      </footer>
+
+    </form>
+
+  </dialog>
+
+
+  <script
+    type="module"
+    src="/src/main.js"
+  ></script>
+
+</body>
+
+</html>

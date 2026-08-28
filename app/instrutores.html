@@ -46,369 +46,15 @@
 
     <!-- ==================================================
          SIDEBAR
+
+         O conteúdo será gerado por src/js/sidebar.js
     ================================================== -->
 
     <aside
       class="sidebar"
       id="sidebar"
       aria-label="Menu lateral"
-    >
-
-      <div class="sidebar-brand">
-
-        <div
-          class="brand-symbol"
-          aria-hidden="true"
-        >
-          YXZ
-        </div>
-
-        <div class="brand-text">
-
-          <strong>
-            Plataforma YXZ
-          </strong>
-
-          <span>
-            Gestão Educacional
-          </span>
-
-        </div>
-
-      </div>
-
-
-      <nav
-        class="sidebar-nav"
-        aria-label="Navegação principal"
-      >
-
-        <!-- VISÃO GERAL -->
-
-        <div class="nav-section">
-
-          <p class="nav-section-title">
-            Visão geral
-          </p>
-
-          <a
-            href="/app/"
-            class="nav-link"
-            data-permission="dashboard.visualizar"
-            hidden
-          >
-
-            <span
-              class="nav-icon"
-              aria-hidden="true"
-            >
-              ▦
-            </span>
-
-            <span>
-              Dashboard
-            </span>
-
-          </a>
-
-        </div>
-
-
-        <!-- OFICINAS -->
-
-        <div class="nav-section">
-
-          <p class="nav-section-title">
-            Oficinas
-          </p>
-
-          <a
-            href="#"
-            class="nav-link"
-            data-permission="oficinas.visualizar"
-            hidden
-          >
-
-            <span
-              class="nav-icon"
-              aria-hidden="true"
-            >
-              ＋
-            </span>
-
-            <span>
-              Agendamentos
-            </span>
-
-          </a>
-
-
-          <a
-            href="#"
-            class="nav-link"
-            data-permission="escalas.visualizar"
-            hidden
-          >
-
-            <span
-              class="nav-icon"
-              aria-hidden="true"
-            >
-              ♙
-            </span>
-
-            <span>
-              Escalas
-            </span>
-
-          </a>
-
-
-          <a
-            href="#"
-            class="nav-link"
-            data-permission="oficinas.registrar_execucao"
-            hidden
-          >
-
-            <span
-              class="nav-icon"
-              aria-hidden="true"
-            >
-              ✓
-            </span>
-
-            <span>
-              Execuções
-            </span>
-
-          </a>
-
-
-          <a
-            href="#"
-            class="nav-link"
-            data-permission="oficinas.visualizar"
-            hidden
-          >
-
-            <span
-              class="nav-icon"
-              aria-hidden="true"
-            >
-              □
-            </span>
-
-            <span>
-              Calendário
-            </span>
-
-          </a>
-
-        </div>
-
-
-        <!-- EQUIPE -->
-
-        <div class="nav-section">
-
-          <p class="nav-section-title">
-            Equipe
-          </p>
-
-          <a
-            href="/app/instrutores.html"
-            class="nav-link active"
-            aria-current="page"
-            data-permission="escalas.gerenciar"
-            hidden
-          >
-
-            <span
-              class="nav-icon"
-              aria-hidden="true"
-            >
-              ◎
-            </span>
-
-            <span>
-              Instrutores
-            </span>
-
-          </a>
-
-
-          <a
-            href="#"
-            class="nav-link"
-            data-permission="escalas.visualizar"
-            hidden
-          >
-
-            <span
-              class="nav-icon"
-              aria-hidden="true"
-            >
-              ◷
-            </span>
-
-            <span>
-              Horas
-            </span>
-
-          </a>
-
-
-          <a
-            href="#"
-            class="nav-link"
-            data-permission="oficinas.registrar_execucao"
-            hidden
-          >
-
-            <span
-              class="nav-icon"
-              aria-hidden="true"
-            >
-              ≋
-            </span>
-
-            <span>
-              Conferência
-            </span>
-
-          </a>
-
-        </div>
-
-
-        <!-- FINANCEIRO -->
-
-        <div class="nav-section">
-
-          <p class="nav-section-title">
-            Financeiro
-          </p>
-
-          <a
-            href="#"
-            class="nav-link"
-            data-permission="previsoes.visualizar"
-            hidden
-          >
-
-            <span
-              class="nav-icon"
-              aria-hidden="true"
-            >
-              ◇
-            </span>
-
-            <span>
-              Previsões
-            </span>
-
-          </a>
-
-
-          <a
-            href="#"
-            class="nav-link"
-            data-permission="gastos.visualizar"
-            hidden
-          >
-
-            <span
-              class="nav-icon"
-              aria-hidden="true"
-            >
-              $
-            </span>
-
-            <span>
-              Gastos
-            </span>
-
-          </a>
-
-
-          <a
-            href="#"
-            class="nav-link"
-            data-permission="gastos.visualizar"
-            hidden
-          >
-
-            <span
-              class="nav-icon"
-              aria-hidden="true"
-            >
-              ↗
-            </span>
-
-            <span>
-              Comparativo
-            </span>
-
-          </a>
-
-        </div>
-
-
-        <!-- GESTÃO -->
-
-        <div class="nav-section">
-
-          <p class="nav-section-title">
-            Gestão
-          </p>
-
-          <a
-            href="#"
-            class="nav-link"
-            data-permission="relatorios.visualizar"
-            hidden
-          >
-
-            <span
-              class="nav-icon"
-              aria-hidden="true"
-            >
-              ▤
-            </span>
-
-            <span>
-              Relatórios
-            </span>
-
-          </a>
-
-
-          <a
-            href="/app/usuarios.html"
-            class="nav-link"
-            data-permission="usuarios.gerenciar"
-            hidden
-          >
-
-            <span
-              class="nav-icon"
-              aria-hidden="true"
-            >
-              ♟
-            </span>
-
-            <span>
-              Usuários
-            </span>
-
-          </a>
-
-        </div>
-
-      </nav>
-
-    </aside>
+    ></aside>
 
 
     <div
@@ -419,7 +65,7 @@
 
 
     <!-- ==================================================
-         CONTEÚDO PRINCIPAL
+         ÁREA PRINCIPAL
     ================================================== -->
 
     <div class="app-main">
@@ -436,11 +82,9 @@
             aria-expanded="false"
             aria-controls="sidebar"
           >
-
             <span aria-hidden="true">
               ☰
             </span>
-
           </button>
 
 
@@ -491,7 +135,7 @@
       <main class="app-content">
 
         <!-- ==================================================
-             CABEÇALHO DA PÁGINA
+             CABEÇALHO
         ================================================== -->
 
         <div class="page-heading">
@@ -503,8 +147,8 @@
             </h1>
 
             <p>
-              Gerencie os profissionais disponíveis
-              para as escalas e oficinas da YXZ.
+              Cadastre os profissionais e defina
+              quais Regionais cada instrutor atende.
             </p>
 
           </div>
@@ -530,7 +174,7 @@
 
 
         <!-- ==================================================
-             INDICADORES
+             RESUMO
         ================================================== -->
 
         <section
@@ -576,11 +220,24 @@
 
           </article>
 
+
+          <article class="card instructors-summary-card">
+
+            <span>
+              Sem Regional
+            </span>
+
+            <strong data-instructors-without-region>
+              —
+            </strong>
+
+          </article>
+
         </section>
 
 
         <!-- ==================================================
-             LISTA DE INSTRUTORES
+             LISTAGEM
         ================================================== -->
 
         <section
@@ -597,8 +254,8 @@
               </h2>
 
               <p>
-                Cadastros inativos permanecem
-                disponíveis para preservar o histórico.
+                Cadastros inativos permanecem disponíveis
+                para preservar o histórico da operação.
               </p>
 
             </div>
@@ -614,14 +271,14 @@
                 class="sr-only"
                 for="instructorsSearch"
               >
-                Buscar instrutores
+                Buscar instrutor
               </label>
 
               <input
                 id="instructorsSearch"
                 type="search"
-                placeholder="Buscar por nome, e-mail ou telefone"
                 autocomplete="off"
+                placeholder="Buscar por nome, e-mail ou telefone"
                 data-instructors-search
               >
 
@@ -638,7 +295,6 @@
                 id="instructorsStatusFilter"
                 data-instructors-status-filter
               >
-
                 <option value="all">
                   Todos
                 </option>
@@ -650,7 +306,28 @@
                 <option value="inactive">
                   Inativos
                 </option>
+              </select>
 
+            </div>
+
+
+            <div class="instructors-filter">
+
+              <label for="instructorsRegionalFilter">
+                Regional
+              </label>
+
+              <select
+                id="instructorsRegionalFilter"
+                data-instructors-regional-filter
+              >
+                <option value="all">
+                  Todas
+                </option>
+
+                <option value="none">
+                  Sem Regional
+                </option>
               </select>
 
             </div>
@@ -675,6 +352,10 @@
                   </th>
 
                   <th scope="col">
+                    Regionais
+                  </th>
+
+                  <th scope="col">
                     Status
                   </th>
 
@@ -692,7 +373,7 @@
                 <tr>
 
                   <td
-                    colspan="4"
+                    colspan="5"
                     class="instructors-loading"
                   >
                     Carregando instrutores...
@@ -734,8 +415,7 @@
 
 
   <!-- ==================================================
-       MODAL DE INSTRUTOR
-       Reutiliza o mesmo padrão visual da Central de Usuários
+       MODAL
   ================================================== -->
 
   <dialog
@@ -748,8 +428,6 @@
       class="users-dialog-form"
       id="instructorForm"
     >
-
-      <!-- CABEÇALHO -->
 
       <header class="users-dialog-header">
 
@@ -771,7 +449,7 @@
 
           <p class="instructors-dialog-description">
             Informe os dados do profissional
-            que poderá ser incluído nas escalas.
+            e as Regionais em que poderá atuar.
           </p>
 
         </div>
@@ -789,13 +467,13 @@
       </header>
 
 
-      <!-- CONTEÚDO -->
-
       <div class="users-dialog-body">
 
-        <div class="instructors-form-grid">
+        <!-- ==================================================
+             DADOS PESSOAIS
+        ================================================== -->
 
-          <!-- NOME -->
+        <div class="instructors-form-grid">
 
           <div class="form-field instructors-form-full">
 
@@ -816,8 +494,6 @@
           </div>
 
 
-          <!-- E-MAIL -->
-
           <div class="form-field">
 
             <label for="instructorEmail">
@@ -836,8 +512,6 @@
           </div>
 
 
-          <!-- TELEFONE -->
-
           <div class="form-field">
 
             <label for="instructorPhone">
@@ -855,8 +529,6 @@
 
           </div>
 
-
-          <!-- OBSERVAÇÕES -->
 
           <div class="form-field instructors-form-full">
 
@@ -881,9 +553,42 @@
         </div>
 
 
-        <!-- STATUS -->
+        <!-- ==================================================
+             REGIONAIS
+        ================================================== -->
 
-        <div class="instructors-form-section">
+        <section class="instructors-form-section">
+
+          <p class="instructors-form-section-title">
+            Regionais atendidas
+          </p>
+
+
+          <p class="instructors-regionals-description">
+            Selecione uma ou mais Regionais em que
+            este instrutor poderá ser escalado.
+          </p>
+
+
+          <div
+            class="instructors-regionals-grid"
+            data-instructor-regionals
+          >
+
+            <span class="instructors-regionals-loading">
+              Carregando Regionais...
+            </span>
+
+          </div>
+
+        </section>
+
+
+        <!-- ==================================================
+             DISPONIBILIDADE
+        ================================================== -->
+
+        <section class="instructors-form-section">
 
           <p class="instructors-form-section-title">
             Disponibilidade
@@ -913,10 +618,12 @@
 
           </label>
 
-        </div>
+        </section>
 
 
-        <!-- INFORMAÇÃO -->
+        <!-- ==================================================
+             ACESSO
+        ================================================== -->
 
         <div class="users-permission-box">
 
@@ -932,6 +639,7 @@
 
           </div>
 
+
           <p>
             Este cadastro representa um instrutor
             da operação e não cria automaticamente
@@ -940,8 +648,6 @@
 
         </div>
 
-
-        <!-- MENSAGEM -->
 
         <p
           class="users-dialog-status"
@@ -952,8 +658,6 @@
 
       </div>
 
-
-      <!-- RODAPÉ -->
 
       <footer class="users-dialog-footer">
 

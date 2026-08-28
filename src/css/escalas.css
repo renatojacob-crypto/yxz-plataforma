@@ -1,0 +1,1099 @@
+/* =========================================================
+   YXZ PLATAFORMA
+   ESCALAS
+========================================================= */
+
+
+/* =========================================================
+   MENSAGENS
+========================================================= */
+
+.scales-page-message {
+  min-height: 1.4rem;
+
+  margin:
+    0
+    0
+    1rem;
+
+  font-size: 0.9rem;
+}
+
+
+.scales-page-message:empty {
+  min-height: 0;
+
+  margin-bottom: 0;
+}
+
+
+.scales-page-message[data-state="success"] {
+  color:
+    var(
+      --color-success,
+      #027a48
+    );
+}
+
+
+.scales-page-message[data-state="error"] {
+  color:
+    var(
+      --color-danger,
+      #b42318
+    );
+}
+
+
+.scales-page-message[data-state="loading"] {
+  color:
+    var(
+      --color-text-muted,
+      #667085
+    );
+}
+
+
+/* =========================================================
+   RESUMO
+========================================================= */
+
+.scales-summary {
+  display: grid;
+
+  grid-template-columns:
+    repeat(
+      4,
+      minmax(0, 1fr)
+    );
+
+  gap: 1rem;
+
+  margin-bottom: 1.5rem;
+}
+
+
+.scales-summary-card {
+  display: flex;
+
+  min-height: 92px;
+
+  flex-direction: column;
+
+  justify-content: center;
+
+  gap: 0.5rem;
+
+  padding:
+    1.15rem
+    1.3rem;
+}
+
+
+.scales-summary-card span {
+  color:
+    var(
+      --color-text-muted,
+      #667085
+    );
+
+  font-size: 0.875rem;
+}
+
+
+.scales-summary-card strong {
+  font-size: 1.8rem;
+
+  line-height: 1;
+
+  font-weight: 700;
+}
+
+
+/* =========================================================
+   CARD
+========================================================= */
+
+.scales-card {
+  overflow: hidden;
+}
+
+
+.scales-card-header {
+  padding:
+    1.25rem
+    1rem
+    0;
+}
+
+
+.scales-card-header h2 {
+  margin: 0;
+}
+
+
+.scales-card-header p {
+  margin:
+    0.45rem
+    0
+    0;
+
+  color:
+    var(
+      --color-text-muted,
+      #667085
+    );
+
+  line-height: 1.5;
+}
+
+
+/* =========================================================
+   FILTROS
+========================================================= */
+
+.scales-toolbar {
+  display: grid;
+
+  grid-template-columns:
+    minmax(220px, 1.4fr)
+    repeat(
+      5,
+      minmax(130px, 1fr)
+    );
+
+  gap: 1rem;
+
+  align-items: end;
+
+  padding:
+    1.25rem
+    1rem;
+}
+
+
+.scales-search input,
+.scales-filter select,
+.scales-filter input {
+  width: 100%;
+
+  min-height: 44px;
+
+  padding:
+    0.72rem
+    0.85rem;
+
+  border:
+    1px
+    solid
+    var(
+      --color-border,
+      #d0d5dd
+    );
+
+  border-radius: 10px;
+
+  background:
+    var(
+      --color-surface,
+      #ffffff
+    );
+
+  color: inherit;
+
+  font: inherit;
+}
+
+
+.scales-filter {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 0.4rem;
+}
+
+
+.scales-filter label {
+  font-size: 0.8rem;
+
+  font-weight: 600;
+}
+
+
+/* =========================================================
+   TABELA
+========================================================= */
+
+.scales-table-wrapper {
+  width: 100%;
+
+  overflow-x: auto;
+}
+
+
+.scales-table {
+  width: 100%;
+
+  border-collapse: collapse;
+}
+
+
+.scales-table th,
+.scales-table td {
+  padding: 1rem;
+
+  border-top:
+    1px
+    solid
+    var(
+      --color-border,
+      #eaecf0
+    );
+
+  text-align: left;
+
+  vertical-align: middle;
+}
+
+
+.scales-table th {
+  color:
+    var(
+      --color-text-muted,
+      #667085
+    );
+
+  font-size: 0.8rem;
+
+  font-weight: 600;
+}
+
+
+.scales-date,
+.scales-event,
+.scales-school {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 0.25rem;
+}
+
+
+.scales-date span,
+.scales-school span {
+  color:
+    var(
+      --color-text-muted,
+      #667085
+    );
+
+  font-size: 0.8rem;
+}
+
+
+/* =========================================================
+   TIPO DO EVENTO
+========================================================= */
+
+.scales-event-type {
+  display: inline-flex;
+
+  width: fit-content;
+
+  align-items: center;
+
+  min-height: 24px;
+
+  padding:
+    0.2rem
+    0.55rem;
+
+  border-radius: 999px;
+
+  font-size: 0.72rem;
+
+  font-weight: 700;
+}
+
+
+.scales-event-type-educational {
+  background: #eef4ff;
+
+  color: #3538cd;
+}
+
+
+.scales-event-type-community {
+  background: #fff6ed;
+
+  color: #b54708;
+}
+
+
+/* =========================================================
+   REGIONAIS
+========================================================= */
+
+.scales-regional-cell {
+  font-weight: 650;
+
+  line-height: 1.4;
+}
+
+
+.scales-regional-cell span {
+  display: block;
+}
+
+
+.scales-regional-itabira {
+  background: #eff8ff;
+
+  color: #175cd3;
+
+  box-shadow:
+    inset 4px 0 0 #2e90fa;
+}
+
+
+.scales-regional-governador_valadares {
+  background: #ecfdf3;
+
+  color: #027a48;
+
+  box-shadow:
+    inset 4px 0 0 #12b76a;
+}
+
+
+.scales-regional-vitoria {
+  background: #f4f3ff;
+
+  color: #5925dc;
+
+  box-shadow:
+    inset 4px 0 0 #7f56d9;
+}
+
+
+/* =========================================================
+   INSTRUTORES NA TABELA
+========================================================= */
+
+.scales-instructor-badges {
+  display: flex;
+
+  max-width: 340px;
+
+  flex-wrap: wrap;
+
+  gap: 0.4rem;
+}
+
+
+.scales-instructor-badge {
+  display: inline-flex;
+
+  align-items: center;
+
+  min-height: 27px;
+
+  padding:
+    0.25rem
+    0.65rem;
+
+  border-radius: 999px;
+
+  background:
+    var(
+      --color-primary-soft,
+      #e7f0ed
+    );
+
+  color:
+    var(
+      --color-primary,
+      #0f6655
+    );
+
+  font-size: 0.74rem;
+
+  font-weight: 700;
+}
+
+
+.scales-without-instructor {
+  display: inline-flex;
+
+  padding:
+    0.25rem
+    0.65rem;
+
+  border-radius: 999px;
+
+  background: #fff6ed;
+
+  color: #b54708;
+
+  font-size: 0.74rem;
+
+  font-weight: 700;
+}
+
+
+/* =========================================================
+   AÇÕES
+========================================================= */
+
+.scales-actions {
+  display: flex;
+
+  flex-wrap: wrap;
+
+  gap: 0.4rem;
+}
+
+
+.scales-readonly-label {
+  color:
+    var(
+      --color-text-muted,
+      #667085
+    );
+
+  font-size: 0.82rem;
+}
+
+
+/* =========================================================
+   CARREGAMENTO / VAZIO
+========================================================= */
+
+.scales-loading {
+  padding: 2rem !important;
+
+  color:
+    var(
+      --color-text-muted,
+      #667085
+    );
+
+  text-align: center !important;
+}
+
+
+.scales-empty {
+  padding:
+    2.75rem
+    1rem;
+
+  text-align: center;
+}
+
+
+.scales-empty strong,
+.scales-empty span {
+  display: block;
+}
+
+
+.scales-empty span {
+  margin-top: 0.4rem;
+
+  color:
+    var(
+      --color-text-muted,
+      #667085
+    );
+}
+
+
+/* =========================================================
+   MODAL
+========================================================= */
+
+.scales-dialog {
+  width:
+    min(
+      780px,
+      calc(100% - 2rem)
+    );
+}
+
+
+.scales-dialog-description {
+  max-width: 520px;
+
+  margin:
+    0.45rem
+    0
+    0;
+
+  color:
+    var(
+      --color-text-muted,
+      #667085
+    );
+
+  font-size: 0.9rem;
+
+  line-height: 1.5;
+}
+
+
+/* =========================================================
+   RESUMO DO EVENTO
+========================================================= */
+
+.scales-event-summary {
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 1.4fr)
+    minmax(280px, 1fr);
+
+  gap: 1.25rem;
+
+  padding: 1rem;
+
+  border:
+    1px
+    solid
+    var(
+      --color-border,
+      #eaecf0
+    );
+
+  border-radius: 12px;
+
+  background: #f9fafb;
+}
+
+
+.scales-event-summary-main {
+  display: flex;
+
+  min-width: 0;
+
+  flex-direction: column;
+
+  align-items: flex-start;
+
+  gap: 0.4rem;
+}
+
+
+.scales-event-summary-main > strong {
+  font-size: 1rem;
+
+  line-height: 1.4;
+}
+
+
+.scales-event-summary-main > span:last-child {
+  color:
+    var(
+      --color-text-muted,
+      #667085
+    );
+
+  font-size: 0.84rem;
+}
+
+
+.scales-event-summary-details {
+  display: grid;
+
+  grid-template-columns:
+    1fr;
+
+  gap: 0.55rem;
+}
+
+
+.scales-event-summary-details > div {
+  display: flex;
+
+  justify-content: space-between;
+
+  gap: 1rem;
+
+  padding-bottom: 0.45rem;
+
+  border-bottom:
+    1px
+    solid
+    var(
+      --color-border,
+      #eaecf0
+    );
+}
+
+
+.scales-event-summary-details > div:last-child {
+  padding-bottom: 0;
+
+  border-bottom: 0;
+}
+
+
+.scales-event-summary-details span {
+  color:
+    var(
+      --color-text-muted,
+      #667085
+    );
+
+  font-size: 0.78rem;
+}
+
+
+.scales-event-summary-details strong {
+  font-size: 0.82rem;
+
+  text-align: right;
+}
+
+
+/* =========================================================
+   SEÇÃO DOS INSTRUTORES
+========================================================= */
+
+.scales-form-section {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 1rem;
+}
+
+
+.scales-instructor-heading {
+  display: flex;
+
+  align-items: flex-start;
+
+  justify-content: space-between;
+
+  gap: 1rem;
+}
+
+
+.scales-instructor-heading h3 {
+  margin: 0;
+
+  font-size: 1rem;
+}
+
+
+.scales-instructor-heading p {
+  margin:
+    0.3rem
+    0
+    0;
+
+  color:
+    var(
+      --color-text-muted,
+      #667085
+    );
+
+  font-size: 0.82rem;
+
+  line-height: 1.5;
+}
+
+
+.scales-selected-count {
+  flex:
+    0
+    0
+    auto;
+
+  padding:
+    0.3rem
+    0.65rem;
+
+  border-radius: 999px;
+
+  background: #f2f4f7;
+
+  color: #344054;
+
+  font-size: 0.75rem;
+
+  font-weight: 700;
+}
+
+
+.scales-instructor-search input {
+  width: 100%;
+
+  min-height: 44px;
+
+  padding:
+    0.72rem
+    0.85rem;
+
+  border:
+    1px
+    solid
+    var(
+      --color-border,
+      #d0d5dd
+    );
+
+  border-radius: 10px;
+
+  background:
+    var(
+      --color-surface,
+      #ffffff
+    );
+
+  color: inherit;
+
+  font: inherit;
+}
+
+
+/* =========================================================
+   LISTA DE INSTRUTORES
+========================================================= */
+
+.scales-instructor-list {
+  display: grid;
+
+  grid-template-columns:
+    repeat(
+      2,
+      minmax(0, 1fr)
+    );
+
+  gap: 0.7rem;
+
+  max-height: 380px;
+
+  overflow-y: auto;
+
+  padding-right: 0.2rem;
+}
+
+
+.scales-instructor-option {
+  display: flex;
+
+  min-width: 0;
+
+  align-items: flex-start;
+
+  gap: 0.75rem;
+
+  padding:
+    0.9rem;
+
+  border:
+    1px
+    solid
+    var(
+      --color-border,
+      #d0d5dd
+    );
+
+  border-radius: 10px;
+
+  background:
+    var(
+      --color-surface,
+      #ffffff
+    );
+
+  cursor: pointer;
+
+  transition:
+    border-color 0.2s ease,
+    background-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+
+.scales-instructor-option:hover {
+  border-color:
+    var(
+      --color-primary,
+      #0f6655
+    );
+}
+
+
+.scales-instructor-option:has(
+  input:checked
+) {
+  border-color:
+    var(
+      --color-primary,
+      #0f6655
+    );
+
+  background:
+    var(
+      --color-primary-soft,
+      #f5faf8
+    );
+
+  box-shadow:
+    0 0 0 2px
+    rgb(15 102 85 / 0.08);
+}
+
+
+.scales-instructor-option input {
+  width: 18px;
+
+  height: 18px;
+
+  margin-top: 0.15rem;
+
+  flex:
+    0
+    0
+    auto;
+
+  accent-color:
+    var(
+      --color-primary,
+      #0f6655
+    );
+}
+
+
+.scales-instructor-option-content {
+  display: flex;
+
+  min-width: 0;
+
+  flex-direction: column;
+
+  gap: 0.25rem;
+}
+
+
+.scales-instructor-option-top {
+  display: flex;
+
+  align-items: center;
+
+  gap: 0.4rem;
+}
+
+
+.scales-instructor-option-content strong {
+  font-size: 0.88rem;
+
+  line-height: 1.35;
+}
+
+
+.scales-instructor-option-content small {
+  overflow-wrap: anywhere;
+
+  color:
+    var(
+      --color-text-muted,
+      #667085
+    );
+
+  font-size: 0.76rem;
+}
+
+
+.scales-available-message {
+  color:
+    var(
+      --color-success,
+      #027a48
+    );
+
+  font-size: 0.74rem;
+
+  font-weight: 700;
+}
+
+
+.scales-conflict-message {
+  color:
+    var(
+      --color-danger,
+      #b42318
+    );
+
+  font-size: 0.74rem;
+
+  font-weight: 650;
+
+  line-height: 1.4;
+}
+
+
+.scales-instructor-conflict {
+  border-color: #fecdca;
+
+  background: #fffbfa;
+}
+
+
+.scales-instructor-conflict:has(
+  input:disabled
+) {
+  cursor: not-allowed;
+
+  opacity: 0.78;
+}
+
+
+.scales-instructor-invalid {
+  border-color: #fedf89;
+
+  background: #fffcf5;
+}
+
+
+/* =========================================================
+   NENHUM INSTRUTOR
+========================================================= */
+
+.scales-instructor-empty {
+  grid-column:
+    1 / -1;
+
+  padding:
+    2rem
+    1rem;
+
+  border:
+    1px
+    dashed
+    var(
+      --color-border,
+      #d0d5dd
+    );
+
+  border-radius: 10px;
+
+  text-align: center;
+}
+
+
+.scales-instructor-empty strong,
+.scales-instructor-empty span {
+  display: block;
+}
+
+
+.scales-instructor-empty span {
+  margin-top: 0.35rem;
+
+  color:
+    var(
+      --color-text-muted,
+      #667085
+    );
+
+  font-size: 0.82rem;
+}
+
+
+/* =========================================================
+   RESPONSIVO
+========================================================= */
+
+@media (
+  max-width: 1100px
+) {
+
+  .scales-summary {
+    grid-template-columns:
+      repeat(
+        2,
+        minmax(0, 1fr)
+      );
+  }
+
+
+  .scales-toolbar {
+    grid-template-columns:
+      repeat(
+        3,
+        minmax(0, 1fr)
+      );
+  }
+
+
+  .scales-search {
+    grid-column:
+      1 / -1;
+  }
+
+}
+
+
+@media (
+  max-width: 760px
+) {
+
+  .scales-summary {
+    grid-template-columns:
+      1fr;
+  }
+
+
+  .scales-toolbar {
+    grid-template-columns:
+      1fr;
+  }
+
+
+  .scales-search {
+    grid-column: auto;
+  }
+
+
+  .scales-table {
+    min-width: 1000px;
+  }
+
+
+  .scales-event-summary {
+    grid-template-columns:
+      1fr;
+  }
+
+
+  .scales-instructor-list {
+    grid-template-columns:
+      1fr;
+  }
+
+}
+
+
+@media (
+  max-width: 540px
+) {
+
+  .scales-dialog {
+    width:
+      calc(100% - 1rem);
+
+    max-height:
+      calc(100dvh - 1rem);
+  }
+
+
+  .scales-instructor-heading {
+    flex-direction: column;
+  }
+
+}
