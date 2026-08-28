@@ -1,0 +1,646 @@
+/* =========================================================
+   YXZ PLATAFORMA
+   COMPARATIVO FINANCEIRO
+========================================================= */
+
+
+/* =========================================================
+   CABEÇALHO
+========================================================= */
+
+.comparison-heading-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+
+/* =========================================================
+   MENSAGEM
+========================================================= */
+
+.comparison-page-message {
+  min-height: 1.4rem;
+  margin: 0 0 1rem;
+  font-size: 0.9rem;
+}
+
+
+.comparison-page-message:empty {
+  min-height: 0;
+  margin-bottom: 0;
+}
+
+
+.comparison-page-message[data-state="error"] {
+  color: #b42318;
+}
+
+
+.comparison-page-message[data-state="success"] {
+  color: #027a48;
+}
+
+
+.comparison-page-message[data-state="loading"] {
+  color: #667085;
+}
+
+
+/* =========================================================
+   FILTROS
+========================================================= */
+
+.comparison-filter-card {
+  margin-bottom: 1.25rem;
+  padding: 1.2rem;
+}
+
+
+.comparison-filter-heading {
+  margin-bottom: 1rem;
+}
+
+
+.comparison-filter-heading h2 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+
+.comparison-filter-heading p {
+  margin: 0.35rem 0 0;
+  color: #667085;
+  font-size: 0.84rem;
+}
+
+
+.comparison-filters {
+  display: grid;
+  grid-template-columns:
+    minmax(150px, 0.7fr)
+    minmax(190px, 0.95fr)
+    minmax(180px, 0.9fr)
+    minmax(150px, 0.75fr)
+    minmax(190px, 1fr)
+    minmax(260px, 1.3fr);
+  gap: 1rem;
+  align-items: end;
+}
+
+
+.comparison-filter-field {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+
+.comparison-filter-field label {
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+
+.comparison-filter-field input,
+.comparison-filter-field select {
+  width: 100%;
+  min-height: 44px;
+  padding: 0.7rem 0.8rem;
+  border: 1px solid #d0d5dd;
+  border-radius: 10px;
+  background: #ffffff;
+  color: inherit;
+  font: inherit;
+}
+
+
+/* =========================================================
+   RESUMO
+========================================================= */
+
+.comparison-summary {
+  display: grid;
+  grid-template-columns:
+    repeat(
+      5,
+      minmax(0, 1fr)
+    );
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+
+.comparison-summary-card {
+  display: flex;
+  min-height: 100px;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 1.1rem 1.2rem;
+}
+
+
+.comparison-summary-card span {
+  color: #667085;
+  font-size: 0.82rem;
+}
+
+
+.comparison-summary-card strong {
+  font-size: 1.48rem;
+}
+
+
+.comparison-summary-card
+strong[data-state="positive"] {
+  color: #027a48;
+}
+
+
+.comparison-summary-card
+strong[data-state="negative"] {
+  color: #b42318;
+}
+
+
+.comparison-summary-card
+strong[data-state="neutral"] {
+  color: #344054;
+}
+
+
+/* =========================================================
+   CARD
+========================================================= */
+
+.comparison-card {
+  margin-bottom: 1.25rem;
+  overflow: hidden;
+}
+
+
+.comparison-card-heading {
+  padding: 1.2rem 1rem;
+}
+
+
+.comparison-card-heading h2 {
+  margin: 0;
+}
+
+
+.comparison-card-heading p {
+  margin: 0.35rem 0 0;
+  color: #667085;
+  font-size: 0.84rem;
+}
+
+
+/* =========================================================
+   TABELAS
+========================================================= */
+
+.comparison-table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
+
+.comparison-category-table,
+.comparison-event-table,
+.comparison-detail-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+
+.comparison-event-table {
+  min-width: 1300px;
+}
+
+
+.comparison-detail-table {
+  min-width: 650px;
+}
+
+
+.comparison-category-table th,
+.comparison-category-table td,
+.comparison-event-table th,
+.comparison-event-table td,
+.comparison-detail-table th,
+.comparison-detail-table td {
+  padding: 0.9rem 1rem;
+  border-top: 1px solid #eaecf0;
+  text-align: left;
+  vertical-align: middle;
+}
+
+
+.comparison-category-table th,
+.comparison-event-table th,
+.comparison-detail-table th {
+  color: #667085;
+  font-size: 0.76rem;
+  font-weight: 600;
+}
+
+
+.comparison-category-table tbody tr:hover,
+.comparison-event-table tbody tr:hover,
+.comparison-detail-table tbody tr:hover {
+  background: #fcfcfd;
+}
+
+
+.comparison-loading {
+  padding: 2rem !important;
+  color: #667085;
+  text-align: center !important;
+}
+
+
+/* =========================================================
+   VALORES
+========================================================= */
+
+.comparison-money-cell {
+  white-space: nowrap;
+}
+
+
+.comparison-money-cell
+[data-state="positive"] {
+  color: #027a48;
+}
+
+
+.comparison-money-cell
+[data-state="negative"] {
+  color: #b42318;
+}
+
+
+.comparison-money-cell
+[data-state="neutral"] {
+  color: #344054;
+}
+
+
+/* =========================================================
+   EVENTO
+========================================================= */
+
+.comparison-event-name {
+  display: flex;
+  min-width: 180px;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+
+.comparison-event-name span {
+  color: #667085;
+  font-size: 0.75rem;
+}
+
+
+/* =========================================================
+   EXECUÇÃO
+========================================================= */
+
+.comparison-execution {
+  display: flex;
+  min-width: 100px;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+
+.comparison-execution strong {
+  white-space: nowrap;
+  font-size: 0.82rem;
+}
+
+
+.comparison-progress {
+  width: 100%;
+  height: 6px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: #eaecf0;
+}
+
+
+.comparison-progress span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: #12b76a;
+}
+
+
+.comparison-progress
+.comparison-progress-over {
+  background: #f04438;
+}
+
+
+/* =========================================================
+   BADGES
+========================================================= */
+
+.comparison-badge {
+  display: inline-flex;
+  min-height: 26px;
+  align-items: center;
+  padding: 0.22rem 0.6rem;
+  border-radius: 999px;
+  white-space: nowrap;
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+
+
+.comparison-badge-abaixo {
+  background: #ecfdf3;
+  color: #027a48;
+}
+
+
+.comparison-badge-conforme {
+  background: #eef4ff;
+  color: #3538cd;
+}
+
+
+.comparison-badge-acima {
+  background: #fef3f2;
+  color: #b42318;
+}
+
+
+.comparison-badge-sem_previsao {
+  background: #fff6ed;
+  color: #b54708;
+}
+
+
+.comparison-badge-sem_gasto {
+  background: #f2f4f7;
+  color: #344054;
+}
+
+
+.comparison-badge-sem_movimento {
+  background: #f2f4f7;
+  color: #667085;
+}
+
+
+/* =========================================================
+   VAZIO
+========================================================= */
+
+.comparison-empty {
+  padding: 2.75rem 1rem;
+  text-align: center;
+}
+
+
+.comparison-empty strong,
+.comparison-empty span {
+  display: block;
+}
+
+
+.comparison-empty span {
+  margin-top: 0.4rem;
+  color: #667085;
+  font-size: 0.84rem;
+}
+
+
+/* =========================================================
+   MODAL
+========================================================= */
+
+.comparison-dialog {
+  width: min(
+    850px,
+    calc(100% - 2rem)
+  );
+}
+
+
+.comparison-dialog-description {
+  margin: 0.4rem 0 0;
+  color: #667085;
+  font-size: 0.85rem;
+}
+
+
+.comparison-event-summary {
+  display: grid;
+  grid-template-columns:
+    minmax(0, 1.2fr)
+    minmax(260px, 1fr);
+  gap: 1rem;
+  padding: 1rem;
+  border: 1px solid #eaecf0;
+  border-radius: 12px;
+  background: #f9fafb;
+}
+
+
+.comparison-event-summary
+> div:first-child {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+
+.comparison-event-summary
+> div:first-child
+span {
+  color: #667085;
+  font-size: 0.82rem;
+}
+
+
+.comparison-dialog-meta {
+  display: grid;
+  gap: 0.45rem;
+}
+
+
+.comparison-dialog-meta > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 1px solid #eaecf0;
+}
+
+
+.comparison-dialog-meta
+> div:last-child {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+
+.comparison-dialog-meta span {
+  color: #667085;
+  font-size: 0.75rem;
+}
+
+
+.comparison-dialog-meta strong {
+  font-size: 0.8rem;
+  text-align: right;
+}
+
+
+/* =========================================================
+   RESUMO MODAL
+========================================================= */
+
+.comparison-dialog-summary {
+  display: grid;
+  grid-template-columns:
+    repeat(
+      3,
+      minmax(0, 1fr)
+    );
+  gap: 0.75rem;
+}
+
+
+.comparison-dialog-summary > div {
+  display: flex;
+  min-height: 85px;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.35rem;
+  padding: 0.9rem;
+  border: 1px solid #eaecf0;
+  border-radius: 10px;
+}
+
+
+.comparison-dialog-summary span {
+  color: #667085;
+  font-size: 0.75rem;
+}
+
+
+.comparison-dialog-summary strong {
+  font-size: 1.08rem;
+}
+
+
+.comparison-dialog-summary
+[data-state="positive"] {
+  color: #027a48;
+}
+
+
+.comparison-dialog-summary
+[data-state="negative"] {
+  color: #b42318;
+}
+
+
+/* =========================================================
+   RESPONSIVO
+========================================================= */
+
+@media (max-width: 1250px) {
+
+  .comparison-filters {
+    grid-template-columns:
+      repeat(
+        3,
+        minmax(0, 1fr)
+      );
+  }
+
+
+  .comparison-search-field {
+    grid-column: 1 / -1;
+  }
+
+
+  .comparison-summary {
+    grid-template-columns:
+      repeat(
+        3,
+        minmax(0, 1fr)
+      );
+  }
+
+}
+
+
+@media (max-width: 800px) {
+
+  .comparison-filters {
+    grid-template-columns:
+      repeat(
+        2,
+        minmax(0, 1fr)
+      );
+  }
+
+
+  .comparison-summary {
+    grid-template-columns:
+      repeat(
+        2,
+        minmax(0, 1fr)
+      );
+  }
+
+
+  .comparison-event-summary {
+    grid-template-columns: 1fr;
+  }
+
+}
+
+
+@media (max-width: 560px) {
+
+  .comparison-filters,
+  .comparison-summary,
+  .comparison-dialog-summary {
+    grid-template-columns: 1fr;
+  }
+
+
+  .comparison-search-field {
+    grid-column: auto;
+  }
+
+
+  .comparison-heading-actions {
+    width: 100%;
+    flex-direction: column;
+  }
+
+
+  .comparison-heading-actions .btn {
+    width: 100%;
+  }
+
+
+  .comparison-dialog {
+    width: calc(100% - 1rem);
+    max-height: calc(100dvh - 1rem);
+  }
+
+}

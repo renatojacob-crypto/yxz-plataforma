@@ -86,6 +86,11 @@ export default defineConfig({
           process.cwd(),
           "app/gastos.html",
         ),
+
+        comparativo: resolve(
+          process.cwd(),
+          "app/comparativo.html",
+        ),
       },
     },
   },

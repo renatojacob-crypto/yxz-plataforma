@@ -1,0 +1,873 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <meta
+    name="description"
+    content="Comparativo financeiro da Plataforma YXZ"
+  >
+
+  <meta
+    name="robots"
+    content="noindex, nofollow"
+  >
+
+  <meta
+    name="theme-color"
+    content="#0f2c25"
+  >
+
+  <title>
+    Comparativo Financeiro | YXZ Plataforma
+  </title>
+
+  <link
+    rel="icon"
+    href="/assets/favicon.png"
+    type="image/png"
+  >
+</head>
+
+
+<body data-app-page="comparativo">
+
+  <div
+    class="app-shell"
+    data-app-shell
+    hidden
+  >
+
+    <aside
+      class="sidebar"
+      id="sidebar"
+      aria-label="Menu lateral"
+    ></aside>
+
+
+    <div
+      class="sidebar-overlay"
+      data-sidebar-close
+      aria-hidden="true"
+    ></div>
+
+
+    <div class="app-main">
+
+      <!-- ==================================================
+           HEADER
+      ================================================== -->
+
+      <header class="app-header">
+
+        <div class="header-left">
+
+          <button
+            type="button"
+            class="mobile-menu-button"
+            data-sidebar-toggle
+            aria-label="Abrir menu"
+            aria-expanded="false"
+            aria-controls="sidebar"
+          >
+            <span aria-hidden="true">
+              ☰
+            </span>
+          </button>
+
+
+          <div class="header-context">
+            Comparativo Financeiro
+          </div>
+
+        </div>
+
+
+        <div class="header-user">
+
+          <div
+            class="user-avatar"
+            data-auth-avatar
+            aria-hidden="true"
+          >
+            YXZ
+          </div>
+
+
+          <div class="user-info">
+
+            <strong data-auth-name>
+              Usuário
+            </strong>
+
+            <span data-auth-cargo>
+              Carregando...
+            </span>
+
+          </div>
+
+
+          <button
+            type="button"
+            class="btn btn-ghost"
+            data-auth-logout
+          >
+            Sair
+          </button>
+
+        </div>
+
+      </header>
+
+
+      <!-- ==================================================
+           CONTEÚDO
+      ================================================== -->
+
+      <main class="app-content">
+
+        <div class="page-heading">
+
+          <div>
+
+            <h1>
+              Comparativo Financeiro
+            </h1>
+
+            <p>
+              Compare os valores previstos
+              com os gastos efetivamente realizados.
+            </p>
+
+          </div>
+
+
+          <div class="comparison-heading-actions">
+
+            <button
+              type="button"
+              class="btn btn-ghost"
+              data-comparison-export
+            >
+              Exportar CSV
+            </button>
+
+
+            <button
+              type="button"
+              class="btn btn-ghost"
+              data-comparison-refresh
+            >
+              Atualizar
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <p
+          class="comparison-page-message"
+          data-comparison-message
+          role="status"
+          aria-live="polite"
+        ></p>
+
+
+        <!-- ==================================================
+             FILTROS
+        ================================================== -->
+
+        <section
+          class="card comparison-filter-card"
+          aria-labelledby="comparison-filter-title"
+        >
+
+          <div class="comparison-filter-heading">
+
+            <div>
+
+              <h2 id="comparison-filter-title">
+                Consulta
+              </h2>
+
+              <p>
+                A competência considera a data
+                programada do evento.
+              </p>
+
+            </div>
+
+          </div>
+
+
+          <div class="comparison-filters">
+
+            <div class="comparison-filter-field">
+
+              <label for="comparisonMonth">
+                Competência
+              </label>
+
+              <input
+                id="comparisonMonth"
+                type="month"
+                required
+                data-comparison-month
+              >
+
+            </div>
+
+
+            <div class="comparison-filter-field">
+
+              <label for="comparisonRegional">
+                Regional
+              </label>
+
+              <select
+                id="comparisonRegional"
+                data-comparison-regional
+              >
+
+                <option value="">
+                  Todas
+                </option>
+
+              </select>
+
+            </div>
+
+
+            <div class="comparison-filter-field">
+
+              <label for="comparisonType">
+                Tipo
+              </label>
+
+              <select
+                id="comparisonType"
+                data-comparison-type
+              >
+
+                <option value="">
+                  Todos
+                </option>
+
+                <option value="oficina_educacional">
+                  Oficina Educacional
+                </option>
+
+                <option value="evento_comunidade">
+                  Evento à Comunidade
+                </option>
+
+              </select>
+
+            </div>
+
+
+            <div class="comparison-filter-field">
+
+              <label for="comparisonEventStatus">
+                Evento
+              </label>
+
+              <select
+                id="comparisonEventStatus"
+                data-comparison-event-status
+              >
+
+                <option value="">
+                  Todos
+                </option>
+
+                <option value="agendada">
+                  Agendados
+                </option>
+
+                <option value="realizada">
+                  Realizados
+                </option>
+
+                <option value="cancelada">
+                  Cancelados
+                </option>
+
+              </select>
+
+            </div>
+
+
+            <div class="comparison-filter-field">
+
+              <label for="comparisonSituation">
+                Comparativo
+              </label>
+
+              <select
+                id="comparisonSituation"
+                data-comparison-situation
+              >
+
+                <option value="">
+                  Todos
+                </option>
+
+                <option value="abaixo">
+                  Abaixo do previsto
+                </option>
+
+                <option value="conforme">
+                  Dentro do previsto
+                </option>
+
+                <option value="acima">
+                  Acima do previsto
+                </option>
+
+                <option value="sem_previsao">
+                  Sem previsão
+                </option>
+
+                <option value="sem_gasto">
+                  Sem gasto
+                </option>
+
+                <option value="sem_movimento">
+                  Sem movimentação
+                </option>
+
+              </select>
+
+            </div>
+
+
+            <div
+              class="comparison-filter-field comparison-search-field"
+            >
+
+              <label for="comparisonSearch">
+                Buscar
+              </label>
+
+              <input
+                id="comparisonSearch"
+                type="search"
+                autocomplete="off"
+                placeholder="Evento, escola ou Regional"
+                data-comparison-search
+              >
+
+            </div>
+
+          </div>
+
+        </section>
+
+
+        <!-- ==================================================
+             RESUMO
+        ================================================== -->
+
+        <section
+          class="comparison-summary"
+          aria-label="Resumo do comparativo"
+        >
+
+          <article class="card comparison-summary-card">
+
+            <span>
+              Total previsto
+            </span>
+
+            <strong data-comparison-forecast>
+              —
+            </strong>
+
+          </article>
+
+
+          <article class="card comparison-summary-card">
+
+            <span>
+              Total realizado
+            </span>
+
+            <strong data-comparison-expense>
+              —
+            </strong>
+
+          </article>
+
+
+          <article class="card comparison-summary-card">
+
+            <span>
+              Diferença
+            </span>
+
+            <strong data-comparison-difference>
+              —
+            </strong>
+
+          </article>
+
+
+          <article class="card comparison-summary-card">
+
+            <span>
+              Execução financeira
+            </span>
+
+            <strong data-comparison-execution>
+              —
+            </strong>
+
+          </article>
+
+
+          <article class="card comparison-summary-card">
+
+            <span>
+              Acima do previsto
+            </span>
+
+            <strong data-comparison-over-budget>
+              —
+            </strong>
+
+          </article>
+
+        </section>
+
+
+        <!-- ==================================================
+             CATEGORIAS
+        ================================================== -->
+
+        <section
+          class="card comparison-card"
+          aria-labelledby="comparison-category-title"
+        >
+
+          <div class="comparison-card-heading">
+
+            <div>
+
+              <h2 id="comparison-category-title">
+                Comparativo por categoria
+              </h2>
+
+              <p>
+                Consolidação dos eventos selecionados.
+              </p>
+
+            </div>
+
+          </div>
+
+
+          <div class="comparison-table-wrapper">
+
+            <table class="comparison-category-table">
+
+              <thead>
+
+                <tr>
+
+                  <th>
+                    Categoria
+                  </th>
+
+                  <th>
+                    Previsto
+                  </th>
+
+                  <th>
+                    Realizado
+                  </th>
+
+                  <th>
+                    Diferença
+                  </th>
+
+                  <th>
+                    Execução
+                  </th>
+
+                </tr>
+
+              </thead>
+
+
+              <tbody data-comparison-category-body>
+
+                <tr>
+
+                  <td
+                    colspan="5"
+                    class="comparison-loading"
+                  >
+                    Carregando...
+                  </td>
+
+                </tr>
+
+              </tbody>
+
+            </table>
+
+          </div>
+
+        </section>
+
+
+        <!-- ==================================================
+             EVENTOS
+        ================================================== -->
+
+        <section
+          class="card comparison-card"
+          aria-labelledby="comparison-events-title"
+        >
+
+          <div class="comparison-card-heading">
+
+            <div>
+
+              <h2 id="comparison-events-title">
+                Comparativo por evento
+              </h2>
+
+              <p data-comparison-period-label>
+                —
+              </p>
+
+            </div>
+
+          </div>
+
+
+          <div class="comparison-table-wrapper">
+
+            <table class="comparison-event-table">
+
+              <thead>
+
+                <tr>
+
+                  <th>
+                    Data
+                  </th>
+
+                  <th>
+                    Evento
+                  </th>
+
+                  <th>
+                    Escola
+                  </th>
+
+                  <th>
+                    Regional
+                  </th>
+
+                  <th>
+                    Previsto
+                  </th>
+
+                  <th>
+                    Realizado
+                  </th>
+
+                  <th>
+                    Diferença
+                  </th>
+
+                  <th>
+                    Execução
+                  </th>
+
+                  <th>
+                    Situação
+                  </th>
+
+                  <th>
+                    Ações
+                  </th>
+
+                </tr>
+
+              </thead>
+
+
+              <tbody data-comparison-event-body>
+
+                <tr>
+
+                  <td
+                    colspan="10"
+                    class="comparison-loading"
+                  >
+                    Carregando comparativo...
+                  </td>
+
+                </tr>
+
+              </tbody>
+
+            </table>
+
+          </div>
+
+
+          <div
+            class="comparison-empty"
+            data-comparison-empty
+            hidden
+          >
+
+            <strong>
+              Nenhum evento encontrado.
+            </strong>
+
+            <span>
+              Ajuste a competência ou os filtros.
+            </span>
+
+          </div>
+
+        </section>
+
+      </main>
+
+    </div>
+
+  </div>
+
+
+  <!-- ======================================================
+       MODAL DE DETALHES
+  ======================================================= -->
+
+  <dialog
+    class="users-dialog comparison-dialog"
+    id="comparisonDialog"
+    aria-labelledby="comparisonDialogTitle"
+  >
+
+    <div class="users-dialog-form">
+
+      <header class="users-dialog-header">
+
+        <div>
+
+          <span class="users-dialog-kicker">
+            Comparativo do evento
+          </span>
+
+          <h2
+            id="comparisonDialogTitle"
+            data-comparison-dialog-title
+          >
+            Detalhamento
+          </h2>
+
+          <p class="comparison-dialog-description">
+            Previsão e realizado por categoria.
+          </p>
+
+        </div>
+
+
+        <button
+          type="button"
+          class="users-dialog-close"
+          data-comparison-dialog-close
+          aria-label="Fechar"
+        >
+          ×
+        </button>
+
+      </header>
+
+
+      <div class="users-dialog-body">
+
+        <section class="comparison-event-summary">
+
+          <div>
+
+            <strong data-comparison-dialog-event>
+              Evento
+            </strong>
+
+            <span data-comparison-dialog-school>
+              Escola
+            </span>
+
+          </div>
+
+
+          <div class="comparison-dialog-meta">
+
+            <div>
+
+              <span>
+                Regional
+              </span>
+
+              <strong data-comparison-dialog-regional>
+                —
+              </strong>
+
+            </div>
+
+
+            <div>
+
+              <span>
+                Data
+              </span>
+
+              <strong data-comparison-dialog-date>
+                —
+              </strong>
+
+            </div>
+
+
+            <div>
+
+              <span>
+                Situação
+              </span>
+
+              <strong data-comparison-dialog-situation>
+                —
+              </strong>
+
+            </div>
+
+          </div>
+
+        </section>
+
+
+        <div class="comparison-dialog-summary">
+
+          <div>
+
+            <span>
+              Previsto
+            </span>
+
+            <strong data-comparison-dialog-forecast>
+              R$ 0,00
+            </strong>
+
+          </div>
+
+
+          <div>
+
+            <span>
+              Realizado
+            </span>
+
+            <strong data-comparison-dialog-expense>
+              R$ 0,00
+            </strong>
+
+          </div>
+
+
+          <div>
+
+            <span>
+              Diferença
+            </span>
+
+            <strong data-comparison-dialog-difference>
+              R$ 0,00
+            </strong>
+
+          </div>
+
+        </div>
+
+
+        <div class="comparison-table-wrapper">
+
+          <table class="comparison-detail-table">
+
+            <thead>
+
+              <tr>
+
+                <th>
+                  Categoria
+                </th>
+
+                <th>
+                  Previsto
+                </th>
+
+                <th>
+                  Realizado
+                </th>
+
+                <th>
+                  Diferença
+                </th>
+
+                <th>
+                  Execução
+                </th>
+
+              </tr>
+
+            </thead>
+
+
+            <tbody data-comparison-dialog-body></tbody>
+
+          </table>
+
+        </div>
+
+      </div>
+
+
+      <footer class="users-dialog-footer">
+
+        <button
+          type="button"
+          class="btn btn-primary"
+          data-comparison-dialog-close
+        >
+          Fechar
+        </button>
+
+      </footer>
+
+    </div>
+
+  </dialog>
+
+
+  <script
+    type="module"
+    src="/src/main.js"
+  ></script>
+
+</body>
+
+</html>

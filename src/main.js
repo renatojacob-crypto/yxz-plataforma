@@ -4,10 +4,6 @@
 ========================================================= */
 
 
-/* =========================================================
-   CSS
-========================================================= */
-
 import "./css/tokens.css";
 import "./css/base.css";
 import "./css/components.css";
@@ -24,11 +20,8 @@ import "./css/horas.css";
 import "./css/conferencia.css";
 import "./css/previsoes.css";
 import "./css/gastos.css";
+import "./css/comparativo.css";
 
-
-/* =========================================================
-   INTERFACE
-========================================================= */
 
 import {
   initSidebar,
@@ -44,10 +37,6 @@ import {
   initFeedback,
 } from "./js/feedback.js";
 
-
-/* =========================================================
-   AUTH
-========================================================= */
 
 import {
   initLogoutButtons,
@@ -202,6 +191,9 @@ function authorizeCurrentPage(
   if (
     page ===
     "gastos"
+    ||
+    page ===
+    "comparativo"
   ) {
     return requirePermission(
       "gastos.visualizar",
@@ -382,11 +374,29 @@ async function iniciarPaginaAtual() {
 
     return;
   }
+
+
+  if (
+    page ===
+    "comparativo"
+  ) {
+    const {
+      initComparativoPage,
+    } =
+      await import(
+        "./js/comparativo-page.js"
+      );
+
+
+    await initComparativoPage();
+
+    return;
+  }
 }
 
 
 /* =========================================================
-   INICIALIZAÇÃO
+   INIT
 ========================================================= */
 
 async function iniciarAplicacao() {

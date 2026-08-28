@@ -113,7 +113,7 @@ const MENU_SECTIONS = [
       {
         page: "comparativo",
         label: "Comparativo",
-        href: "#",
+        href: "/app/comparativo.html",
         icon: "↗",
         permission: "gastos.visualizar",
       },
