@@ -642,3 +642,384 @@
   }
 
 }
+
+/* =========================================================
+   GERAÇÃO OFICIAL
+========================================================= */
+
+.billing-generation-card {
+  margin-bottom: 1.25rem;
+  padding: 1.2rem;
+}
+
+
+.billing-worker-note {
+  display: inline-flex;
+  align-items: center;
+  min-height: 30px;
+  padding: 0.3rem 0.7rem;
+  border-radius: 999px;
+  background: #eff8ff;
+  color: #175cd3;
+  font-size: 0.76rem;
+  font-weight: 700;
+}
+
+
+.billing-generation-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+
+.billing-generation-model {
+  min-width: 0;
+  padding: 1rem;
+  border: 1px solid #eaecf0;
+  border-radius: 12px;
+  background: #ffffff;
+}
+
+
+.billing-generation-model-paebm {
+  background: #f9fafb;
+}
+
+
+.billing-generation-model-heading {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: flex-start;
+  padding-bottom: 0.8rem;
+  border-bottom: 1px solid #eaecf0;
+}
+
+
+.billing-generation-model-heading > div {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+
+.billing-generation-model-heading strong {
+  font-size: 0.95rem;
+}
+
+
+.billing-generation-model-heading span:not(.billing-file-type) {
+  color: #667085;
+  font-size: 0.78rem;
+}
+
+
+.billing-file-type {
+  flex: 0 0 auto;
+  padding: 0.2rem 0.5rem;
+  border-radius: 999px;
+  background: #f2f4f7;
+  color: #344054;
+  font-size: 0.7rem;
+  font-weight: 800;
+}
+
+
+.billing-generation-fields {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.8rem;
+  margin-top: 0.9rem;
+}
+
+
+.billing-generation-model:first-child
+.billing-generation-fields {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+
+.billing-generation-fields input {
+  width: 100%;
+  min-height: 42px;
+  padding: 0.65rem 0.75rem;
+  border: 1px solid #d0d5dd;
+  border-radius: 9px;
+  background: #ffffff;
+  color: inherit;
+  font: inherit;
+}
+
+
+.billing-paebm-message {
+  margin-top: 0.9rem;
+  padding: 0.9rem;
+  border: 1px dashed #d0d5dd;
+  border-radius: 10px;
+}
+
+
+.billing-paebm-message p {
+  margin: 0.35rem 0 0;
+  color: #667085;
+  font-size: 0.8rem;
+  line-height: 1.5;
+}
+
+
+.billing-generation-footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 1.5rem;
+  align-items: center;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #eaecf0;
+}
+
+
+.billing-generation-footer > div {
+  max-width: 760px;
+}
+
+
+.billing-generation-footer p {
+  margin: 0.3rem 0 0;
+  color: #667085;
+  font-size: 0.8rem;
+  line-height: 1.5;
+}
+
+
+/* =========================================================
+   HISTÓRICO DE GERAÇÕES
+========================================================= */
+
+.billing-history-card {
+  margin-top: 1.25rem;
+}
+
+
+.billing-generation-history {
+  display: grid;
+  gap: 0.9rem;
+  padding: 0 1rem 1rem;
+}
+
+
+.billing-generation-history-card {
+  overflow: hidden;
+  border: 1px solid #eaecf0;
+  border-radius: 12px;
+  background: #ffffff;
+}
+
+
+.billing-generation-history-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: flex-start;
+  padding: 0.95rem 1rem;
+  background: #f9fafb;
+}
+
+
+.billing-generation-history-header > div:first-child {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+
+.billing-generation-history-header > div:first-child span {
+  color: #667085;
+  font-size: 0.76rem;
+}
+
+
+.billing-generation-history-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.55rem;
+  align-items: center;
+}
+
+
+.billing-generation-status,
+.billing-file-status {
+  display: inline-flex;
+  align-items: center;
+  min-height: 26px;
+  padding: 0.22rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 800;
+}
+
+
+.billing-generation-status-pendente,
+.billing-file-status-pendente {
+  background: #fff6ed;
+  color: #b54708;
+}
+
+
+.billing-generation-status-processando,
+.billing-file-status-processando {
+  background: #eff8ff;
+  color: #175cd3;
+}
+
+
+.billing-generation-status-concluida,
+.billing-file-status-concluido {
+  background: #ecfdf3;
+  color: #027a48;
+}
+
+
+.billing-generation-status-erro,
+.billing-file-status-erro {
+  background: #fef3f2;
+  color: #b42318;
+}
+
+
+.billing-generation-status-cancelada,
+.billing-file-status-ignorado,
+.billing-generation-status-neutral,
+.billing-file-status-neutral {
+  background: #f2f4f7;
+  color: #475467;
+}
+
+
+.billing-generation-files {
+  display: grid;
+}
+
+
+.billing-generation-file {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 0.75rem 1rem;
+  align-items: center;
+  padding: 0.8rem 1rem;
+  border-top: 1px solid #eaecf0;
+}
+
+
+.billing-generation-file-main {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+
+.billing-generation-file-main strong {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+.billing-generation-file-main span {
+  overflow: hidden;
+  color: #667085;
+  font-size: 0.74rem;
+  text-overflow: ellipsis;
+}
+
+
+.billing-generation-file-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+
+.billing-download-button {
+  min-height: 34px;
+}
+
+
+.billing-generation-file-message {
+  grid-column: 1 / -1;
+  margin: 0;
+  padding: 0.65rem 0.75rem;
+  border-radius: 8px;
+  background: #fffcf5;
+  color: #854a0e;
+  font-size: 0.75rem;
+  white-space: pre-line;
+}
+
+
+.billing-generation-file-message-error {
+  background: #fef3f2;
+  color: #b42318;
+}
+
+
+.billing-generation-error {
+  margin: 0;
+  padding: 0.8rem 1rem;
+  border-top: 1px solid #fecdca;
+  background: #fef3f2;
+  color: #b42318;
+  font-size: 0.78rem;
+  white-space: pre-line;
+}
+
+
+@media (max-width: 1050px) {
+
+  .billing-generation-grid {
+    grid-template-columns: 1fr;
+  }
+
+
+  .billing-generation-model:first-child
+  .billing-generation-fields {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+}
+
+
+@media (max-width: 760px) {
+
+  .billing-generation-fields,
+  .billing-generation-model:first-child
+  .billing-generation-fields {
+    grid-template-columns: 1fr;
+  }
+
+
+  .billing-generation-footer,
+  .billing-generation-history-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+
+  .billing-generation-history-actions,
+  .billing-generation-file-actions {
+    justify-content: flex-start;
+  }
+
+
+  .billing-generation-file {
+    grid-template-columns: 1fr;
+  }
+
+}
+

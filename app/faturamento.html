@@ -156,10 +156,8 @@
               type="button"
               class="btn btn-primary"
               data-billing-generate
-              disabled
-              title="O gerador dos arquivos oficiais será conectado na próxima etapa."
             >
-              Gerar arquivos oficiais
+              Gerar relatórios Word
             </button>
 
           </div>
@@ -340,6 +338,343 @@
             class="billing-model-grid"
             data-billing-model-grid
           ></div>
+
+        </section>
+
+
+
+        <!-- ==================================================
+             PARÂMETROS DA GERAÇÃO
+        ================================================== -->
+
+        <section
+          class="card billing-generation-card"
+          aria-labelledby="billing-generation-title"
+        >
+
+          <div class="billing-card-heading">
+
+            <div>
+
+              <h2 id="billing-generation-title">
+                Gerar relatórios oficiais
+              </h2>
+
+              <p>
+                Informe os valores mensais dos três relatórios
+                Word. O PAEBM será conectado na próxima etapa.
+              </p>
+
+            </div>
+
+
+            <span class="billing-worker-note">
+              Gerador Windows deve estar em execução
+            </span>
+
+          </div>
+
+
+          <div class="billing-generation-grid">
+
+            <article class="billing-generation-model">
+
+              <div class="billing-generation-model-heading">
+
+                <div>
+
+                  <strong>
+                    Relatório BH
+                  </strong>
+
+                  <span>
+                    Regional de Itabira
+                  </span>
+
+                </div>
+
+
+                <span class="billing-file-type">
+                  DOCM
+                </span>
+
+              </div>
+
+
+              <div class="billing-generation-fields">
+
+                <div class="form-field">
+
+                  <label for="billingBhNumber">
+                    Número do relatório *
+                  </label>
+
+                  <input
+                    id="billingBhNumber"
+                    type="text"
+                    inputmode="numeric"
+                    maxlength="30"
+                    placeholder="Ex.: 20"
+                    data-billing-bh-number
+                  >
+
+                </div>
+
+
+                <div class="form-field">
+
+                  <label for="billingBhEducator1">
+                    Educador Socioambiental 1 *
+                  </label>
+
+                  <input
+                    id="billingBhEducator1"
+                    type="text"
+                    maxlength="100"
+                    placeholder="Ex.: 1"
+                    data-billing-bh-educator-1
+                  >
+
+                </div>
+
+              </div>
+
+            </article>
+
+
+            <article class="billing-generation-model">
+
+              <div class="billing-generation-model-heading">
+
+                <div>
+
+                  <strong>
+                    Relatório VAL
+                  </strong>
+
+                  <span>
+                    Regional de Governador Valadares
+                  </span>
+
+                </div>
+
+
+                <span class="billing-file-type">
+                  DOCM
+                </span>
+
+              </div>
+
+
+              <div class="billing-generation-fields">
+
+                <div class="form-field">
+
+                  <label for="billingValNumber">
+                    Número do relatório *
+                  </label>
+
+                  <input
+                    id="billingValNumber"
+                    type="text"
+                    inputmode="numeric"
+                    maxlength="30"
+                    placeholder="Ex.: 28"
+                    data-billing-val-number
+                  >
+
+                </div>
+
+
+                <div class="form-field">
+
+                  <label for="billingValEducator1">
+                    Educador Socioambiental 1 *
+                  </label>
+
+                  <input
+                    id="billingValEducator1"
+                    type="text"
+                    maxlength="100"
+                    placeholder="Ex.: 2"
+                    data-billing-val-educator-1
+                  >
+
+                </div>
+
+
+                <div class="form-field">
+
+                  <label for="billingValEducator2">
+                    Educador Socioambiental 2 *
+                  </label>
+
+                  <input
+                    id="billingValEducator2"
+                    type="text"
+                    maxlength="100"
+                    placeholder="Ex.: 2"
+                    data-billing-val-educator-2
+                  >
+
+                </div>
+
+              </div>
+
+            </article>
+
+
+            <article class="billing-generation-model">
+
+              <div class="billing-generation-model-heading">
+
+                <div>
+
+                  <strong>
+                    Relatório VIX
+                  </strong>
+
+                  <span>
+                    Regional de Vitória
+                  </span>
+
+                </div>
+
+
+                <span class="billing-file-type">
+                  DOCM
+                </span>
+
+              </div>
+
+
+              <div class="billing-generation-fields">
+
+                <div class="form-field">
+
+                  <label for="billingVixNumber">
+                    Número do relatório *
+                  </label>
+
+                  <input
+                    id="billingVixNumber"
+                    type="text"
+                    inputmode="numeric"
+                    maxlength="30"
+                    placeholder="Ex.: 28"
+                    data-billing-vix-number
+                  >
+
+                </div>
+
+
+                <div class="form-field">
+
+                  <label for="billingVixEducator1">
+                    Educador Socioambiental 1 *
+                  </label>
+
+                  <input
+                    id="billingVixEducator1"
+                    type="text"
+                    maxlength="100"
+                    placeholder="Ex.: 0"
+                    data-billing-vix-educator-1
+                  >
+
+                </div>
+
+
+                <div class="form-field">
+
+                  <label for="billingVixEducator2">
+                    Educador Socioambiental 2 *
+                  </label>
+
+                  <input
+                    id="billingVixEducator2"
+                    type="text"
+                    maxlength="100"
+                    placeholder="Ex.: 4"
+                    data-billing-vix-educator-2
+                  >
+
+                </div>
+
+              </div>
+
+            </article>
+
+
+            <article class="billing-generation-model billing-generation-model-paebm">
+
+              <div class="billing-generation-model-heading">
+
+                <div>
+
+                  <strong>
+                    Relatório PAEBM
+                  </strong>
+
+                  <span>
+                    Regional de Itabira
+                  </span>
+
+                </div>
+
+
+                <span class="billing-file-type">
+                  PPTX
+                </span>
+
+              </div>
+
+
+              <div class="billing-paebm-message">
+
+                <strong>
+                  Modelo preparado
+                </strong>
+
+                <p>
+                  Nesta primeira geração o PAEBM será registrado
+                  como “Ignorado”. Depois de validarmos os três
+                  DOCM, conectaremos o PowerPoint ao mesmo fluxo.
+                </p>
+
+              </div>
+
+            </article>
+
+          </div>
+
+
+          <div class="billing-generation-footer">
+
+            <div>
+
+              <strong>
+                Antes de gerar
+              </strong>
+
+              <p>
+                Execuções mapeadas para BH, VAL ou VIX precisam
+                estar sem pendências. Atividades sem mapeamento
+                serão ignoradas nesta geração.
+              </p>
+
+            </div>
+
+
+            <button
+              type="button"
+              class="btn btn-primary"
+              data-billing-generate-secondary
+            >
+              Gerar relatórios Word
+            </button>
+
+          </div>
 
         </section>
 
@@ -534,6 +869,73 @@
             <span>
               Não há execuções realizadas neste período
               para os filtros selecionados.
+            </span>
+
+          </div>
+
+        </section>
+
+
+        <!-- ==================================================
+             HISTÓRICO DE GERAÇÕES
+        ================================================== -->
+
+        <section
+          class="card billing-card billing-history-card"
+          aria-labelledby="billing-history-title"
+        >
+
+          <div class="billing-card-heading">
+
+            <div>
+
+              <h2 id="billing-history-title">
+                Gerações recentes
+              </h2>
+
+              <p>
+                Acompanhe a fila do Gerador Windows e baixe
+                os documentos concluídos.
+              </p>
+
+            </div>
+
+
+            <button
+              type="button"
+              class="btn btn-ghost"
+              data-billing-history-refresh
+            >
+              Atualizar histórico
+            </button>
+
+          </div>
+
+
+          <div
+            class="billing-generation-history"
+            data-billing-generation-history
+          >
+
+            <div class="billing-loading">
+              Carregando gerações...
+            </div>
+
+          </div>
+
+
+          <div
+            class="billing-empty"
+            data-billing-generation-empty
+            hidden
+          >
+
+            <strong>
+              Nenhuma geração encontrada.
+            </strong>
+
+            <span>
+              As solicitações de relatórios aparecerão aqui.
             </span>
 
           </div>

@@ -18,6 +18,11 @@ let billingItems = [];
 let mappings = [];
 let activities = [];
 let previewRows = [];
+let billingGenerations = [];
+let billingGenerationFiles = [];
+
+let generationPollTimer =
+  null;
 
 let selectedActivity =
   null;
@@ -57,6 +62,66 @@ function getElements() {
     generate:
       document.querySelector(
         "[data-billing-generate]",
+      ),
+
+    generateSecondary:
+      document.querySelector(
+        "[data-billing-generate-secondary]",
+      ),
+
+    historyRefresh:
+      document.querySelector(
+        "[data-billing-history-refresh]",
+      ),
+
+    generationHistory:
+      document.querySelector(
+        "[data-billing-generation-history]",
+      ),
+
+    generationEmpty:
+      document.querySelector(
+        "[data-billing-generation-empty]",
+      ),
+
+    bhNumber:
+      document.querySelector(
+        "[data-billing-bh-number]",
+      ),
+
+    bhEducator1:
+      document.querySelector(
+        "[data-billing-bh-educator-1]",
+      ),
+
+    valNumber:
+      document.querySelector(
+        "[data-billing-val-number]",
+      ),
+
+    valEducator1:
+      document.querySelector(
+        "[data-billing-val-educator-1]",
+      ),
+
+    valEducator2:
+      document.querySelector(
+        "[data-billing-val-educator-2]",
+      ),
+
+    vixNumber:
+      document.querySelector(
+        "[data-billing-vix-number]",
+      ),
+
+    vixEducator1:
+      document.querySelector(
+        "[data-billing-vix-educator-1]",
+      ),
+
+    vixEducator2:
+      document.querySelector(
+        "[data-billing-vix-educator-2]",
       ),
 
     total:
@@ -257,6 +322,111 @@ function formatMinutes(
 
 
   return `${hours}h ${remaining}min`;
+}
+
+
+
+function formatDateTimeBR(
+  value,
+) {
+  if (!value) {
+    return "—";
+  }
+
+
+  const date =
+    new Date(
+      value,
+    );
+
+
+  if (
+    Number.isNaN(
+      date.getTime(),
+    )
+  ) {
+    return "—";
+  }
+
+
+  return new Intl.DateTimeFormat(
+    "pt-BR",
+    {
+      dateStyle:
+        "short",
+
+      timeStyle:
+        "short",
+    },
+  ).format(
+    date,
+  );
+}
+
+
+function formatCompetenceBR(
+  value,
+) {
+  if (!value) {
+    return "—";
+  }
+
+
+  const [
+    year,
+    month,
+  ] =
+    String(
+      value,
+    ).split(
+      "-",
+    );
+
+
+  return `${month}/${year}`;
+}
+
+
+function formatBytes(
+  value,
+) {
+  const bytes =
+    Number(
+      value ||
+      0,
+    );
+
+
+  if (!bytes) {
+    return "";
+  }
+
+
+  if (
+    bytes <
+    1024
+  ) {
+    return `${bytes} B`;
+  }
+
+
+  const kb =
+    bytes /
+    1024;
+
+
+  if (
+    kb <
+    1024
+  ) {
+    return `${kb.toFixed(1)} KB`;
+  }
+
+
+  return `${(
+    kb /
+    1024
+  ).toFixed(1)} MB`;
 }
 
 
@@ -800,6 +970,147 @@ async function loadPreview(
 
   previewRows =
     data ||
+    [];
+}
+
+
+
+async function loadGenerations() {
+  const {
+    data,
+    error,
+  } =
+    await supabase
+      .from(
+        "faturamento_geracoes",
+      )
+      .select(`
+        id,
+        competencia,
+        data_inicial,
+        data_final,
+        status,
+        parametros,
+        created_at,
+        iniciado_at,
+        finalizado_at,
+        erro
+      `)
+      .order(
+        "created_at",
+        {
+          ascending:
+            false,
+        },
+      )
+      .limit(
+        12,
+      );
+
+
+  if (error) {
+    throw error;
+  }
+
+
+  billingGenerations =
+    data ||
+    [];
+
+
+  const generationIds =
+    billingGenerations.map(
+      (generation) =>
+        generation.id,
+    );
+
+
+  if (
+    !generationIds.length
+  ) {
+    billingGenerationFiles =
+      [];
+
+    return;
+  }
+
+
+  const {
+    data: filesData,
+    error: filesError,
+  } =
+    await supabase
+      .from(
+        "faturamento_geracao_arquivos",
+      )
+      .select(`
+        id,
+        geracao_id,
+        modelo_codigo,
+        status,
+        numero_relatorio,
+        educador_1,
+        educador_2,
+        storage_path,
+        nome_arquivo,
+        tamanho_bytes,
+        mime_type,
+        erro,
+        avisos,
+        created_at,
+        updated_at
+      `)
+      .in(
+        "geracao_id",
+        generationIds,
+      )
+      .order(
+        "created_at",
+      );
+
+
+  if (filesError) {
+    throw filesError;
+  }
+
+
+  billingGenerationFiles =
+    filesData ||
+    [];
+}
+
+
+async function loadFullPreviewForGeneration(
+  elements,
+) {
+  const period =
+    getBillingPeriod(
+      elements.month.value,
+    );
+
+
+  const {
+    data,
+    error,
+  } =
+    await supabase.rpc(
+      "get_monthly_billing_preview",
+      {
+        p_competencia:
+          period.competence,
+
+        p_regional_id:
+          null,
+      },
+    );
+
+
+  if (error) {
+    throw error;
+  }
+
+
+  return data ||
     [];
 }
 
@@ -2241,6 +2552,1095 @@ function renderPreviewTable(
 }
 
 
+
+/* =========================================================
+   GERAÇÕES
+========================================================= */
+
+function getGenerationStatusLabel(
+  status,
+) {
+  const labels = {
+    pendente:
+      "Pendente",
+
+    processando:
+      "Processando",
+
+    concluida:
+      "Concluída",
+
+    erro:
+      "Erro",
+
+    cancelada:
+      "Cancelada",
+  };
+
+
+  return labels[
+    status
+  ] ||
+  status ||
+  "—";
+}
+
+
+function getFileStatusLabel(
+  status,
+) {
+  const labels = {
+    pendente:
+      "Pendente",
+
+    processando:
+      "Processando",
+
+    concluido:
+      "Concluído",
+
+    ignorado:
+      "Ignorado",
+
+    erro:
+      "Erro",
+  };
+
+
+  return labels[
+    status
+  ] ||
+  status ||
+  "—";
+}
+
+
+function createGenerationBadge(
+  status,
+) {
+  const badge =
+    document.createElement(
+      "span",
+    );
+
+
+  badge.className =
+    `billing-generation-status billing-generation-status-${status || "neutral"}`;
+
+
+  badge.textContent =
+    getGenerationStatusLabel(
+      status,
+    );
+
+
+  return badge;
+}
+
+
+function createFileBadge(
+  status,
+) {
+  const badge =
+    document.createElement(
+      "span",
+    );
+
+
+  badge.className =
+    `billing-file-status billing-file-status-${status || "neutral"}`;
+
+
+  badge.textContent =
+    getFileStatusLabel(
+      status,
+    );
+
+
+  return badge;
+}
+
+
+async function downloadGeneratedFile(
+  file,
+  elements,
+) {
+  if (
+    !file?.storage_path
+  ) {
+    setMessage(
+      elements,
+      "Este arquivo ainda não está disponível para download.",
+      "error",
+    );
+
+    return;
+  }
+
+
+  try {
+
+    setMessage(
+      elements,
+      `Preparando ${file.nome_arquivo || "arquivo"}...`,
+      "loading",
+    );
+
+
+    const {
+      data,
+      error,
+    } =
+      await supabase.storage
+        .from(
+          "relatorios-gerados",
+        )
+        .download(
+          file.storage_path,
+        );
+
+
+    if (error) {
+      throw error;
+    }
+
+
+    const url =
+      URL.createObjectURL(
+        data,
+      );
+
+
+    const anchor =
+      document.createElement(
+        "a",
+      );
+
+
+    anchor.href =
+      url;
+
+
+    anchor.download =
+      file.nome_arquivo ||
+      "relatorio.docm";
+
+
+    document.body.append(
+      anchor,
+    );
+
+
+    anchor.click();
+
+
+    anchor.remove();
+
+
+    setTimeout(
+      () => {
+        URL.revokeObjectURL(
+          url,
+        );
+      },
+      1000,
+    );
+
+
+    setMessage(
+      elements,
+      "Download iniciado.",
+      "success",
+    );
+
+  } catch (
+    error
+  ) {
+
+    console.error(
+      "[YXZ] Erro ao baixar relatório:",
+      error,
+    );
+
+
+    setMessage(
+      elements,
+      error?.message ||
+      "Não foi possível baixar o relatório.",
+      "error",
+    );
+  }
+}
+
+
+async function retryGeneration(
+  generationId,
+  elements,
+) {
+  const confirmed =
+    window.confirm(
+      "Deseja reenviar esta geração para a fila? Arquivos já concluídos não serão refeitos.",
+    );
+
+
+  if (!confirmed) {
+    return;
+  }
+
+
+  try {
+
+    setMessage(
+      elements,
+      "Reenviando geração...",
+      "loading",
+    );
+
+
+    const {
+      error,
+    } =
+      await supabase.rpc(
+        "retry_billing_generation",
+        {
+          p_geracao_id:
+            generationId,
+        },
+      );
+
+
+    if (error) {
+      throw error;
+    }
+
+
+    await loadGenerations();
+
+
+    renderGenerationHistory(
+      elements,
+    );
+
+
+    scheduleGenerationPolling(
+      elements,
+    );
+
+
+    setMessage(
+      elements,
+      "Geração reenviada para a fila.",
+      "success",
+    );
+
+  } catch (
+    error
+  ) {
+
+    console.error(
+      "[YXZ] Erro ao reenviar geração:",
+      error,
+    );
+
+
+    setMessage(
+      elements,
+      error?.message ||
+      "Não foi possível reenviar a geração.",
+      "error",
+    );
+  }
+}
+
+
+function renderGenerationFile(
+  file,
+  elements,
+) {
+  const model =
+    getModelByCode(
+      file.modelo_codigo,
+    );
+
+
+  const row =
+    document.createElement(
+      "div",
+    );
+
+
+  row.className =
+    "billing-generation-file";
+
+
+  const main =
+    document.createElement(
+      "div",
+    );
+
+
+  main.className =
+    "billing-generation-file-main";
+
+
+  const name =
+    document.createElement(
+      "strong",
+    );
+
+
+  name.textContent =
+    model?.nome ||
+    file.modelo_codigo;
+
+
+  const details =
+    document.createElement(
+      "span",
+    );
+
+
+  const detailParts =
+    [];
+
+
+  if (
+    file.nome_arquivo
+  ) {
+    detailParts.push(
+      file.nome_arquivo,
+    );
+  }
+
+
+  const size =
+    formatBytes(
+      file.tamanho_bytes,
+    );
+
+
+  if (size) {
+    detailParts.push(
+      size,
+    );
+  }
+
+
+  details.textContent =
+    detailParts.join(
+      " · ",
+    ) ||
+    String(
+      model?.tipo_arquivo ||
+      "",
+    ).toUpperCase();
+
+
+  main.append(
+    name,
+    details,
+  );
+
+
+  const actions =
+    document.createElement(
+      "div",
+    );
+
+
+  actions.className =
+    "billing-generation-file-actions";
+
+
+  actions.append(
+    createFileBadge(
+      file.status,
+    ),
+  );
+
+
+  if (
+    file.status ===
+      "concluido"
+
+    &&
+    file.storage_path
+  ) {
+    const download =
+      document.createElement(
+        "button",
+      );
+
+
+    download.type =
+      "button";
+
+
+    download.className =
+      "btn btn-ghost billing-download-button";
+
+
+    download.textContent =
+      "Baixar";
+
+
+    download.addEventListener(
+      "click",
+      async () => {
+
+        await downloadGeneratedFile(
+          file,
+          elements,
+        );
+      },
+    );
+
+
+    actions.append(
+      download,
+    );
+  }
+
+
+  row.append(
+    main,
+    actions,
+  );
+
+
+  if (
+    file.erro
+    ||
+    file.avisos
+  ) {
+    const info =
+      document.createElement(
+        "div",
+      );
+
+
+    info.className =
+      file.erro
+        ? "billing-generation-file-message billing-generation-file-message-error"
+        : "billing-generation-file-message";
+
+
+    info.textContent =
+      file.erro ||
+      file.avisos;
+
+
+    row.append(
+      info,
+    );
+  }
+
+
+  return row;
+}
+
+
+function renderGenerationHistory(
+  elements,
+) {
+  elements.generationHistory
+    .replaceChildren();
+
+
+  elements.generationEmpty.hidden =
+    billingGenerations.length >
+    0;
+
+
+  billingGenerations.forEach(
+    (generation) => {
+
+      const card =
+        document.createElement(
+          "article",
+        );
+
+
+      card.className =
+        "billing-generation-history-card";
+
+
+      const header =
+        document.createElement(
+          "div",
+        );
+
+
+      header.className =
+        "billing-generation-history-header";
+
+
+      const titleGroup =
+        document.createElement(
+          "div",
+        );
+
+
+      const title =
+        document.createElement(
+          "strong",
+        );
+
+
+      title.textContent =
+        `Competência ${formatCompetenceBR(generation.competencia)}`;
+
+
+      const meta =
+        document.createElement(
+          "span",
+        );
+
+
+      meta.textContent =
+        `${formatDateBR(generation.data_inicial)} a ${formatDateBR(generation.data_final)} · solicitada em ${formatDateTimeBR(generation.created_at)}`;
+
+
+      titleGroup.append(
+        title,
+        meta,
+      );
+
+
+      const headerActions =
+        document.createElement(
+          "div",
+        );
+
+
+      headerActions.className =
+        "billing-generation-history-actions";
+
+
+      headerActions.append(
+        createGenerationBadge(
+          generation.status,
+        ),
+      );
+
+
+      if (
+        generation.status ===
+        "erro"
+      ) {
+        const retry =
+          document.createElement(
+            "button",
+          );
+
+
+        retry.type =
+          "button";
+
+
+        retry.className =
+          "btn btn-ghost";
+
+
+        retry.textContent =
+          "Tentar novamente";
+
+
+        retry.addEventListener(
+          "click",
+          async () => {
+
+            await retryGeneration(
+              generation.id,
+              elements,
+            );
+          },
+        );
+
+
+        headerActions.append(
+          retry,
+        );
+      }
+
+
+      header.append(
+        titleGroup,
+        headerActions,
+      );
+
+
+      const fileList =
+        document.createElement(
+          "div",
+        );
+
+
+      fileList.className =
+        "billing-generation-files";
+
+
+      const files =
+        billingGenerationFiles.filter(
+          (file) =>
+            file.geracao_id ===
+            generation.id,
+        );
+
+
+      files.forEach(
+        (file) => {
+
+          fileList.append(
+            renderGenerationFile(
+              file,
+              elements,
+            ),
+          );
+        },
+      );
+
+
+      card.append(
+        header,
+        fileList,
+      );
+
+
+      if (
+        generation.erro
+      ) {
+        const error =
+          document.createElement(
+            "p",
+          );
+
+
+        error.className =
+          "billing-generation-error";
+
+
+        error.textContent =
+          generation.erro;
+
+
+        card.append(
+          error,
+        );
+      }
+
+
+      elements.generationHistory.append(
+        card,
+      );
+    },
+  );
+}
+
+
+function scheduleGenerationPolling(
+  elements,
+) {
+  const hasActive =
+    billingGenerations.some(
+      (generation) =>
+        generation.status ===
+          "pendente"
+
+        ||
+        generation.status ===
+          "processando",
+    );
+
+
+  if (
+    !hasActive
+  ) {
+    if (
+      generationPollTimer
+    ) {
+      clearInterval(
+        generationPollTimer,
+      );
+
+
+      generationPollTimer =
+        null;
+    }
+
+
+    return;
+  }
+
+
+  if (
+    generationPollTimer
+  ) {
+    return;
+  }
+
+
+  generationPollTimer =
+    window.setInterval(
+      async () => {
+
+        try {
+
+          await loadGenerations();
+
+
+          renderGenerationHistory(
+            elements,
+          );
+
+
+          const stillActive =
+            billingGenerations.some(
+              (generation) =>
+                generation.status ===
+                  "pendente"
+
+                ||
+                generation.status ===
+                  "processando",
+            );
+
+
+          if (
+            !stillActive
+
+            &&
+            generationPollTimer
+          ) {
+            clearInterval(
+              generationPollTimer,
+            );
+
+
+            generationPollTimer =
+              null;
+          }
+
+        } catch (
+          error
+        ) {
+
+          console.error(
+            "[YXZ] Erro ao atualizar fila de faturamento:",
+            error,
+          );
+        }
+      },
+      5000,
+    );
+}
+
+
+/* =========================================================
+   CRIAR GERAÇÃO
+========================================================= */
+
+function requireGenerationValue(
+  input,
+  label,
+) {
+  const value =
+    String(
+      input?.value ||
+      "",
+    ).trim();
+
+
+  if (!value) {
+    throw new Error(
+      `Informe ${label}.`,
+    );
+  }
+
+
+  return value;
+}
+
+
+function getGenerationParameters(
+  elements,
+) {
+  return {
+    relatorio_bh: {
+      numero_relatorio:
+        requireGenerationValue(
+          elements.bhNumber,
+          "o número do Relatório BH",
+        ),
+
+      educador_1:
+        requireGenerationValue(
+          elements.bhEducator1,
+          "Educador Socioambiental 1 do Relatório BH",
+        ),
+    },
+
+    relatorio_val: {
+      numero_relatorio:
+        requireGenerationValue(
+          elements.valNumber,
+          "o número do Relatório VAL",
+        ),
+
+      educador_1:
+        requireGenerationValue(
+          elements.valEducator1,
+          "Educador Socioambiental 1 do Relatório VAL",
+        ),
+
+      educador_2:
+        requireGenerationValue(
+          elements.valEducator2,
+          "Educador Socioambiental 2 do Relatório VAL",
+        ),
+    },
+
+    relatorio_vix: {
+      numero_relatorio:
+        requireGenerationValue(
+          elements.vixNumber,
+          "o número do Relatório VIX",
+        ),
+
+      educador_1:
+        requireGenerationValue(
+          elements.vixEducator1,
+          "Educador Socioambiental 1 do Relatório VIX",
+        ),
+
+      educador_2:
+        requireGenerationValue(
+          elements.vixEducator2,
+          "Educador Socioambiental 2 do Relatório VIX",
+        ),
+    },
+
+    relatorio_paebm: {},
+  };
+}
+
+
+function setGenerateButtonsDisabled(
+  elements,
+  disabled,
+) {
+  elements.generate.disabled =
+    disabled;
+
+
+  if (
+    elements.generateSecondary
+  ) {
+    elements.generateSecondary.disabled =
+      disabled;
+  }
+}
+
+
+async function createBillingGeneration(
+  elements,
+) {
+  setGenerateButtonsDisabled(
+    elements,
+    true,
+  );
+
+
+  try {
+
+    setMessage(
+      elements,
+      "Validando dados para geração...",
+      "loading",
+    );
+
+
+    const period =
+      getBillingPeriod(
+        elements.month.value,
+      );
+
+
+    await loadGenerations();
+
+
+    const activeGeneration =
+      billingGenerations.find(
+        (generation) =>
+          generation.competencia ===
+            period.competence
+
+          &&
+          (
+            generation.status ===
+              "pendente"
+
+            ||
+            generation.status ===
+              "processando"
+          ),
+      );
+
+
+    if (
+      activeGeneration
+    ) {
+      throw new Error(
+        "Já existe uma geração pendente ou em processamento para esta competência.",
+      );
+    }
+
+
+    const parameters =
+      getGenerationParameters(
+        elements,
+      );
+
+
+    const fullPreview =
+      await loadFullPreviewForGeneration(
+        elements,
+      );
+
+
+    const wordRows =
+      fullPreview.filter(
+        (row) =>
+          row.modelo_codigo
+
+          &&
+          row.modelo_codigo !==
+            "relatorio_paebm",
+      );
+
+
+    if (
+      !wordRows.length
+    ) {
+      throw new Error(
+        "Não existem execuções mapeadas para BH, VAL ou VIX nesta competência.",
+      );
+    }
+
+
+    const incompleteWordRows =
+      wordRows.filter(
+        (row) =>
+          row.completo !==
+            true,
+      );
+
+
+    if (
+      incompleteWordRows.length
+    ) {
+      throw new Error(
+        `Existem ${incompleteWordRows.length} execução(ões) mapeada(s) para os relatórios Word com pendências. Corrija-as antes de gerar.`,
+      );
+    }
+
+
+    const unmappedCount =
+      fullPreview.filter(
+        (row) =>
+          !row.modelo_codigo,
+      ).length;
+
+
+    if (
+      unmappedCount >
+      0
+    ) {
+      const confirmed =
+        window.confirm(
+          `Existem ${unmappedCount} execução(ões) sem mapeamento nesta competência. Elas serão ignoradas. Deseja continuar?`,
+        );
+
+
+      if (!confirmed) {
+        setMessage(
+          elements,
+          "Geração cancelada.",
+          "info",
+        );
+
+        return;
+      }
+    }
+
+
+    const {
+      data,
+      error,
+    } =
+      await supabase.rpc(
+        "create_billing_generation",
+        {
+          p_competencia:
+            period.competence,
+
+          p_parametros:
+            parameters,
+        },
+      );
+
+
+    if (error) {
+      throw error;
+    }
+
+
+    await loadGenerations();
+
+
+    renderGenerationHistory(
+      elements,
+    );
+
+
+    scheduleGenerationPolling(
+      elements,
+    );
+
+
+    setMessage(
+      elements,
+      `Geração ${String(data).slice(0, 8)} criada. O Gerador Windows processará a fila automaticamente.`,
+      "success",
+    );
+
+  } catch (
+    error
+  ) {
+
+    console.error(
+      "[YXZ] Erro ao criar geração:",
+      error,
+    );
+
+
+    setMessage(
+      elements,
+      error?.message ||
+      "Não foi possível criar a geração.",
+      "error",
+    );
+
+  } finally {
+
+    setGenerateButtonsDisabled(
+      elements,
+      false,
+    );
+  }
+}
+
+
 /* =========================================================
    RENDER GERAL
 ========================================================= */
@@ -2269,6 +3669,11 @@ function render(
 
 
   renderPreviewTable(
+    elements,
+  );
+
+
+  renderGenerationHistory(
     elements,
   );
 }
@@ -2428,6 +3833,7 @@ async function refreshBilling(
     await Promise.all([
       loadMappings(),
       loadActivities(),
+      loadGenerations(),
     ]);
 
 
@@ -2437,6 +3843,11 @@ async function refreshBilling(
 
 
     render(
+      elements,
+    );
+
+
+    scheduleGenerationPolling(
       elements,
     );
 
@@ -2528,15 +3939,78 @@ function bindEvents(
 
   elements.generate.addEventListener(
     "click",
-    () => {
+    async () => {
 
-      setMessage(
+      await createBillingGeneration(
         elements,
-        "A geração dos DOCM e PPTX oficiais será conectada na próxima etapa.",
-        "info",
       );
     },
   );
+
+
+  if (
+    elements.generateSecondary
+  ) {
+    elements.generateSecondary.addEventListener(
+      "click",
+      async () => {
+
+        await createBillingGeneration(
+          elements,
+        );
+      },
+    );
+  }
+
+
+  if (
+    elements.historyRefresh
+  ) {
+    elements.historyRefresh.addEventListener(
+      "click",
+      async () => {
+
+        try {
+
+          setMessage(
+            elements,
+            "Atualizando histórico...",
+            "loading",
+          );
+
+
+          await loadGenerations();
+
+
+          renderGenerationHistory(
+            elements,
+          );
+
+
+          scheduleGenerationPolling(
+            elements,
+          );
+
+
+          setMessage(
+            elements,
+            "",
+          );
+
+        } catch (
+          error
+        ) {
+
+          setMessage(
+            elements,
+            error?.message ||
+            "Não foi possível atualizar o histórico.",
+            "error",
+          );
+        }
+      },
+    );
+  }
 
 
   elements.dialogForm.addEventListener(
@@ -2639,6 +4113,7 @@ export async function initFaturamentoPage() {
       loadModels(),
       loadBillingItems(),
       loadMappings(),
+      loadGenerations(),
     ]);
 
 
@@ -2656,6 +4131,11 @@ export async function initFaturamentoPage() {
 
 
     render(
+      elements,
+    );
+
+
+    scheduleGenerationPolling(
       elements,
     );
 
