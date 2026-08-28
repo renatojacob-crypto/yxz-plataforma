@@ -1,0 +1,489 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <meta
+    name="description"
+    content="Horas dos instrutores da Plataforma YXZ"
+  >
+
+  <meta
+    name="robots"
+    content="noindex, nofollow"
+  >
+
+  <meta
+    name="theme-color"
+    content="#0f2c25"
+  >
+
+  <title>
+    Horas dos Instrutores | YXZ Plataforma
+  </title>
+
+  <link
+    rel="icon"
+    href="/assets/favicon.png"
+    type="image/png"
+  >
+</head>
+
+
+<body data-app-page="horas">
+
+  <div
+    class="app-shell"
+    data-app-shell
+    hidden
+  >
+
+    <!-- ==================================================
+         SIDEBAR
+    ================================================== -->
+
+    <aside
+      class="sidebar"
+      id="sidebar"
+      aria-label="Menu lateral"
+    ></aside>
+
+
+    <div
+      class="sidebar-overlay"
+      data-sidebar-close
+      aria-hidden="true"
+    ></div>
+
+
+    <!-- ==================================================
+         CONTEÚDO
+    ================================================== -->
+
+    <div class="app-main">
+
+      <header class="app-header">
+
+        <div class="header-left">
+
+          <button
+            type="button"
+            class="mobile-menu-button"
+            data-sidebar-toggle
+            aria-label="Abrir menu"
+            aria-expanded="false"
+            aria-controls="sidebar"
+          >
+            <span aria-hidden="true">
+              ☰
+            </span>
+          </button>
+
+
+          <div class="header-context">
+            Horas dos Instrutores
+          </div>
+
+        </div>
+
+
+        <div class="header-user">
+
+          <div
+            class="user-avatar"
+            data-auth-avatar
+            aria-hidden="true"
+          >
+            YXZ
+          </div>
+
+
+          <div class="user-info">
+
+            <strong data-auth-name>
+              Usuário
+            </strong>
+
+            <span data-auth-cargo>
+              Carregando...
+            </span>
+
+          </div>
+
+
+          <button
+            type="button"
+            class="btn btn-ghost"
+            data-auth-logout
+          >
+            Sair
+          </button>
+
+        </div>
+
+      </header>
+
+
+      <main class="app-content">
+
+        <!-- ==================================================
+             CABEÇALHO
+        ================================================== -->
+
+        <div class="page-heading">
+
+          <div>
+
+            <h1>
+              Horas dos Instrutores
+            </h1>
+
+            <p>
+              Consulte as horas efetivamente trabalhadas
+              nas execuções finalizadas.
+            </p>
+
+          </div>
+
+
+          <button
+            type="button"
+            class="btn btn-ghost"
+            data-hours-export
+          >
+            Exportar CSV
+          </button>
+
+        </div>
+
+
+        <p
+          class="hours-page-message"
+          data-hours-message
+          role="status"
+          aria-live="polite"
+        ></p>
+
+
+        <!-- ==================================================
+             FILTROS
+        ================================================== -->
+
+        <section
+          class="card hours-filter-card"
+          aria-labelledby="hours-filter-title"
+        >
+
+          <div class="hours-filter-heading">
+
+            <div>
+
+              <h2 id="hours-filter-title">
+                Consulta mensal
+              </h2>
+
+              <p>
+                Apenas eventos com execução finalizada
+                entram no cálculo.
+              </p>
+
+            </div>
+
+          </div>
+
+
+          <div class="hours-filters">
+
+            <div class="hours-filter-field">
+
+              <label for="hoursMonth">
+                Competência
+              </label>
+
+              <input
+                id="hoursMonth"
+                type="month"
+                required
+                data-hours-month
+              >
+
+            </div>
+
+
+            <div class="hours-filter-field">
+
+              <label for="hoursRegional">
+                Regional
+              </label>
+
+              <select
+                id="hoursRegional"
+                data-hours-regional
+              >
+                <option value="">
+                  Todas
+                </option>
+              </select>
+
+            </div>
+
+
+            <div class="hours-filter-field">
+
+              <label for="hoursInstructor">
+                Instrutor
+              </label>
+
+              <select
+                id="hoursInstructor"
+                data-hours-instructor
+              >
+                <option value="">
+                  Todos
+                </option>
+              </select>
+
+            </div>
+
+
+            <div class="hours-filter-field">
+
+              <label for="hoursType">
+                Tipo de evento
+              </label>
+
+              <select
+                id="hoursType"
+                data-hours-type
+              >
+                <option value="">
+                  Todos
+                </option>
+
+                <option value="oficina_educacional">
+                  Oficina Educacional
+                </option>
+
+                <option value="evento_comunidade">
+                  Evento à Comunidade
+                </option>
+              </select>
+
+            </div>
+
+
+            <div class="hours-filter-field hours-search-field">
+
+              <label for="hoursSearch">
+                Buscar
+              </label>
+
+              <input
+                id="hoursSearch"
+                type="search"
+                autocomplete="off"
+                placeholder="Evento, escola ou instrutor"
+                data-hours-search
+              >
+
+            </div>
+
+          </div>
+
+        </section>
+
+
+        <!-- ==================================================
+             RESUMO
+        ================================================== -->
+
+        <section
+          class="hours-summary"
+          aria-label="Resumo das horas"
+        >
+
+          <article class="card hours-summary-card">
+
+            <span>
+              Horas trabalhadas
+            </span>
+
+            <strong data-hours-total>
+              —
+            </strong>
+
+          </article>
+
+
+          <article class="card hours-summary-card">
+
+            <span>
+              Participações
+            </span>
+
+            <strong data-hours-participations>
+              —
+            </strong>
+
+          </article>
+
+
+          <article class="card hours-summary-card">
+
+            <span>
+              Instrutores
+            </span>
+
+            <strong data-hours-instructors>
+              —
+            </strong>
+
+          </article>
+
+
+          <article class="card hours-summary-card">
+
+            <span>
+              Eventos
+            </span>
+
+            <strong data-hours-events>
+              —
+            </strong>
+
+          </article>
+
+        </section>
+
+
+        <!-- ==================================================
+             TABELA
+        ================================================== -->
+
+        <section
+          class="card hours-table-card"
+          aria-labelledby="hours-table-title"
+        >
+
+          <div class="hours-table-heading">
+
+            <div>
+
+              <h2 id="hours-table-title">
+                Registros de horas
+              </h2>
+
+              <p data-hours-period-label>
+                —
+              </p>
+
+            </div>
+
+          </div>
+
+
+          <div class="hours-table-wrapper">
+
+            <table class="hours-table">
+
+              <thead>
+
+                <tr>
+
+                  <th scope="col">
+                    Data
+                  </th>
+
+                  <th scope="col">
+                    Instrutor
+                  </th>
+
+                  <th scope="col">
+                    Evento
+                  </th>
+
+                  <th scope="col">
+                    Escola
+                  </th>
+
+                  <th scope="col">
+                    Regional
+                  </th>
+
+                  <th scope="col">
+                    Entrada
+                  </th>
+
+                  <th scope="col">
+                    Saída
+                  </th>
+
+                  <th scope="col">
+                    Horas
+                  </th>
+
+                </tr>
+
+              </thead>
+
+
+              <tbody data-hours-table-body>
+
+                <tr>
+
+                  <td
+                    colspan="8"
+                    class="hours-loading"
+                  >
+                    Carregando horas...
+                  </td>
+
+                </tr>
+
+              </tbody>
+
+            </table>
+
+          </div>
+
+
+          <div
+            class="hours-empty"
+            data-hours-empty
+            hidden
+          >
+
+            <strong>
+              Nenhum registro encontrado.
+            </strong>
+
+            <span>
+              Não existem horas finalizadas
+              para os filtros selecionados.
+            </span>
+
+          </div>
+
+        </section>
+
+      </main>
+
+    </div>
+
+  </div>
+
+
+  <script
+    type="module"
+    src="/src/main.js"
+  ></script>
+
+</body>
+
+</html>

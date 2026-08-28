@@ -20,6 +20,7 @@ import "./css/instrutores.css";
 import "./css/agendamentos.css";
 import "./css/escalas.css";
 import "./css/execucoes.css";
+import "./css/horas.css";
 
 
 /* =========================================================
@@ -65,9 +66,12 @@ function inicializarModulo(
   callback,
 ) {
   try {
+
     return callback();
 
-  } catch (erro) {
+  } catch (
+    erro
+  ) {
 
     console.error(
       `[YXZ] Erro ao inicializar o módulo "${nome}":`,
@@ -91,7 +95,9 @@ function mostrarAplicacao() {
     );
 
 
-  if (!appShell) {
+  if (
+    !appShell
+  ) {
     return;
   }
 
@@ -121,9 +127,7 @@ function authorizeCurrentPage(
     page ===
     "usuarios"
   ) {
-    return (
-      requireUserManagementPermission()
-    );
+    return requireUserManagementPermission();
   }
 
 
@@ -167,6 +171,17 @@ function authorizeCurrentPage(
     return requirePermission(
       PERMISSIONS
         .WORKSHOPS_REGISTER_EXECUTION,
+    );
+  }
+
+
+  if (
+    page ===
+    "horas"
+  ) {
+    return requirePermission(
+      PERMISSIONS
+        .SCHEDULES_VIEW,
     );
   }
 
@@ -277,6 +292,25 @@ async function iniciarPaginaAtual() {
 
     return;
   }
+
+
+  if (
+    page ===
+    "horas"
+  ) {
+    const {
+      initHorasPage,
+    } =
+      await import(
+        "./js/horas-page.js"
+      );
+
+
+    await initHorasPage();
+
+
+    return;
+  }
 }
 
 
@@ -286,11 +320,14 @@ async function iniciarPaginaAtual() {
 
 async function iniciarAplicacao() {
   try {
+
     const user =
       await requireAuth();
 
 
-    if (!user) {
+    if (
+      !user
+    ) {
       return;
     }
 
@@ -347,9 +384,12 @@ async function iniciarAplicacao() {
 
 
     try {
+
       await iniciarPaginaAtual();
 
-    } catch (erro) {
+    } catch (
+      erro
+    ) {
 
       console.error(
         "[YXZ] Erro ao inicializar a página atual:",
@@ -366,7 +406,9 @@ async function iniciarAplicacao() {
       );
     }
 
-  } catch (erro) {
+  } catch (
+    erro
+  ) {
 
     console.error(
       "[YXZ] Não foi possível iniciar o portal:",

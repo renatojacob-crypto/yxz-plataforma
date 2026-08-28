@@ -66,6 +66,11 @@ export default defineConfig({
           process.cwd(),
           "app/execucoes.html",
         ),
+
+        horas: resolve(
+          process.cwd(),
+          "app/horas.html",
+        ),
       },
     },
   },

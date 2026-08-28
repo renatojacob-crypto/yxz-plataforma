@@ -74,7 +74,7 @@ const MENU_SECTIONS = [
       {
         page: "horas",
         label: "Horas",
-        href: "#",
+        href: "/app/horas.html",
         icon: "◷",
         permission: "escalas.visualizar",
       },
@@ -351,6 +351,7 @@ function createMenuSection(
 
   section.items.forEach(
     (item) => {
+
       wrapper.append(
         createMenuLink(
           item,
@@ -390,6 +391,7 @@ function createNavigation(
 
   MENU_SECTIONS.forEach(
     (section) => {
+
       navigation.append(
         createMenuSection(
           section,
@@ -415,7 +417,9 @@ export function renderSidebar() {
     );
 
 
-  if (!sidebar) {
+  if (
+    !sidebar
+  ) {
     console.warn(
       "[YXZ] Sidebar não encontrada na página.",
     );
