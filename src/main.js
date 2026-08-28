@@ -21,6 +21,7 @@ import "./css/conferencia.css";
 import "./css/previsoes.css";
 import "./css/gastos.css";
 import "./css/comparativo.css";
+import "./css/relatorios.css";
 
 
 import {
@@ -200,6 +201,14 @@ function authorizeCurrentPage(
     );
   }
 
+  if (
+    page ===
+    "relatorios"
+  ) {
+    return requirePermission(
+      "relatorios.visualizar",
+    );
+  }
 
   return true;
 }
@@ -389,6 +398,23 @@ async function iniciarPaginaAtual() {
 
 
     await initComparativoPage();
+
+    return;
+  }
+
+  if (
+    page ===
+    "relatorios"
+  ) {
+    const {
+      initRelatoriosPage,
+    } =
+      await import(
+        "./js/relatorios-page.js"
+      );
+
+
+    await initRelatoriosPage();
 
     return;
   }

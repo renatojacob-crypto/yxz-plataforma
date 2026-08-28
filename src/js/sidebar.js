@@ -128,7 +128,7 @@ const MENU_SECTIONS = [
       {
         page: "relatorios",
         label: "Relatórios",
-        href: "#",
+        href: "/app/relatorios.html",
         icon: "▤",
         permission: "relatorios.visualizar",
       },

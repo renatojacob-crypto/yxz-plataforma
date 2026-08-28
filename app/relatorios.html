@@ -1,0 +1,572 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <meta
+    name="description"
+    content="Relatórios gerenciais da Plataforma YXZ"
+  >
+
+  <meta
+    name="robots"
+    content="noindex, nofollow"
+  >
+
+  <meta
+    name="theme-color"
+    content="#0f2c25"
+  >
+
+  <title>
+    Relatórios | YXZ Plataforma
+  </title>
+
+  <link
+    rel="icon"
+    href="/assets/favicon.png"
+    type="image/png"
+  >
+</head>
+
+
+<body data-app-page="relatorios">
+
+  <div
+    class="app-shell"
+    data-app-shell
+    hidden
+  >
+
+    <aside
+      class="sidebar"
+      id="sidebar"
+      aria-label="Menu lateral"
+    ></aside>
+
+
+    <div
+      class="sidebar-overlay"
+      data-sidebar-close
+      aria-hidden="true"
+    ></div>
+
+
+    <div class="app-main">
+
+      <header class="app-header">
+
+        <div class="header-left">
+
+          <button
+            type="button"
+            class="mobile-menu-button"
+            data-sidebar-toggle
+            aria-label="Abrir menu"
+            aria-expanded="false"
+            aria-controls="sidebar"
+          >
+            <span aria-hidden="true">
+              ☰
+            </span>
+          </button>
+
+
+          <div class="header-context">
+            Relatórios
+          </div>
+
+        </div>
+
+
+        <div class="header-user">
+
+          <div
+            class="user-avatar"
+            data-auth-avatar
+            aria-hidden="true"
+          >
+            YXZ
+          </div>
+
+
+          <div class="user-info">
+
+            <strong data-auth-name>
+              Usuário
+            </strong>
+
+            <span data-auth-cargo>
+              Carregando...
+            </span>
+
+          </div>
+
+
+          <button
+            type="button"
+            class="btn btn-ghost"
+            data-auth-logout
+          >
+            Sair
+          </button>
+
+        </div>
+
+      </header>
+
+
+      <main class="app-content">
+
+        <div class="page-heading">
+
+          <div>
+
+            <h1>
+              Relatório Mensal Consolidado
+            </h1>
+
+            <p>
+              Consolidação das execuções finalizadas,
+              horas, evidências e resultados financeiros.
+            </p>
+
+          </div>
+
+
+          <div class="reports-heading-actions">
+
+            <button
+              type="button"
+              class="btn btn-ghost"
+              data-reports-export
+            >
+              Exportar CSV
+            </button>
+
+
+            <button
+              type="button"
+              class="btn btn-ghost"
+              data-reports-print
+            >
+              Imprimir
+            </button>
+
+
+            <button
+              type="button"
+              class="btn btn-ghost"
+              data-reports-refresh
+            >
+              Atualizar
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <p
+          class="reports-page-message"
+          data-reports-message
+          role="status"
+          aria-live="polite"
+        ></p>
+
+
+        <!-- ==================================================
+             FILTROS
+        ================================================== -->
+
+        <section class="card reports-filter-card">
+
+          <div class="reports-filters">
+
+            <div class="reports-filter-field">
+
+              <label for="reportsMonth">
+                Competência
+              </label>
+
+              <input
+                id="reportsMonth"
+                type="month"
+                required
+                data-reports-month
+              >
+
+            </div>
+
+
+            <div class="reports-filter-field">
+
+              <label for="reportsRegional">
+                Regional
+              </label>
+
+              <select
+                id="reportsRegional"
+                data-reports-regional
+              >
+
+                <option value="">
+                  Todas
+                </option>
+
+              </select>
+
+            </div>
+
+
+            <div class="reports-filter-field">
+
+              <label for="reportsType">
+                Tipo
+              </label>
+
+              <select
+                id="reportsType"
+                data-reports-type
+              >
+
+                <option value="">
+                  Todos
+                </option>
+
+                <option value="oficina_educacional">
+                  Oficina Educacional
+                </option>
+
+                <option value="evento_comunidade">
+                  Evento à Comunidade
+                </option>
+
+              </select>
+
+            </div>
+
+
+            <div class="reports-filter-field">
+
+              <label for="reportsConference">
+                Conferência
+              </label>
+
+              <select
+                id="reportsConference"
+                data-reports-conference
+              >
+
+                <option value="">
+                  Todas
+                </option>
+
+                <option value="fechada">
+                  Fechada
+                </option>
+
+                <option value="aberta">
+                  Aberta
+                </option>
+
+                <option value="sem_conferencia">
+                  Sem conferência
+                </option>
+
+              </select>
+
+            </div>
+
+
+            <div class="reports-filter-field reports-search-field">
+
+              <label for="reportsSearch">
+                Buscar
+              </label>
+
+              <input
+                id="reportsSearch"
+                type="search"
+                autocomplete="off"
+                placeholder="Evento, escola ou Regional"
+                data-reports-search
+              >
+
+            </div>
+
+          </div>
+
+        </section>
+
+
+        <!-- ==================================================
+             RESUMO OPERACIONAL
+        ================================================== -->
+
+        <section
+          class="reports-summary"
+          aria-label="Resumo mensal"
+        >
+
+          <article class="card reports-summary-card">
+
+            <span>
+              Eventos realizados
+            </span>
+
+            <strong data-reports-events>
+              —
+            </strong>
+
+          </article>
+
+
+          <article class="card reports-summary-card">
+
+            <span>
+              Participantes
+            </span>
+
+            <strong data-reports-participants>
+              —
+            </strong>
+
+          </article>
+
+
+          <article class="card reports-summary-card">
+
+            <span>
+              Horas de instrutores
+            </span>
+
+            <strong data-reports-hours>
+              —
+            </strong>
+
+          </article>
+
+
+          <article class="card reports-summary-card">
+
+            <span>
+              Evidências
+            </span>
+
+            <strong data-reports-photos>
+              —
+            </strong>
+
+          </article>
+
+
+          <article class="card reports-summary-card">
+
+            <span>
+              Média participantes
+            </span>
+
+            <strong data-reports-average-participants>
+              —
+            </strong>
+
+          </article>
+
+        </section>
+
+
+        <!-- ==================================================
+             RESUMO FINANCEIRO
+        ================================================== -->
+
+        <section class="reports-financial-summary">
+
+          <article class="card reports-financial-card">
+
+            <span>
+              Previsto
+            </span>
+
+            <strong data-reports-forecast>
+              —
+            </strong>
+
+          </article>
+
+
+          <article class="card reports-financial-card">
+
+            <span>
+              Realizado
+            </span>
+
+            <strong data-reports-expense>
+              —
+            </strong>
+
+          </article>
+
+
+          <article class="card reports-financial-card">
+
+            <span>
+              Diferença
+            </span>
+
+            <strong data-reports-difference>
+              —
+            </strong>
+
+          </article>
+
+        </section>
+
+
+        <!-- ==================================================
+             TABELA
+        ================================================== -->
+
+        <section
+          class="card reports-card"
+          aria-labelledby="reports-table-title"
+        >
+
+          <div class="reports-card-heading">
+
+            <div>
+
+              <h2 id="reports-table-title">
+                Execuções finalizadas
+              </h2>
+
+              <p data-reports-period-label>
+                —
+              </p>
+
+            </div>
+
+          </div>
+
+
+          <div class="reports-table-wrapper">
+
+            <table class="reports-table">
+
+              <thead>
+
+                <tr>
+
+                  <th>
+                    Data real
+                  </th>
+
+                  <th>
+                    Evento
+                  </th>
+
+                  <th>
+                    Escola
+                  </th>
+
+                  <th>
+                    Regional
+                  </th>
+
+                  <th>
+                    Participantes
+                  </th>
+
+                  <th>
+                    Instrutores
+                  </th>
+
+                  <th>
+                    Horas
+                  </th>
+
+                  <th>
+                    Fotos
+                  </th>
+
+                  <th>
+                    Previsto
+                  </th>
+
+                  <th>
+                    Realizado
+                  </th>
+
+                  <th>
+                    Diferença
+                  </th>
+
+                  <th>
+                    Conferência
+                  </th>
+
+                </tr>
+
+              </thead>
+
+
+              <tbody data-reports-table-body>
+
+                <tr>
+
+                  <td
+                    colspan="12"
+                    class="reports-loading"
+                  >
+                    Carregando relatório...
+                  </td>
+
+                </tr>
+
+              </tbody>
+
+            </table>
+
+          </div>
+
+
+          <div
+            class="reports-empty"
+            data-reports-empty
+            hidden
+          >
+
+            <strong>
+              Nenhuma execução encontrada.
+            </strong>
+
+            <span>
+              Não existem execuções finalizadas
+              para os filtros selecionados.
+            </span>
+
+          </div>
+
+        </section>
+
+      </main>
+
+    </div>
+
+  </div>
+
+
+  <script
+    type="module"
+    src="/src/main.js"
+  ></script>
+
+</body>
+
+</html>
