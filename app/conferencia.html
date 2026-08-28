@@ -1,0 +1,605 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <meta
+    name="description"
+    content="Conferência mensal da Plataforma YXZ"
+  >
+
+  <meta
+    name="robots"
+    content="noindex, nofollow"
+  >
+
+  <meta
+    name="theme-color"
+    content="#0f2c25"
+  >
+
+  <title>
+    Conferência | YXZ Plataforma
+  </title>
+
+  <link
+    rel="icon"
+    href="/assets/favicon.png"
+    type="image/png"
+  >
+</head>
+
+
+<body data-app-page="conferencia">
+
+  <div
+    class="app-shell"
+    data-app-shell
+    hidden
+  >
+
+    <aside
+      class="sidebar"
+      id="sidebar"
+      aria-label="Menu lateral"
+    ></aside>
+
+
+    <div
+      class="sidebar-overlay"
+      data-sidebar-close
+      aria-hidden="true"
+    ></div>
+
+
+    <div class="app-main">
+
+      <header class="app-header">
+
+        <div class="header-left">
+
+          <button
+            type="button"
+            class="mobile-menu-button"
+            data-sidebar-toggle
+            aria-label="Abrir menu"
+            aria-expanded="false"
+            aria-controls="sidebar"
+          >
+            <span aria-hidden="true">
+              ☰
+            </span>
+          </button>
+
+
+          <div class="header-context">
+            Conferência Mensal
+          </div>
+
+        </div>
+
+
+        <div class="header-user">
+
+          <div
+            class="user-avatar"
+            data-auth-avatar
+            aria-hidden="true"
+          >
+            YXZ
+          </div>
+
+
+          <div class="user-info">
+
+            <strong data-auth-name>
+              Usuário
+            </strong>
+
+            <span data-auth-cargo>
+              Carregando...
+            </span>
+
+          </div>
+
+
+          <button
+            type="button"
+            class="btn btn-ghost"
+            data-auth-logout
+          >
+            Sair
+          </button>
+
+        </div>
+
+      </header>
+
+
+      <main class="app-content">
+
+        <div class="page-heading">
+
+          <div>
+
+            <h1>
+              Conferência Mensal
+            </h1>
+
+            <p>
+              Confira e feche as horas realizadas
+              por competência e Regional.
+            </p>
+
+          </div>
+
+
+          <button
+            type="button"
+            class="btn btn-ghost"
+            data-conference-refresh
+          >
+            Atualizar
+          </button>
+
+        </div>
+
+
+        <p
+          class="conference-page-message"
+          data-conference-message
+          role="status"
+          aria-live="polite"
+        ></p>
+
+
+        <!-- ==================================================
+             FILTROS
+        ================================================== -->
+
+        <section class="card conference-filter-card">
+
+          <div class="conference-filters">
+
+            <div class="conference-field">
+
+              <label for="conferenceMonth">
+                Competência
+              </label>
+
+              <input
+                id="conferenceMonth"
+                type="month"
+                required
+                data-conference-month
+              >
+
+            </div>
+
+
+            <div class="conference-field">
+
+              <label for="conferenceRegional">
+                Regional
+              </label>
+
+              <select
+                id="conferenceRegional"
+                required
+                data-conference-regional
+              >
+                <option value="">
+                  Selecione uma Regional
+                </option>
+              </select>
+
+            </div>
+
+
+            <div class="conference-field conference-search-field">
+
+              <label for="conferenceSearch">
+                Buscar
+              </label>
+
+              <input
+                id="conferenceSearch"
+                type="search"
+                autocomplete="off"
+                placeholder="Instrutor, evento ou escola"
+                data-conference-search
+              >
+
+            </div>
+
+          </div>
+
+        </section>
+
+
+        <!-- ==================================================
+             STATUS
+        ================================================== -->
+
+        <section
+          class="conference-status-panel"
+          data-conference-status-panel
+        >
+
+          <div>
+
+            <span class="conference-status-label">
+              Situação da competência
+            </span>
+
+            <strong
+              class="conference-status-value"
+              data-conference-status
+            >
+              —
+            </strong>
+
+          </div>
+
+
+          <p data-conference-status-description>
+            Selecione uma competência e uma Regional.
+          </p>
+
+        </section>
+
+
+        <!-- ==================================================
+             RESUMO
+        ================================================== -->
+
+        <section
+          class="conference-summary"
+          aria-label="Resumo da conferência"
+        >
+
+          <article class="card conference-summary-card">
+
+            <span>
+              Horas atuais
+            </span>
+
+            <strong data-conference-hours>
+              —
+            </strong>
+
+          </article>
+
+
+          <article class="card conference-summary-card">
+
+            <span>
+              Instrutores
+            </span>
+
+            <strong data-conference-instructors>
+              —
+            </strong>
+
+          </article>
+
+
+          <article class="card conference-summary-card">
+
+            <span>
+              Eventos
+            </span>
+
+            <strong data-conference-events>
+              —
+            </strong>
+
+          </article>
+
+
+          <article class="card conference-summary-card">
+
+            <span>
+              Participações
+            </span>
+
+            <strong data-conference-participations>
+              —
+            </strong>
+
+          </article>
+
+
+          <article class="card conference-summary-card">
+
+            <span>
+              Divergências
+            </span>
+
+            <strong data-conference-divergences>
+              —
+            </strong>
+
+          </article>
+
+        </section>
+
+
+        <!-- ==================================================
+             RESUMO POR INSTRUTOR
+        ================================================== -->
+
+        <section
+          class="card conference-card"
+          aria-labelledby="conference-instructor-title"
+        >
+
+          <div class="conference-card-heading">
+
+            <div>
+
+              <h2 id="conference-instructor-title">
+                Resumo por instrutor
+              </h2>
+
+              <p>
+                Total atual de horas na competência.
+              </p>
+
+            </div>
+
+          </div>
+
+
+          <div class="conference-table-wrapper">
+
+            <table class="conference-table">
+
+              <thead>
+
+                <tr>
+
+                  <th>
+                    Instrutor
+                  </th>
+
+                  <th>
+                    Participações
+                  </th>
+
+                  <th>
+                    Eventos
+                  </th>
+
+                  <th>
+                    Horas
+                  </th>
+
+                  <th>
+                    Conferência
+                  </th>
+
+                </tr>
+
+              </thead>
+
+
+              <tbody data-conference-instructor-body>
+
+                <tr>
+
+                  <td
+                    colspan="5"
+                    class="conference-loading"
+                  >
+                    Carregando...
+                  </td>
+
+                </tr>
+
+              </tbody>
+
+            </table>
+
+          </div>
+
+        </section>
+
+
+        <!-- ==================================================
+             DETALHES
+        ================================================== -->
+
+        <section
+          class="card conference-card"
+          aria-labelledby="conference-detail-title"
+        >
+
+          <div class="conference-card-heading">
+
+            <div>
+
+              <h2 id="conference-detail-title">
+                Lançamentos conferidos
+              </h2>
+
+              <p data-conference-period-label>
+                —
+              </p>
+
+            </div>
+
+          </div>
+
+
+          <div class="conference-table-wrapper">
+
+            <table class="conference-table conference-detail-table">
+
+              <thead>
+
+                <tr>
+
+                  <th>
+                    Data
+                  </th>
+
+                  <th>
+                    Instrutor
+                  </th>
+
+                  <th>
+                    Evento
+                  </th>
+
+                  <th>
+                    Escola
+                  </th>
+
+                  <th>
+                    Entrada
+                  </th>
+
+                  <th>
+                    Saída
+                  </th>
+
+                  <th>
+                    Horas
+                  </th>
+
+                  <th>
+                    Situação
+                  </th>
+
+                </tr>
+
+              </thead>
+
+
+              <tbody data-conference-detail-body>
+
+                <tr>
+
+                  <td
+                    colspan="8"
+                    class="conference-loading"
+                  >
+                    Carregando...
+                  </td>
+
+                </tr>
+
+              </tbody>
+
+            </table>
+
+          </div>
+
+
+          <div
+            class="conference-empty"
+            data-conference-empty
+            hidden
+          >
+
+            <strong>
+              Nenhuma hora encontrada.
+            </strong>
+
+            <span>
+              Não existem execuções finalizadas
+              para esta competência e Regional.
+            </span>
+
+          </div>
+
+        </section>
+
+
+        <!-- ==================================================
+             AÇÃO
+        ================================================== -->
+
+        <section class="card conference-action-card">
+
+          <div class="conference-action-heading">
+
+            <div>
+
+              <h2>
+                Fechamento da competência
+              </h2>
+
+              <p>
+                Ao fechar, o sistema registra um snapshot
+                das horas atualmente conferidas.
+              </p>
+
+            </div>
+
+          </div>
+
+
+          <div class="conference-field">
+
+            <label for="conferenceNotes">
+              Observação da ação
+            </label>
+
+            <textarea
+              id="conferenceNotes"
+              rows="4"
+              maxlength="1500"
+              placeholder="Observação opcional para o fechamento."
+              data-conference-notes
+            ></textarea>
+
+          </div>
+
+
+          <div class="conference-action-buttons">
+
+            <button
+              type="button"
+              class="btn btn-primary"
+              data-conference-close
+            >
+              Fechar conferência
+            </button>
+
+
+            <button
+              type="button"
+              class="btn btn-ghost conference-reopen-button"
+              data-conference-reopen
+              hidden
+            >
+              Reabrir conferência
+            </button>
+
+          </div>
+
+        </section>
+
+      </main>
+
+    </div>
+
+  </div>
+
+
+  <script
+    type="module"
+    src="/src/main.js"
+  ></script>
+
+</body>
+
+</html>

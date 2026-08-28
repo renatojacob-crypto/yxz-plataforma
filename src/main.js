@@ -21,6 +21,7 @@ import "./css/agendamentos.css";
 import "./css/escalas.css";
 import "./css/execucoes.css";
 import "./css/horas.css";
+import "./css/conferencia.css";
 
 
 /* =========================================================
@@ -43,7 +44,7 @@ import {
 
 
 /* =========================================================
-   AUTENTICAÇÃO
+   AUTH
 ========================================================= */
 
 import {
@@ -56,10 +57,6 @@ import {
   watchAuthState,
 } from "./js/auth.js";
 
-
-/* =========================================================
-   AUXILIAR
-========================================================= */
 
 function inicializarModulo(
   nome,
@@ -84,10 +81,6 @@ function inicializarModulo(
 }
 
 
-/* =========================================================
-   APP
-========================================================= */
-
 function mostrarAplicacao() {
   const appShell =
     document.querySelector(
@@ -96,14 +89,11 @@ function mostrarAplicacao() {
 
 
   if (
-    !appShell
+    appShell
   ) {
-    return;
+    appShell.hidden =
+      false;
   }
-
-
-  appShell.hidden =
-    false;
 }
 
 
@@ -186,6 +176,17 @@ function authorizeCurrentPage(
   }
 
 
+  if (
+    page ===
+    "conferencia"
+  ) {
+    return requirePermission(
+      PERMISSIONS
+        .WORKSHOPS_REGISTER_EXECUTION,
+    );
+  }
+
+
   return true;
 }
 
@@ -213,7 +214,6 @@ async function iniciarPaginaAtual() {
 
     await initUsuariosPage();
 
-
     return;
   }
 
@@ -231,7 +231,6 @@ async function iniciarPaginaAtual() {
 
 
     await initInstrutoresPage();
-
 
     return;
   }
@@ -251,7 +250,6 @@ async function iniciarPaginaAtual() {
 
     await initAgendamentosPage();
 
-
     return;
   }
 
@@ -269,7 +267,6 @@ async function iniciarPaginaAtual() {
 
 
     await initEscalasPage();
-
 
     return;
   }
@@ -289,7 +286,6 @@ async function iniciarPaginaAtual() {
 
     await initExecucoesPage();
 
-
     return;
   }
 
@@ -308,6 +304,23 @@ async function iniciarPaginaAtual() {
 
     await initHorasPage();
 
+    return;
+  }
+
+
+  if (
+    page ===
+    "conferencia"
+  ) {
+    const {
+      initConferenciaPage,
+    } =
+      await import(
+        "./js/conferencia-page.js"
+      );
+
+
+    await initConferenciaPage();
 
     return;
   }

@@ -82,7 +82,7 @@ const MENU_SECTIONS = [
       {
         page: "conferencia",
         label: "Conferência",
-        href: "#",
+        href: "/app/conferencia.html",
         icon: "≋",
         permission: "oficinas.registrar_execucao",
       },

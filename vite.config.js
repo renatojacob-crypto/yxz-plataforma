@@ -71,6 +71,11 @@ export default defineConfig({
           process.cwd(),
           "app/horas.html",
         ),
+
+        conferencia: resolve(
+          process.cwd(),
+          "app/conferencia.html",
+        ),
       },
     },
   },
