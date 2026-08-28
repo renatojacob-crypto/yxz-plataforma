@@ -341,7 +341,7 @@
 ========================================================= */
 
 .executions-dialog {
-  width: min(880px, calc(100% - 2rem));
+  width: min(1040px, calc(100% - 2rem));
 }
 
 
@@ -454,6 +454,106 @@
 
 .executions-form-full {
   grid-column: 1 / -1;
+}
+
+
+/* =========================================================
+   DADOS PARA RELATÓRIO
+========================================================= */
+
+.executions-report-heading {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+
+.executions-report-heading p:last-child {
+  margin: 0.3rem 0 0;
+  color: #667085;
+  font-size: 0.82rem;
+}
+
+
+.executions-report-grid {
+  display: grid;
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+
+.executions-choice-fieldset {
+  min-width: 0;
+  margin: 0;
+  padding: 0.9rem;
+  border: 1px solid #d0d5dd;
+  border-radius: 10px;
+}
+
+
+.executions-choice-fieldset legend {
+  padding: 0 0.35rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+
+.executions-choice-grid {
+  display: grid;
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+  gap: 0.55rem;
+}
+
+
+.executions-year-grid {
+  grid-template-columns:
+    repeat(3, minmax(0, 1fr));
+}
+
+
+.executions-choice-option {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.55rem 0.65rem;
+  border: 1px solid #eaecf0;
+  border-radius: 8px;
+  background: #ffffff;
+  cursor: pointer;
+}
+
+
+.executions-choice-option:hover {
+  background: #f9fafb;
+}
+
+
+.executions-choice-option input {
+  width: 17px;
+  height: 17px;
+  flex: 0 0 auto;
+  margin: 0;
+}
+
+
+.executions-choice-option span {
+  min-width: 0;
+  font-size: 0.8rem;
+}
+
+
+.executions-report-companions {
+  grid-column: 1 / -1;
+}
+
+
+.executions-report-companions small {
+  color: #667085;
+  font-size: 0.75rem;
+  line-height: 1.45;
 }
 
 
@@ -799,6 +899,16 @@
   }
 
 
+  .executions-report-grid {
+    grid-template-columns: 1fr;
+  }
+
+
+  .executions-report-companions {
+    grid-column: auto;
+  }
+
+
   .executions-instructor-option {
     grid-template-columns: 1fr;
   }
@@ -820,6 +930,12 @@
 
 
   .executions-instructor-times {
+    grid-template-columns: 1fr;
+  }
+
+
+  .executions-choice-grid,
+  .executions-year-grid {
     grid-template-columns: 1fr;
   }
 

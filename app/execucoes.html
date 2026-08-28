@@ -698,6 +698,352 @@
 
 
         <!-- ==================================================
+             DADOS PARA RELATÓRIO
+        ================================================== -->
+
+        <section class="executions-form-section">
+
+          <div class="executions-report-heading">
+
+            <div>
+
+              <p class="executions-form-section-title">
+                Dados para relatório
+              </p>
+
+              <p>
+                Selecione as informações pedagógicas que devem
+                aparecer nos relatórios de faturamento.
+              </p>
+
+            </div>
+
+          </div>
+
+
+          <div class="executions-report-grid">
+
+            <fieldset class="executions-choice-fieldset">
+
+              <legend>
+                Segmento
+              </legend>
+
+
+              <div class="executions-choice-grid">
+
+                <label class="executions-choice-option">
+
+                  <input
+                    type="checkbox"
+                    value="Ensino Fundamental"
+                    data-execution-segment
+                  >
+
+                  <span>
+                    Ensino Fundamental
+                  </span>
+
+                </label>
+
+
+                <label class="executions-choice-option">
+
+                  <input
+                    type="checkbox"
+                    value="Ensino Médio"
+                    data-execution-segment
+                  >
+
+                  <span>
+                    Ensino Médio
+                  </span>
+
+                </label>
+
+
+                <label class="executions-choice-option">
+
+                  <input
+                    type="checkbox"
+                    value="Ensino Técnico"
+                    data-execution-segment
+                  >
+
+                  <span>
+                    Ensino Técnico
+                  </span>
+
+                </label>
+
+
+                <label class="executions-choice-option">
+
+                  <input
+                    type="checkbox"
+                    value="Ensino Superior"
+                    data-execution-segment
+                  >
+
+                  <span>
+                    Ensino Superior
+                  </span>
+
+                </label>
+
+
+                <label class="executions-choice-option">
+
+                  <input
+                    type="checkbox"
+                    value="EJA"
+                    data-execution-segment
+                  >
+
+                  <span>
+                    EJA
+                  </span>
+
+                </label>
+
+              </div>
+
+            </fieldset>
+
+
+            <fieldset class="executions-choice-fieldset">
+
+              <legend>
+                Ano / Turma
+              </legend>
+
+
+              <div class="executions-choice-grid executions-year-grid">
+
+                <label class="executions-choice-option">
+
+                  <input
+                    type="checkbox"
+                    value="1º ano"
+                    data-execution-year
+                  >
+
+                  <span>
+                    1º ano
+                  </span>
+
+                </label>
+
+
+                <label class="executions-choice-option">
+
+                  <input
+                    type="checkbox"
+                    value="2º ano"
+                    data-execution-year
+                  >
+
+                  <span>
+                    2º ano
+                  </span>
+
+                </label>
+
+
+                <label class="executions-choice-option">
+
+                  <input
+                    type="checkbox"
+                    value="3º ano"
+                    data-execution-year
+                  >
+
+                  <span>
+                    3º ano
+                  </span>
+
+                </label>
+
+
+                <label class="executions-choice-option">
+
+                  <input
+                    type="checkbox"
+                    value="4º ano"
+                    data-execution-year
+                  >
+
+                  <span>
+                    4º ano
+                  </span>
+
+                </label>
+
+
+                <label class="executions-choice-option">
+
+                  <input
+                    type="checkbox"
+                    value="5º ano"
+                    data-execution-year
+                  >
+
+                  <span>
+                    5º ano
+                  </span>
+
+                </label>
+
+
+                <label class="executions-choice-option">
+
+                  <input
+                    type="checkbox"
+                    value="6º ano"
+                    data-execution-year
+                  >
+
+                  <span>
+                    6º ano
+                  </span>
+
+                </label>
+
+
+                <label class="executions-choice-option">
+
+                  <input
+                    type="checkbox"
+                    value="7º ano"
+                    data-execution-year
+                  >
+
+                  <span>
+                    7º ano
+                  </span>
+
+                </label>
+
+
+                <label class="executions-choice-option">
+
+                  <input
+                    type="checkbox"
+                    value="8º ano"
+                    data-execution-year
+                  >
+
+                  <span>
+                    8º ano
+                  </span>
+
+                </label>
+
+
+                <label class="executions-choice-option">
+
+                  <input
+                    type="checkbox"
+                    value="9º ano"
+                    data-execution-year
+                  >
+
+                  <span>
+                    9º ano
+                  </span>
+
+                </label>
+
+              </div>
+
+            </fieldset>
+
+
+            <fieldset class="executions-choice-fieldset">
+
+              <legend>
+                Turno
+              </legend>
+
+
+              <div class="executions-choice-grid">
+
+                <label class="executions-choice-option">
+
+                  <input
+                    type="checkbox"
+                    value="Matutino"
+                    data-execution-shift
+                  >
+
+                  <span>
+                    Matutino
+                  </span>
+
+                </label>
+
+
+                <label class="executions-choice-option">
+
+                  <input
+                    type="checkbox"
+                    value="Vespertino"
+                    data-execution-shift
+                  >
+
+                  <span>
+                    Vespertino
+                  </span>
+
+                </label>
+
+
+                <label class="executions-choice-option">
+
+                  <input
+                    type="checkbox"
+                    value="Noturno"
+                    data-execution-shift
+                  >
+
+                  <span>
+                    Noturno
+                  </span>
+
+                </label>
+
+              </div>
+
+            </fieldset>
+
+
+            <div class="form-field executions-report-companions">
+
+              <label for="executionCompanions">
+                Professores / Acompanhantes
+              </label>
+
+              <textarea
+                id="executionCompanions"
+                rows="4"
+                maxlength="500"
+                placeholder="Ex.: Maria da Silva / João Souza ou 0"
+                data-execution-companions
+              ></textarea>
+
+              <small>
+                Informe os nomes de quem acompanhou a turma.
+                Quando não houver acompanhante, informe 0.
+              </small>
+
+            </div>
+
+          </div>
+
+        </section>
+
+
+        <!-- ==================================================
              INSTRUTORES
         ================================================== -->
 

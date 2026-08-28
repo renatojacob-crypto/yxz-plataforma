@@ -201,6 +201,26 @@ function getElements() {
         "[data-execution-notes]",
       ),
 
+    yearOptions:
+      document.querySelectorAll(
+        "[data-execution-year]",
+      ),
+
+    shiftOptions:
+      document.querySelectorAll(
+        "[data-execution-shift]",
+      ),
+
+    segmentOptions:
+      document.querySelectorAll(
+        "[data-execution-segment]",
+      ),
+
+    companions:
+      document.querySelector(
+        "[data-execution-companions]",
+      ),
+
     instructorList:
       document.querySelector(
         "[data-execution-instructor-list]",
@@ -701,6 +721,10 @@ async function loadExecutions() {
         hora_fim_real,
         participantes_reais,
         observacoes,
+        anos_turmas,
+        turnos,
+        segmentos,
+        professores_acompanhantes,
         status,
         finalizada_at,
         created_at,
@@ -3285,7 +3309,112 @@ function getSelectedExecutionInstructors(
 
 
 /* =========================================================
-   VALIDAR FORMULÁRIO
+   DADOS PARA RELATÓRIO
+========================================================= */
+
+function getCheckedValues(
+  options,
+) {
+  return Array.from(
+    options,
+  )
+    .filter(
+      (option) =>
+        option.checked,
+    )
+    .map(
+      (option) =>
+        option.value,
+    );
+}
+
+
+function setCheckedValues(
+  options,
+  values,
+) {
+  const selected =
+    new Set(
+      Array.isArray(
+        values,
+      )
+        ? values
+        : [],
+    );
+
+
+  Array.from(
+    options,
+  ).forEach(
+    (option) => {
+
+      option.checked =
+        selected.has(
+          option.value,
+        );
+    },
+  );
+}
+
+
+function collectExecutionReportMetadata(
+  elements,
+) {
+  return {
+    years:
+      getCheckedValues(
+        elements.yearOptions,
+      ),
+
+    shifts:
+      getCheckedValues(
+        elements.shiftOptions,
+      ),
+
+    segments:
+      getCheckedValues(
+        elements.segmentOptions,
+      ),
+
+    companions:
+      elements.companions.value
+        .trim() ||
+      null,
+  };
+}
+
+
+function populateExecutionReportMetadata(
+  execution,
+  elements,
+) {
+  setCheckedValues(
+    elements.yearOptions,
+    execution?.anos_turmas,
+  );
+
+
+  setCheckedValues(
+    elements.shiftOptions,
+    execution?.turnos,
+  );
+
+
+  setCheckedValues(
+    elements.segmentOptions,
+    execution?.segmentos,
+  );
+
+
+  elements.companions.value =
+    execution
+      ?.professores_acompanhantes ||
+    "";
+}
+
+
+/* =========================================================
+   VALIDAR / COLETAR EXECUÇÃO
 ========================================================= */
 
 function collectExecutionPayload(
@@ -3444,6 +3573,11 @@ function collectExecutionPayload(
         .trim() ||
       null,
 
+    reportMetadata:
+      collectExecutionReportMetadata(
+        elements,
+      ),
+
     selectedInstructors,
   };
 }
@@ -3497,7 +3631,44 @@ async function saveExecutionData(
 
 
 /* =========================================================
-   SALVAR LEGENDAS
+   SALVAR METADADOS DO RELATÓRIO
+========================================================= */
+
+async function saveExecutionReportMetadata(
+  payload,
+) {
+  const {
+    error,
+  } =
+    await supabase.rpc(
+      "save_execution_report_metadata",
+      {
+        p_evento_id:
+          payload.event.id,
+
+        p_anos_turmas:
+          payload.reportMetadata.years,
+
+        p_turnos:
+          payload.reportMetadata.shifts,
+
+        p_segmentos:
+          payload.reportMetadata.segments,
+
+        p_professores_acompanhantes:
+          payload.reportMetadata.companions,
+      },
+    );
+
+
+  if (error) {
+    throw error;
+  }
+}
+
+
+/* =========================================================
+   SALVAR LEGENDAS EXISTENTES
 ========================================================= */
 
 async function saveExistingCaptions(
@@ -3568,7 +3739,7 @@ async function syncExistingPhotoFolder(
 
 
 /* =========================================================
-   UPLOAD DA FILA
+   UPLOAD DAS FOTOS PENDENTES
 ========================================================= */
 
 async function uploadPendingPhotos(
@@ -3723,7 +3894,7 @@ async function persistExecution(
 
 
     /* =====================================================
-       1. SALVAR DADOS
+       1. SALVAR DADOS OPERACIONAIS
     ===================================================== */
 
     const executionId =
@@ -3733,7 +3904,23 @@ async function persistExecution(
 
 
     /* =====================================================
-       2. LEGENDAS
+       2. SALVAR DADOS PARA RELATÓRIO
+    ===================================================== */
+
+    setDialogStatus(
+      elements,
+      "Salvando dados do relatório...",
+      "loading",
+    );
+
+
+    await saveExecutionReportMetadata(
+      payload,
+    );
+
+
+    /* =====================================================
+       3. LEGENDAS
     ===================================================== */
 
     await saveExistingCaptions(
@@ -3742,7 +3929,7 @@ async function persistExecution(
 
 
     /* =====================================================
-       3. REORGANIZAR FOTOS ANTIGAS SE DATA MUDOU
+       4. SINCRONIZAR PASTA SE DATA MUDOU
     ===================================================== */
 
     await syncExistingPhotoFolder(
@@ -3751,7 +3938,7 @@ async function persistExecution(
 
 
     /* =====================================================
-       4. UPLOAD NOVAS FOTOS
+       5. UPLOAD DAS FOTOS NOVAS
     ===================================================== */
 
     await uploadPendingPhotos(
@@ -3761,7 +3948,7 @@ async function persistExecution(
 
 
     /* =====================================================
-       5. RECARREGAR
+       6. RECARREGAR
     ===================================================== */
 
     await Promise.all([
@@ -4066,6 +4253,12 @@ async function openExecutionDialog(
     "";
 
 
+  populateExecutionReportMetadata(
+    execution,
+    elements,
+  );
+
+
   setDialogStatus(
     elements,
   );
@@ -4089,7 +4282,7 @@ async function openExecutionDialog(
 
 
 /* =========================================================
-   FECHAR
+   FECHAR MODAL
 ========================================================= */
 
 function closeExecutionDialog(
