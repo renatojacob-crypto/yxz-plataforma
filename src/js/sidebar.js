@@ -97,7 +97,7 @@ const MENU_SECTIONS = [
       {
         page: "previsoes",
         label: "Previsões",
-        href: "#",
+        href: "/app/previsoes.html",
         icon: "◇",
         permission: "previsoes.visualizar",
       },

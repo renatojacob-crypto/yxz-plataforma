@@ -76,6 +76,11 @@ export default defineConfig({
           process.cwd(),
           "app/conferencia.html",
         ),
+
+        previsoes: resolve(
+          process.cwd(),
+          "app/previsoes.html",
+        ),
       },
     },
   },

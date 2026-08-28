@@ -1,0 +1,672 @@
+/* =========================================================
+   YXZ PLATAFORMA
+   PREVISÕES FINANCEIRAS
+========================================================= */
+
+
+/* =========================================================
+   MENSAGENS
+========================================================= */
+
+.forecasts-page-message {
+  min-height: 1.4rem;
+  margin: 0 0 1rem;
+  font-size: 0.9rem;
+}
+
+
+.forecasts-page-message:empty {
+  min-height: 0;
+  margin-bottom: 0;
+}
+
+
+.forecasts-page-message[data-state="success"] {
+  color: #027a48;
+}
+
+
+.forecasts-page-message[data-state="error"] {
+  color: #b42318;
+}
+
+
+.forecasts-page-message[data-state="loading"] {
+  color: #667085;
+}
+
+
+/* =========================================================
+   FILTROS
+========================================================= */
+
+.forecasts-filter-card {
+  margin-bottom: 1.25rem;
+  padding: 1.2rem;
+}
+
+
+.forecasts-filter-heading {
+  margin-bottom: 1rem;
+}
+
+
+.forecasts-filter-heading h2 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+
+.forecasts-filter-heading p {
+  margin: 0.35rem 0 0;
+  color: #667085;
+  font-size: 0.84rem;
+}
+
+
+.forecasts-filters {
+  display: grid;
+  grid-template-columns:
+    minmax(150px, 0.75fr)
+    minmax(200px, 1fr)
+    minmax(180px, 0.9fr)
+    minmax(150px, 0.75fr)
+    minmax(260px, 1.3fr);
+  gap: 1rem;
+  align-items: end;
+}
+
+
+.forecasts-filter-field {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+
+.forecasts-filter-field label {
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+
+.forecasts-filter-field input,
+.forecasts-filter-field select {
+  width: 100%;
+  min-height: 44px;
+  padding: 0.7rem 0.8rem;
+  border: 1px solid #d0d5dd;
+  border-radius: 10px;
+  background: #ffffff;
+  color: inherit;
+  font: inherit;
+}
+
+
+/* =========================================================
+   RESUMO
+========================================================= */
+
+.forecasts-summary {
+  display: grid;
+  grid-template-columns:
+    repeat(
+      5,
+      minmax(0, 1fr)
+    );
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+
+.forecasts-summary-card {
+  display: flex;
+  min-height: 98px;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 1.15rem 1.25rem;
+}
+
+
+.forecasts-summary-card span {
+  color: #667085;
+  font-size: 0.82rem;
+}
+
+
+.forecasts-summary-card strong {
+  font-size: 1.5rem;
+  line-height: 1.15;
+}
+
+
+/* =========================================================
+   TABELA PRINCIPAL
+========================================================= */
+
+.forecasts-table-card {
+  overflow: hidden;
+}
+
+
+.forecasts-table-heading {
+  padding: 1.2rem 1rem;
+}
+
+
+.forecasts-table-heading h2 {
+  margin: 0;
+}
+
+
+.forecasts-table-heading p {
+  margin: 0.35rem 0 0;
+  color: #667085;
+  font-size: 0.84rem;
+}
+
+
+.forecasts-table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
+
+.forecasts-table {
+  width: 100%;
+  min-width: 1450px;
+  border-collapse: collapse;
+}
+
+
+.forecasts-table th,
+.forecasts-table td {
+  padding: 0.9rem 0.85rem;
+  border-top: 1px solid #eaecf0;
+  text-align: left;
+  vertical-align: middle;
+}
+
+
+.forecasts-table th {
+  color: #667085;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+
+.forecasts-table tbody tr:hover {
+  background: #fcfcfd;
+}
+
+
+.forecasts-money-cell {
+  white-space: nowrap;
+}
+
+
+.forecasts-money-cell strong {
+  color: #027a48;
+}
+
+
+/* =========================================================
+   EVENTO
+========================================================= */
+
+.forecasts-event-cell {
+  display: flex;
+  min-width: 190px;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+
+.forecasts-event-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+
+.forecasts-badge {
+  display: inline-flex;
+  width: fit-content;
+  min-height: 22px;
+  align-items: center;
+  padding: 0.16rem 0.48rem;
+  border-radius: 999px;
+  font-size: 0.66rem;
+  font-weight: 700;
+}
+
+
+.forecasts-badge-educational {
+  background: #eef4ff;
+  color: #3538cd;
+}
+
+
+.forecasts-badge-community {
+  background: #fff6ed;
+  color: #b54708;
+}
+
+
+.forecasts-status-agendada {
+  background: #f2f4f7;
+  color: #344054;
+}
+
+
+.forecasts-status-realizada {
+  background: #ecfdf3;
+  color: #027a48;
+}
+
+
+.forecasts-status-cancelada {
+  background: #fef3f2;
+  color: #b42318;
+}
+
+
+/* =========================================================
+   VAZIO
+========================================================= */
+
+.forecasts-loading {
+  padding: 2rem !important;
+  color: #667085;
+  text-align: center !important;
+}
+
+
+.forecasts-empty {
+  padding: 2.75rem 1rem;
+  text-align: center;
+}
+
+
+.forecasts-empty strong,
+.forecasts-empty span {
+  display: block;
+}
+
+
+.forecasts-empty span {
+  margin-top: 0.4rem;
+  color: #667085;
+  font-size: 0.84rem;
+}
+
+
+/* =========================================================
+   MODAL
+========================================================= */
+
+.forecasts-dialog {
+  width: min(
+    940px,
+    calc(100% - 2rem)
+  );
+}
+
+
+.forecasts-dialog-description {
+  max-width: 600px;
+  margin: 0.4rem 0 0;
+  color: #667085;
+  font-size: 0.88rem;
+}
+
+
+/* =========================================================
+   EVENTO NO MODAL
+========================================================= */
+
+.forecasts-event-summary {
+  display: grid;
+  grid-template-columns:
+    minmax(0, 1.25fr)
+    minmax(280px, 1fr);
+  gap: 1.25rem;
+  padding: 1rem;
+  border: 1px solid #eaecf0;
+  border-radius: 12px;
+  background: #f9fafb;
+}
+
+
+.forecasts-event-summary > div:first-child {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.4rem;
+}
+
+
+.forecasts-event-summary
+> div:first-child
+> span:last-child {
+  color: #667085;
+  font-size: 0.84rem;
+}
+
+
+.forecasts-event-type {
+  display: inline-flex;
+  width: fit-content;
+  min-height: 24px;
+  align-items: center;
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+
+
+.forecasts-event-type-educational {
+  background: #eef4ff;
+  color: #3538cd;
+}
+
+
+.forecasts-event-type-community {
+  background: #fff6ed;
+  color: #b54708;
+}
+
+
+.forecasts-event-meta {
+  display: grid;
+  gap: 0.5rem;
+}
+
+
+.forecasts-event-meta > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-bottom: 0.45rem;
+  border-bottom: 1px solid #eaecf0;
+}
+
+
+.forecasts-event-meta > div:last-child {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+
+.forecasts-event-meta span {
+  color: #667085;
+  font-size: 0.77rem;
+}
+
+
+.forecasts-event-meta strong {
+  font-size: 0.82rem;
+  text-align: right;
+}
+
+
+/* =========================================================
+   SEÇÕES DO MODAL
+========================================================= */
+
+.forecasts-form-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+
+.forecasts-form-section
++
+.forecasts-form-section {
+  padding-top: 1rem;
+  border-top: 1px solid #eaecf0;
+}
+
+
+.forecasts-section-heading {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+
+.forecasts-section-title {
+  margin: 0;
+  color: #667085;
+  font-size: 0.76rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+
+.forecasts-section-heading p:last-child {
+  margin: 0.3rem 0 0;
+  color: #667085;
+  font-size: 0.8rem;
+}
+
+
+.forecasts-item-count {
+  flex: 0 0 auto;
+  height: fit-content;
+  padding: 0.3rem 0.65rem;
+  border-radius: 999px;
+  background: #f2f4f7;
+  color: #344054;
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+
+/* =========================================================
+   TABELA DE ITENS
+========================================================= */
+
+.forecasts-items-table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
+
+.forecasts-items-table {
+  width: 100%;
+  min-width: 720px;
+  border-collapse: collapse;
+}
+
+
+.forecasts-items-table th,
+.forecasts-items-table td {
+  padding: 0.75rem;
+  border-bottom: 1px solid #eaecf0;
+  text-align: left;
+  vertical-align: middle;
+}
+
+
+.forecasts-items-table th {
+  color: #667085;
+  font-size: 0.74rem;
+  font-weight: 600;
+}
+
+
+.forecasts-items-empty {
+  padding: 1.5rem !important;
+  color: #667085;
+  text-align: center !important;
+}
+
+
+.forecasts-item-action {
+  margin-right: 0.65rem;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #175cd3;
+  font: inherit;
+  font-size: 0.75rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+
+.forecasts-item-delete {
+  color: #b42318;
+}
+
+
+/* =========================================================
+   FORM DO ITEM
+========================================================= */
+
+.forecasts-item-form-grid {
+  display: grid;
+  grid-template-columns:
+    minmax(160px, 0.85fr)
+    minmax(260px, 1.5fr)
+    minmax(120px, 0.6fr)
+    minmax(150px, 0.75fr)
+    minmax(150px, 0.75fr);
+  gap: 1rem;
+  align-items: end;
+}
+
+
+.forecasts-description-field {
+  min-width: 0;
+}
+
+
+.forecasts-total-field strong {
+  display: flex;
+  min-height: 44px;
+  align-items: center;
+  padding: 0.7rem 0.8rem;
+  border: 1px solid #a6f4c5;
+  border-radius: 10px;
+  background: #ecfdf3;
+  color: #027a48;
+}
+
+
+.forecasts-form-full {
+  grid-column: 1 / -1;
+}
+
+
+.forecasts-editor-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+
+/* =========================================================
+   RESPONSIVO
+========================================================= */
+
+@media (max-width: 1200px) {
+
+  .forecasts-summary {
+    grid-template-columns:
+      repeat(
+        3,
+        minmax(0, 1fr)
+      );
+  }
+
+
+  .forecasts-filters {
+    grid-template-columns:
+      repeat(
+        2,
+        minmax(0, 1fr)
+      );
+  }
+
+
+  .forecasts-search-field {
+    grid-column: 1 / -1;
+  }
+
+
+  .forecasts-item-form-grid {
+    grid-template-columns:
+      repeat(
+        2,
+        minmax(0, 1fr)
+      );
+  }
+
+}
+
+
+@media (max-width: 760px) {
+
+  .forecasts-summary {
+    grid-template-columns:
+      repeat(
+        2,
+        minmax(0, 1fr)
+      );
+  }
+
+
+  .forecasts-event-summary {
+    grid-template-columns: 1fr;
+  }
+
+
+  .forecasts-item-form-grid {
+    grid-template-columns: 1fr;
+  }
+
+
+  .forecasts-form-full {
+    grid-column: auto;
+  }
+
+}
+
+
+@media (max-width: 560px) {
+
+  .forecasts-summary,
+  .forecasts-filters {
+    grid-template-columns: 1fr;
+  }
+
+
+  .forecasts-search-field {
+    grid-column: auto;
+  }
+
+
+  .forecasts-dialog {
+    width: calc(100% - 1rem);
+    max-height: calc(100dvh - 1rem);
+  }
+
+
+  .forecasts-editor-actions {
+    flex-direction: column;
+  }
+
+
+  .forecasts-editor-actions .btn {
+    width: 100%;
+  }
+
+}

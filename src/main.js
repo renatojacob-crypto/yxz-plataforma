@@ -22,6 +22,7 @@ import "./css/escalas.css";
 import "./css/execucoes.css";
 import "./css/horas.css";
 import "./css/conferencia.css";
+import "./css/previsoes.css";
 
 
 /* =========================================================
@@ -58,6 +59,10 @@ import {
 } from "./js/auth.js";
 
 
+/* =========================================================
+   AUXILIAR
+========================================================= */
+
 function inicializarModulo(
   nome,
   callback,
@@ -80,6 +85,10 @@ function inicializarModulo(
   }
 }
 
+
+/* =========================================================
+   APP
+========================================================= */
 
 function mostrarAplicacao() {
   const appShell =
@@ -183,6 +192,16 @@ function authorizeCurrentPage(
     return requirePermission(
       PERMISSIONS
         .WORKSHOPS_REGISTER_EXECUTION,
+    );
+  }
+
+
+  if (
+    page ===
+    "previsoes"
+  ) {
+    return requirePermission(
+      "previsoes.visualizar",
     );
   }
 
@@ -321,6 +340,24 @@ async function iniciarPaginaAtual() {
 
 
     await initConferenciaPage();
+
+    return;
+  }
+
+
+  if (
+    page ===
+    "previsoes"
+  ) {
+    const {
+      initPrevisoesPage,
+    } =
+      await import(
+        "./js/previsoes-page.js"
+      );
+
+
+    await initPrevisoesPage();
 
     return;
   }

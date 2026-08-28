@@ -1,0 +1,929 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <meta
+    name="description"
+    content="Previsões financeiras da Plataforma YXZ"
+  >
+
+  <meta
+    name="robots"
+    content="noindex, nofollow"
+  >
+
+  <meta
+    name="theme-color"
+    content="#0f2c25"
+  >
+
+  <title>
+    Previsões Financeiras | YXZ Plataforma
+  </title>
+
+  <link
+    rel="icon"
+    href="/assets/favicon.png"
+    type="image/png"
+  >
+</head>
+
+
+<body data-app-page="previsoes">
+
+  <div
+    class="app-shell"
+    data-app-shell
+    hidden
+  >
+
+    <aside
+      class="sidebar"
+      id="sidebar"
+      aria-label="Menu lateral"
+    ></aside>
+
+
+    <div
+      class="sidebar-overlay"
+      data-sidebar-close
+      aria-hidden="true"
+    ></div>
+
+
+    <div class="app-main">
+
+      <!-- ==================================================
+           HEADER
+      ================================================== -->
+
+      <header class="app-header">
+
+        <div class="header-left">
+
+          <button
+            type="button"
+            class="mobile-menu-button"
+            data-sidebar-toggle
+            aria-label="Abrir menu"
+            aria-expanded="false"
+            aria-controls="sidebar"
+          >
+            <span aria-hidden="true">
+              ☰
+            </span>
+          </button>
+
+
+          <div class="header-context">
+            Previsões Financeiras
+          </div>
+
+        </div>
+
+
+        <div class="header-user">
+
+          <div
+            class="user-avatar"
+            data-auth-avatar
+            aria-hidden="true"
+          >
+            YXZ
+          </div>
+
+
+          <div class="user-info">
+
+            <strong data-auth-name>
+              Usuário
+            </strong>
+
+            <span data-auth-cargo>
+              Carregando...
+            </span>
+
+          </div>
+
+
+          <button
+            type="button"
+            class="btn btn-ghost"
+            data-auth-logout
+          >
+            Sair
+          </button>
+
+        </div>
+
+      </header>
+
+
+      <!-- ==================================================
+           CONTEÚDO
+      ================================================== -->
+
+      <main class="app-content">
+
+        <div class="page-heading">
+
+          <div>
+
+            <h1>
+              Previsões Financeiras
+            </h1>
+
+            <p>
+              Planeje os custos previstos para cada evento
+              antes da sua realização.
+            </p>
+
+          </div>
+
+
+          <button
+            type="button"
+            class="btn btn-ghost"
+            data-forecasts-refresh
+          >
+            Atualizar
+          </button>
+
+        </div>
+
+
+        <p
+          class="forecasts-page-message"
+          data-forecasts-message
+          role="status"
+          aria-live="polite"
+        ></p>
+
+
+        <!-- ==================================================
+             FILTROS
+        ================================================== -->
+
+        <section
+          class="card forecasts-filter-card"
+          aria-labelledby="forecasts-filter-title"
+        >
+
+          <div class="forecasts-filter-heading">
+
+            <div>
+
+              <h2 id="forecasts-filter-title">
+                Consulta
+              </h2>
+
+              <p>
+                A competência considera a data programada
+                do evento.
+              </p>
+
+            </div>
+
+          </div>
+
+
+          <div class="forecasts-filters">
+
+            <div class="forecasts-filter-field">
+
+              <label for="forecastsMonth">
+                Competência
+              </label>
+
+              <input
+                id="forecastsMonth"
+                type="month"
+                required
+                data-forecasts-month
+              >
+
+            </div>
+
+
+            <div class="forecasts-filter-field">
+
+              <label for="forecastsRegional">
+                Regional
+              </label>
+
+              <select
+                id="forecastsRegional"
+                data-forecasts-regional
+              >
+
+                <option value="">
+                  Todas
+                </option>
+
+              </select>
+
+            </div>
+
+
+            <div class="forecasts-filter-field">
+
+              <label for="forecastsType">
+                Tipo
+              </label>
+
+              <select
+                id="forecastsType"
+                data-forecasts-type
+              >
+
+                <option value="">
+                  Todos
+                </option>
+
+                <option value="oficina_educacional">
+                  Oficina Educacional
+                </option>
+
+                <option value="evento_comunidade">
+                  Evento à Comunidade
+                </option>
+
+              </select>
+
+            </div>
+
+
+            <div class="forecasts-filter-field">
+
+              <label for="forecastsStatus">
+                Situação
+              </label>
+
+              <select
+                id="forecastsStatus"
+                data-forecasts-status
+              >
+
+                <option value="">
+                  Todas
+                </option>
+
+                <option value="agendada">
+                  Agendados
+                </option>
+
+                <option value="realizada">
+                  Realizados
+                </option>
+
+                <option value="cancelada">
+                  Cancelados
+                </option>
+
+              </select>
+
+            </div>
+
+
+            <div
+              class="forecasts-filter-field forecasts-search-field"
+            >
+
+              <label for="forecastsSearch">
+                Buscar
+              </label>
+
+              <input
+                id="forecastsSearch"
+                type="search"
+                autocomplete="off"
+                placeholder="Evento, escola ou Regional"
+                data-forecasts-search
+              >
+
+            </div>
+
+          </div>
+
+        </section>
+
+
+        <!-- ==================================================
+             RESUMO
+        ================================================== -->
+
+        <section
+          class="forecasts-summary"
+          aria-label="Resumo financeiro"
+        >
+
+          <article class="card forecasts-summary-card">
+
+            <span>
+              Total previsto
+            </span>
+
+            <strong data-forecasts-total>
+              —
+            </strong>
+
+          </article>
+
+
+          <article class="card forecasts-summary-card">
+
+            <span>
+              Eventos com previsão
+            </span>
+
+            <strong data-forecasts-events-with>
+              —
+            </strong>
+
+          </article>
+
+
+          <article class="card forecasts-summary-card">
+
+            <span>
+              Eventos sem previsão
+            </span>
+
+            <strong data-forecasts-events-without>
+              —
+            </strong>
+
+          </article>
+
+
+          <article class="card forecasts-summary-card">
+
+            <span>
+              Itens previstos
+            </span>
+
+            <strong data-forecasts-items>
+              —
+            </strong>
+
+          </article>
+
+
+          <article class="card forecasts-summary-card">
+
+            <span>
+              Média por evento
+            </span>
+
+            <strong data-forecasts-average>
+              —
+            </strong>
+
+          </article>
+
+        </section>
+
+
+        <!-- ==================================================
+             TABELA
+        ================================================== -->
+
+        <section
+          class="card forecasts-table-card"
+          aria-labelledby="forecasts-table-title"
+        >
+
+          <div class="forecasts-table-heading">
+
+            <div>
+
+              <h2 id="forecasts-table-title">
+                Previsão por evento
+              </h2>
+
+              <p data-forecasts-period-label>
+                —
+              </p>
+
+            </div>
+
+          </div>
+
+
+          <div class="forecasts-table-wrapper">
+
+            <table class="forecasts-table">
+
+              <thead>
+
+                <tr>
+
+                  <th scope="col">
+                    Data
+                  </th>
+
+                  <th scope="col">
+                    Evento
+                  </th>
+
+                  <th scope="col">
+                    Escola
+                  </th>
+
+                  <th scope="col">
+                    Regional
+                  </th>
+
+                  <th scope="col">
+                    Deslocamento
+                  </th>
+
+                  <th scope="col">
+                    Alimentação
+                  </th>
+
+                  <th scope="col">
+                    Hospedagem
+                  </th>
+
+                  <th scope="col">
+                    Materiais
+                  </th>
+
+                  <th scope="col">
+                    Outros
+                  </th>
+
+                  <th scope="col">
+                    Total
+                  </th>
+
+                  <th scope="col">
+                    Ações
+                  </th>
+
+                </tr>
+
+              </thead>
+
+
+              <tbody data-forecasts-table-body>
+
+                <tr>
+
+                  <td
+                    colspan="11"
+                    class="forecasts-loading"
+                  >
+                    Carregando previsões...
+                  </td>
+
+                </tr>
+
+              </tbody>
+
+            </table>
+
+          </div>
+
+
+          <div
+            class="forecasts-empty"
+            data-forecasts-empty
+            hidden
+          >
+
+            <strong>
+              Nenhum evento encontrado.
+            </strong>
+
+            <span>
+              Ajuste a competência ou os filtros.
+            </span>
+
+          </div>
+
+        </section>
+
+      </main>
+
+    </div>
+
+  </div>
+
+
+  <!-- ======================================================
+       MODAL DA PREVISÃO
+  ======================================================= -->
+
+  <dialog
+    class="users-dialog forecasts-dialog"
+    id="forecastDialog"
+    aria-labelledby="forecastDialogTitle"
+  >
+
+    <div class="users-dialog-form">
+
+      <header class="users-dialog-header">
+
+        <div>
+
+          <span class="users-dialog-kicker">
+            Planejamento financeiro
+          </span>
+
+          <h2
+            id="forecastDialogTitle"
+            data-forecast-dialog-title
+          >
+            Previsão do evento
+          </h2>
+
+          <p class="forecasts-dialog-description">
+            Cadastre os custos estimados para este evento.
+          </p>
+
+        </div>
+
+
+        <button
+          type="button"
+          class="users-dialog-close"
+          data-forecast-dialog-close
+          aria-label="Fechar"
+        >
+          ×
+        </button>
+
+      </header>
+
+
+      <div class="users-dialog-body">
+
+        <!-- ==================================================
+             EVENTO
+        ================================================== -->
+
+        <section class="forecasts-event-summary">
+
+          <div>
+
+            <span
+              class="forecasts-event-type"
+              data-forecast-event-type
+            >
+              —
+            </span>
+
+            <strong data-forecast-event-name>
+              Evento
+            </strong>
+
+            <span data-forecast-event-school>
+              Escola
+            </span>
+
+          </div>
+
+
+          <div class="forecasts-event-meta">
+
+            <div>
+
+              <span>
+                Regional
+              </span>
+
+              <strong data-forecast-event-regional>
+                —
+              </strong>
+
+            </div>
+
+
+            <div>
+
+              <span>
+                Data
+              </span>
+
+              <strong data-forecast-event-date>
+                —
+              </strong>
+
+            </div>
+
+
+            <div>
+
+              <span>
+                Total previsto
+              </span>
+
+              <strong data-forecast-event-total>
+                R$ 0,00
+              </strong>
+
+            </div>
+
+          </div>
+
+        </section>
+
+
+        <!-- ==================================================
+             ITENS ATUAIS
+        ================================================== -->
+
+        <section class="forecasts-form-section">
+
+          <div class="forecasts-section-heading">
+
+            <div>
+
+              <p class="forecasts-section-title">
+                Itens previstos
+              </p>
+
+              <p>
+                Um evento pode possuir vários itens
+                na mesma categoria.
+              </p>
+
+            </div>
+
+
+            <span
+              class="forecasts-item-count"
+              data-forecast-item-count
+            >
+              0 itens
+            </span>
+
+          </div>
+
+
+          <div class="forecasts-items-table-wrapper">
+
+            <table class="forecasts-items-table">
+
+              <thead>
+
+                <tr>
+
+                  <th>
+                    Categoria
+                  </th>
+
+                  <th>
+                    Descrição
+                  </th>
+
+                  <th>
+                    Qtd.
+                  </th>
+
+                  <th>
+                    Unitário
+                  </th>
+
+                  <th>
+                    Total
+                  </th>
+
+                  <th>
+                    Ações
+                  </th>
+
+                </tr>
+
+              </thead>
+
+
+              <tbody data-forecast-items-body>
+
+                <tr>
+
+                  <td
+                    colspan="6"
+                    class="forecasts-items-empty"
+                  >
+                    Nenhum item cadastrado.
+                  </td>
+
+                </tr>
+
+              </tbody>
+
+            </table>
+
+          </div>
+
+        </section>
+
+
+        <!-- ==================================================
+             CADASTRO DO ITEM
+        ================================================== -->
+
+        <section
+          class="forecasts-form-section"
+          data-forecast-editor
+        >
+
+          <div class="forecasts-section-heading">
+
+            <div>
+
+              <p
+                class="forecasts-section-title"
+                data-forecast-editor-title
+              >
+                Novo item
+              </p>
+
+              <p>
+                Para um custo único, utilize quantidade 1.
+              </p>
+
+            </div>
+
+          </div>
+
+
+          <form id="forecastItemForm">
+
+            <div class="forecasts-item-form-grid">
+
+              <div class="form-field">
+
+                <label for="forecastCategory">
+                  Categoria *
+                </label>
+
+                <select
+                  id="forecastCategory"
+                  required
+                  data-forecast-category
+                ></select>
+
+              </div>
+
+
+              <div class="form-field forecasts-description-field">
+
+                <label for="forecastDescription">
+                  Descrição *
+                </label>
+
+                <input
+                  id="forecastDescription"
+                  type="text"
+                  maxlength="300"
+                  required
+                  placeholder="Ex.: Combustível para deslocamento"
+                  data-forecast-description
+                >
+
+              </div>
+
+
+              <div class="form-field">
+
+                <label for="forecastQuantity">
+                  Quantidade *
+                </label>
+
+                <input
+                  id="forecastQuantity"
+                  type="number"
+                  min="0.01"
+                  step="0.01"
+                  value="1"
+                  required
+                  data-forecast-quantity
+                >
+
+              </div>
+
+
+              <div class="form-field">
+
+                <label for="forecastUnitValue">
+                  Valor unitário *
+                </label>
+
+                <input
+                  id="forecastUnitValue"
+                  type="number"
+                  min="0.01"
+                  step="0.01"
+                  required
+                  placeholder="0,00"
+                  data-forecast-unit-value
+                >
+
+              </div>
+
+
+              <div class="form-field forecasts-total-field">
+
+                <label>
+                  Total do item
+                </label>
+
+                <strong data-forecast-line-total>
+                  R$ 0,00
+                </strong>
+
+              </div>
+
+
+              <div class="form-field forecasts-form-full">
+
+                <label for="forecastNotes">
+                  Observações
+                </label>
+
+                <textarea
+                  id="forecastNotes"
+                  rows="3"
+                  maxlength="500"
+                  placeholder="Informações opcionais..."
+                  data-forecast-notes
+                ></textarea>
+
+              </div>
+
+            </div>
+
+
+            <div class="forecasts-editor-actions">
+
+              <button
+                type="button"
+                class="btn btn-ghost"
+                data-forecast-editor-cancel
+                hidden
+              >
+                Cancelar edição
+              </button>
+
+
+              <button
+                type="submit"
+                class="btn btn-primary"
+                data-forecast-save-item
+              >
+                Adicionar item
+              </button>
+
+            </div>
+
+          </form>
+
+        </section>
+
+
+        <p
+          class="users-dialog-status"
+          data-forecast-status
+          role="status"
+          aria-live="polite"
+        ></p>
+
+      </div>
+
+
+      <footer class="users-dialog-footer">
+
+        <button
+          type="button"
+          class="btn btn-primary"
+          data-forecast-dialog-close
+        >
+          Concluir
+        </button>
+
+      </footer>
+
+    </div>
+
+  </dialog>
+
+
+  <script
+    type="module"
+    src="/src/main.js"
+  ></script>
+
+</body>
+
+</html>
