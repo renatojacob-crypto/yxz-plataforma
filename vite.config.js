@@ -7,8 +7,62 @@ import {
   resolve,
 } from "node:path";
 
+const githubRepository =
+  process.env.GITHUB_REPOSITORY
+    ?.split("/")
+    .pop();
+
+
+const isGitHubActions =
+  process.env.GITHUB_ACTIONS ===
+  "true";
+
+
+const base =
+  isGitHubActions
+    ? `/${githubRepository || "yxz-plataforma"}/`
+    : "/";
+
+function yxzHtmlNavigationPlugin() {
+  return {
+    name:
+      "yxz-html-navigation-base",
+
+
+    transformIndexHtml(
+      html,
+    ) {
+      if (
+        base ===
+        "/"
+      ) {
+        return html;
+      }
+
+
+      return html
+
+        .replace(
+          /href="\/app\//g,
+          `href="${base}app/`,
+        )
+
+        .replace(
+          /href="\/"/g,
+          `href="${base}"`,
+        );
+    },
+  };
+}
 
 export default defineConfig({
+
+  base,
+
+  plugins: [
+    yxzHtmlNavigationPlugin(),
+  ],
+
   build: {
     rollupOptions: {
       input: {

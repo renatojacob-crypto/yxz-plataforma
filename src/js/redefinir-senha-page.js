@@ -3,8 +3,13 @@ import {
 } from "./supabase.js";
 
 
+import {
+  appUrl,
+} from "./paths.js";
+
+
 const APP_PATH =
-  "/app/";
+  appUrl();
 
 
 let recoveryAuthorized =

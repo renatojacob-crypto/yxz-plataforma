@@ -3,11 +3,20 @@ import {
 } from "./supabase.js";
 
 
+import {
+  appUrl,
+  normalizeSafeAppLocation,
+} from "./paths.js";
+
+
 const LOGIN_PATH =
-  "/app/login.html";
+  appUrl(
+    "login.html",
+  );
+
 
 const APP_PATH =
-  "/app/";
+  appUrl();
 
 
 /* =========================================================
@@ -328,29 +337,36 @@ export function getSafeNextPath() {
     params.get("next");
 
 
-  if (!next) {
-    return APP_PATH;
-  }
+  const safeNext =
+    normalizeSafeAppLocation(
+      next,
+      APP_PATH,
+    );
+
+
+  const target =
+    new URL(
+      safeNext,
+      window.location.origin,
+    );
+
+
+  const login =
+    new URL(
+      LOGIN_PATH,
+      window.location.origin,
+    );
 
 
   if (
-    !next.startsWith("/app/") ||
-    next.startsWith("//")
+    target.pathname ===
+    login.pathname
   ) {
     return APP_PATH;
   }
 
 
-  if (
-    next.startsWith(
-      "/app/login.html",
-    )
-  ) {
-    return APP_PATH;
-  }
-
-
-  return next;
+  return safeNext;
 }
 
 

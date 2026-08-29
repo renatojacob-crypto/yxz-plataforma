@@ -26,6 +26,11 @@ import "./css/faturamento.css";
 
 
 import {
+  appUrl,
+} from "./js/paths.js";
+
+
+import {
   initSidebar,
 } from "./js/ui.js";
 
@@ -551,7 +556,9 @@ async function iniciarAplicacao() {
 
 
     window.location.replace(
-      "/app/login.html",
+      appUrl(
+        "login.html",
+      ),
     );
   }
 }

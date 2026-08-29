@@ -1,3 +1,8 @@
+import {
+  appUrl,
+} from "./paths.js";
+
+
 /* =========================================================
    YXZ PLATAFORMA
    SIDEBAR CENTRALIZADA
@@ -12,7 +17,7 @@ const MENU_SECTIONS = [
       {
         page: "dashboard",
         label: "Dashboard",
-        href: "/app/",
+        href: appUrl(),
         icon: "▦",
         permission: "dashboard.visualizar",
       },
@@ -27,7 +32,7 @@ const MENU_SECTIONS = [
       {
         page: "agendamentos",
         label: "Agendamentos",
-        href: "/app/agendamentos.html",
+        href: appUrl("agendamentos.html"),
         icon: "＋",
         permission: "oficinas.visualizar",
       },
@@ -35,7 +40,7 @@ const MENU_SECTIONS = [
       {
         page: "escalas",
         label: "Escalas",
-        href: "/app/escalas.html",
+        href: appUrl("escalas.html"),
         icon: "♙",
         permission: "escalas.visualizar",
       },
@@ -43,7 +48,7 @@ const MENU_SECTIONS = [
       {
         page: "execucoes",
         label: "Execuções",
-        href: "/app/execucoes.html",
+        href: appUrl("execucoes.html"),
         icon: "✓",
         permission: "oficinas.registrar_execucao",
       },
@@ -66,7 +71,7 @@ const MENU_SECTIONS = [
       {
         page: "instrutores",
         label: "Instrutores",
-        href: "/app/instrutores.html",
+        href: appUrl("instrutores.html"),
         icon: "◎",
         permission: "escalas.gerenciar",
       },
@@ -74,7 +79,7 @@ const MENU_SECTIONS = [
       {
         page: "horas",
         label: "Horas",
-        href: "/app/horas.html",
+        href: appUrl("horas.html"),
         icon: "◷",
         permission: "escalas.visualizar",
       },
@@ -82,7 +87,7 @@ const MENU_SECTIONS = [
       {
         page: "conferencia",
         label: "Conferência",
-        href: "/app/conferencia.html",
+        href: appUrl("conferencia.html"),
         icon: "≋",
         permission: "oficinas.registrar_execucao",
       },
@@ -97,7 +102,7 @@ const MENU_SECTIONS = [
       {
         page: "previsoes",
         label: "Previsões",
-        href: "/app/previsoes.html",
+        href: appUrl("previsoes.html"),
         icon: "◇",
         permission: "previsoes.visualizar",
       },
@@ -105,7 +110,7 @@ const MENU_SECTIONS = [
       {
         page: "gastos",
         label: "Gastos",
-        href: "/app/gastos.html",
+        href: appUrl("gastos.html"),
         icon: "$",
         permission: "gastos.visualizar",
       },
@@ -113,7 +118,7 @@ const MENU_SECTIONS = [
       {
         page: "comparativo",
         label: "Comparativo",
-        href: "/app/comparativo.html",
+        href: appUrl("comparativo.html"),
         icon: "↗",
         permission: "gastos.visualizar",
       },
@@ -128,7 +133,7 @@ const MENU_SECTIONS = [
       {
         page: "relatorios",
         label: "Relatórios",
-        href: "/app/relatorios.html",
+        href: appUrl("relatorios.html"),
         icon: "▤",
         permission: "relatorios.visualizar",
       },
@@ -136,7 +141,7 @@ const MENU_SECTIONS = [
       {
         page: "faturamento",
         label: "Faturamento",
-        href: "/app/faturamento.html",
+        href: appUrl("faturamento.html"),
         icon: "▧",
         permission: "relatorios.visualizar",
       },
@@ -145,7 +150,7 @@ const MENU_SECTIONS = [
       {
         page: "usuarios",
         label: "Usuários",
-        href: "/app/usuarios.html",
+        href: appUrl("usuarios.html"),
         icon: "♟",
         permission: "usuarios.gerenciar",
       },

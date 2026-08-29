@@ -7,6 +7,11 @@ import {
 } from "./auth.js";
 
 
+import {
+  absoluteAppUrl,
+} from "./paths.js";
+
+
 const PROFILE_MASTER =
   "administrador_master";
 
@@ -349,10 +354,9 @@ function setEditStatus(
 
 
 function getPasswordResetRedirectUrl() {
-  return new URL(
-    "/app/redefinir-senha.html",
-    window.location.origin,
-  ).href;
+  return absoluteAppUrl(
+    "redefinir-senha.html",
+  );
 }
 
 
