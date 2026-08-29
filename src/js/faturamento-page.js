@@ -3508,28 +3508,26 @@ async function createBillingGeneration(
       );
 
 
-    const wordRows =
+    const mappedRows =
       fullPreview.filter(
         (row) =>
-          row.modelo_codigo
-
-          &&
-          row.modelo_codigo !==
-            "relatorio_paebm",
+          Boolean(
+            row.modelo_codigo,
+          ),
       );
 
 
     if (
-      !wordRows.length
+      !mappedRows.length
     ) {
       throw new Error(
-        "Não existem execuções mapeadas para BH, VAL ou VIX nesta competência.",
+        "Não existem execuções mapeadas para os relatórios oficiais nesta competência.",
       );
     }
 
 
-    const incompleteWordRows =
-      wordRows.filter(
+    const incompleteMappedRows =
+      mappedRows.filter(
         (row) =>
           row.completo !==
             true,
@@ -3537,10 +3535,10 @@ async function createBillingGeneration(
 
 
     if (
-      incompleteWordRows.length
+      incompleteMappedRows.length
     ) {
       throw new Error(
-        `Existem ${incompleteWordRows.length} execução(ões) mapeada(s) para os relatórios Word com pendências. Corrija-as antes de gerar.`,
+        `Existem ${incompleteMappedRows.length} execução(ões) mapeada(s) para os relatórios oficiais com pendências. Corrija-as antes de gerar.`,
       );
     }
 
@@ -3610,7 +3608,7 @@ async function createBillingGeneration(
 
     setMessage(
       elements,
-      `Geração ${String(data).slice(0, 8)} criada. O Gerador Windows processará a fila automaticamente.`,
+      `Geração ${String(data).slice(0, 8)} criada. O Gerador Windows processará BH, VAL, VIX e PAEBM automaticamente.`,
       "success",
     );
 
