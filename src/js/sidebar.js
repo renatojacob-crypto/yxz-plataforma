@@ -56,7 +56,7 @@ const MENU_SECTIONS = [
       {
         page: "calendario",
         label: "Calendário",
-        href: "#",
+        href: appUrl("calendario.html"),
         icon: "□",
         permission: "oficinas.visualizar",
       },

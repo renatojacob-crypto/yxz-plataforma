@@ -1,0 +1,154 @@
+.dashboard-heading-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.dashboard-message {
+  min-height: 24px;
+  margin: -8px 0 18px;
+  font-size: 0.92rem;
+}
+
+.dashboard-message:empty {
+  min-height: 0;
+  margin: 0;
+}
+
+.dashboard-message[data-state="loading"] {
+  opacity: 0.75;
+}
+
+.dashboard-message[data-state="error"] {
+  color: #a23a3a;
+}
+
+.dashboard-operational-grid {
+  margin-top: 24px;
+  align-items: stretch;
+}
+
+.dashboard-card-header {
+  gap: 16px;
+}
+
+.dashboard-card-header p,
+.dashboard-status-card .card-header p {
+  margin: 4px 0 0;
+  opacity: 0.72;
+  font-size: 0.9rem;
+}
+
+.dashboard-upcoming-list {
+  display: grid;
+}
+
+.dashboard-upcoming-item {
+  display: grid;
+  grid-template-columns: 112px minmax(0, 1fr);
+  gap: 16px;
+  padding: 16px 0;
+  border-bottom: 1px solid rgba(15, 44, 37, 0.1);
+}
+
+.dashboard-upcoming-item:first-child {
+  padding-top: 0;
+}
+
+.dashboard-upcoming-item:last-child {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.dashboard-upcoming-date {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.dashboard-upcoming-date strong {
+  color: var(--color-primary, #0f2c25);
+}
+
+.dashboard-upcoming-date span {
+  font-size: 0.88rem;
+  opacity: 0.72;
+}
+
+.dashboard-upcoming-content {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.dashboard-upcoming-content strong {
+  line-height: 1.35;
+}
+
+.dashboard-upcoming-content span,
+.dashboard-upcoming-content small {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dashboard-upcoming-content span {
+  font-size: 0.92rem;
+}
+
+.dashboard-upcoming-content small {
+  opacity: 0.68;
+}
+
+.dashboard-status-list {
+  display: grid;
+}
+
+.dashboard-status-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 17px 0;
+  border-bottom: 1px solid rgba(15, 44, 37, 0.1);
+}
+
+.dashboard-status-row:first-child {
+  padding-top: 0;
+}
+
+.dashboard-status-row:last-child {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+
+.dashboard-status-row span {
+  line-height: 1.35;
+}
+
+.dashboard-status-row strong {
+  min-width: 48px;
+  text-align: right;
+  font-size: 1.2rem;
+  color: var(--color-primary, #0f2c25);
+}
+
+@media (max-width: 720px) {
+  .dashboard-heading-actions {
+    width: 100%;
+    justify-content: stretch;
+  }
+
+  .dashboard-heading-actions .btn {
+    flex: 1;
+    text-align: center;
+  }
+
+  .dashboard-upcoming-item {
+    grid-template-columns: 88px minmax(0, 1fr);
+    gap: 12px;
+  }
+}

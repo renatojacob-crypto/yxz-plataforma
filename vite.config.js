@@ -111,6 +111,11 @@ export default defineConfig({
           "app/agendamentos.html",
         ),
 
+        calendario: resolve(
+          process.cwd(),
+          "app/calendario.html",
+        ),
+
         escalas: resolve(
           process.cwd(),
           "app/escalas.html",

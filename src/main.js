@@ -11,9 +11,11 @@ import "./css/forms.css";
 import "./css/tables.css";
 import "./css/feedback.css";
 import "./css/app.css";
+import "./css/dashboard.css";
 import "./css/usuarios.css";
 import "./css/instrutores.css";
 import "./css/agendamentos.css";
+import "./css/calendario.css";
 import "./css/escalas.css";
 import "./css/execucoes.css";
 import "./css/horas.css";
@@ -111,6 +113,28 @@ function getCurrentPage() {
 function authorizeCurrentPage(
   page,
 ) {
+  if (
+    page ===
+    "dashboard"
+  ) {
+    return requirePermission(
+      PERMISSIONS
+        .DASHBOARD_VIEW,
+    );
+  }
+
+
+  if (
+    page ===
+    "calendario"
+  ) {
+    return requirePermission(
+      PERMISSIONS
+        .WORKSHOPS_VIEW,
+    );
+  }
+
+
   if (
     page ===
     "usuarios"
@@ -236,6 +260,42 @@ function authorizeCurrentPage(
 async function iniciarPaginaAtual() {
   const page =
     getCurrentPage();
+
+
+  if (
+    page ===
+    "dashboard"
+  ) {
+    const {
+      initDashboardPage,
+    } =
+      await import(
+        "./js/dashboard-page.js"
+      );
+
+
+    await initDashboardPage();
+
+    return;
+  }
+
+
+  if (
+    page ===
+    "calendario"
+  ) {
+    const {
+      initCalendarioPage,
+    } =
+      await import(
+        "./js/calendario-page.js"
+      );
+
+
+    await initCalendarioPage();
+
+    return;
+  }
 
 
   if (

@@ -1,0 +1,385 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <meta
+    name="description"
+    content="Calendário de eventos da Plataforma YXZ"
+  >
+
+  <meta
+    name="robots"
+    content="noindex, nofollow"
+  >
+
+  <meta
+    name="theme-color"
+    content="#0f2c25"
+  >
+
+  <title>
+    Calendário | YXZ Plataforma
+  </title>
+
+  <link
+    rel="icon"
+    href="/assets/favicon.png"
+    type="image/png"
+  >
+</head>
+
+<body data-app-page="calendario">
+  <div
+    class="app-shell"
+    data-app-shell
+    hidden
+  >
+
+    <aside
+      class="sidebar"
+      id="sidebar"
+      aria-label="Menu lateral"
+    ></aside>
+
+    <div
+      class="sidebar-overlay"
+      data-sidebar-close
+      aria-hidden="true"
+    ></div>
+
+    <div class="app-main">
+
+      <header class="app-header">
+        <div class="header-left">
+          <button
+            type="button"
+            class="mobile-menu-button"
+            data-sidebar-toggle
+            aria-label="Abrir menu"
+            aria-expanded="false"
+            aria-controls="sidebar"
+          >
+            <span aria-hidden="true">
+              ☰
+            </span>
+          </button>
+
+          <div class="header-context">
+            Portal de Gestão
+          </div>
+        </div>
+
+        <div class="header-user">
+          <div
+            class="user-avatar"
+            data-auth-avatar
+            aria-hidden="true"
+          >
+            YXZ
+          </div>
+
+          <div class="user-info">
+            <strong data-auth-name>
+              Usuário
+            </strong>
+
+            <span data-auth-cargo>
+              Carregando...
+            </span>
+          </div>
+
+          <button
+            type="button"
+            class="btn btn-ghost"
+            data-auth-logout
+          >
+            Sair
+          </button>
+        </div>
+      </header>
+
+      <main class="app-content">
+
+        <div class="page-heading">
+          <div>
+            <h1>
+              Calendário de Eventos
+            </h1>
+
+            <p>
+              Visualize oficinas educacionais e eventos à comunidade por mês.
+            </p>
+          </div>
+
+          <a
+            href="/app/agendamentos.html"
+            class="btn btn-primary"
+            data-permission="oficinas.agendar"
+            hidden
+          >
+            + Novo evento
+          </a>
+        </div>
+
+        <p
+          class="calendar-message"
+          data-calendar-message
+          role="status"
+          aria-live="polite"
+        ></p>
+
+        <section class="card calendar-toolbar-card">
+          <div class="calendar-toolbar">
+
+            <div class="calendar-navigation">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-calendar-prev
+                aria-label="Mês anterior"
+              >
+                ←
+              </button>
+
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-calendar-today
+              >
+                Hoje
+              </button>
+
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-calendar-next
+                aria-label="Próximo mês"
+              >
+                →
+              </button>
+
+              <h2 data-calendar-title>
+                —
+              </h2>
+            </div>
+
+            <div class="calendar-filters">
+              <label class="calendar-filter">
+                <span>
+                  Regional
+                </span>
+
+                <select data-calendar-regional>
+                  <option value="">
+                    Todas
+                  </option>
+                </select>
+              </label>
+
+              <label class="calendar-filter">
+                <span>
+                  Tipo
+                </span>
+
+                <select data-calendar-type>
+                  <option value="">
+                    Todos
+                  </option>
+
+                  <option value="oficina_educacional">
+                    Oficina Educacional
+                  </option>
+
+                  <option value="evento_comunidade">
+                    Evento à Comunidade
+                  </option>
+                </select>
+              </label>
+
+              <label class="calendar-filter">
+                <span>
+                  Status
+                </span>
+
+                <select data-calendar-status>
+                  <option value="">
+                    Todos
+                  </option>
+
+                  <option value="agendada">
+                    Agendados
+                  </option>
+
+                  <option value="realizada">
+                    Realizados
+                  </option>
+
+                  <option value="cancelada">
+                    Cancelados
+                  </option>
+                </select>
+              </label>
+            </div>
+          </div>
+        </section>
+
+        <section
+          class="card calendar-card"
+          aria-label="Calendário mensal"
+        >
+          <div class="calendar-weekdays" aria-hidden="true">
+            <span>Dom</span>
+            <span>Seg</span>
+            <span>Ter</span>
+            <span>Qua</span>
+            <span>Qui</span>
+            <span>Sex</span>
+            <span>Sáb</span>
+          </div>
+
+          <div
+            class="calendar-grid"
+            data-calendar-grid
+          ></div>
+        </section>
+
+        <section
+          class="calendar-legend"
+          aria-label="Legenda do calendário"
+        >
+          <div class="calendar-legend-group">
+            <strong>
+              Tipo
+            </strong>
+
+            <span>
+              <i class="calendar-legend-dot type-oficina"></i>
+              Oficina Educacional
+            </span>
+
+            <span>
+              <i class="calendar-legend-dot type-comunidade"></i>
+              Evento à Comunidade
+            </span>
+          </div>
+
+          <div class="calendar-legend-group">
+            <strong>
+              Status
+            </strong>
+
+            <span>
+              <i class="calendar-status-marker status-agendada"></i>
+              Agendado
+            </span>
+
+            <span>
+              <i class="calendar-status-marker status-realizada"></i>
+              Realizado
+            </span>
+
+            <span>
+              <i class="calendar-status-marker status-cancelada"></i>
+              Cancelado
+            </span>
+          </div>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <dialog
+    class="calendar-dialog"
+    id="calendarEventDialog"
+  >
+    <div class="calendar-dialog-header">
+      <div>
+        <span class="calendar-dialog-kicker">
+          Evento
+        </span>
+
+        <h2 data-calendar-dialog-title>
+          Detalhes do evento
+        </h2>
+      </div>
+
+      <button
+        type="button"
+        class="btn btn-ghost"
+        data-calendar-dialog-close
+        aria-label="Fechar"
+      >
+        ✕
+      </button>
+    </div>
+
+    <div class="calendar-dialog-body">
+      <dl class="calendar-detail-list">
+        <div>
+          <dt>Data</dt>
+          <dd data-calendar-dialog-date>—</dd>
+        </div>
+
+        <div>
+          <dt>Horário</dt>
+          <dd data-calendar-dialog-time>—</dd>
+        </div>
+
+        <div>
+          <dt>Regional</dt>
+          <dd data-calendar-dialog-regional>—</dd>
+        </div>
+
+        <div>
+          <dt>Escola</dt>
+          <dd data-calendar-dialog-school>—</dd>
+        </div>
+
+        <div>
+          <dt>Tipo</dt>
+          <dd data-calendar-dialog-type>—</dd>
+        </div>
+
+        <div>
+          <dt>Status</dt>
+          <dd data-calendar-dialog-status>—</dd>
+        </div>
+
+        <div>
+          <dt>Participantes previstos</dt>
+          <dd data-calendar-dialog-participants>—</dd>
+        </div>
+      </dl>
+    </div>
+
+    <div class="calendar-dialog-footer">
+      <a
+        href="/app/agendamentos.html"
+        class="btn btn-secondary"
+      >
+        Abrir Agendamentos
+      </a>
+
+      <button
+        type="button"
+        class="btn btn-primary"
+        data-calendar-dialog-close
+      >
+        Fechar
+      </button>
+    </div>
+  </dialog>
+
+  <script
+    type="module"
+    src="/src/main.js"
+  ></script>
+</body>
+</html>
