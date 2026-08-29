@@ -92,6 +92,11 @@ function getElements() {
         "[data-calendar-status]",
       ),
 
+    activityLegend:
+      document.querySelector(
+        "[data-calendar-activity-legend]",
+      ),
+
     dialog:
       document.getElementById(
         "calendarEventDialog",
@@ -282,9 +287,138 @@ function getSchool(
 }
 
 
+function getActivityName(
+  event,
+) {
+  return (
+    String(
+      event?.atividade ||
+      "",
+    ).trim()
+    ||
+    "Atividade não informada"
+  );
+}
+
+
+function hashText(
+  value,
+) {
+  const text =
+    String(
+      value ||
+      "",
+    )
+      .normalize(
+        "NFD",
+      )
+      .replace(
+        /[\u0300-\u036f]/g,
+        "",
+      )
+      .toLowerCase();
+
+
+  let hash =
+    0;
+
+
+  for (
+    let index =
+      0;
+    index <
+      text.length;
+    index +=
+      1
+  ) {
+    hash =
+      (
+        (
+          hash <<
+          5
+        )
+        -
+        hash
+      )
+      +
+      text.charCodeAt(
+        index,
+      );
+
+
+    hash |=
+      0;
+  }
+
+
+  return Math.abs(
+    hash,
+  );
+}
+
+
+function getActivityColor(
+  activity,
+) {
+  const hue =
+    hashText(
+      activity,
+    ) %
+    360;
+
+
+  return {
+    border:
+      `hsl(${hue} 58% 38%)`,
+
+    background:
+      `hsl(${hue} 64% 94%)`,
+
+    text:
+      `hsl(${hue} 54% 27%)`,
+
+    strongBackground:
+      `hsl(${hue} 60% 84%)`,
+  };
+}
+
+
+function applyActivityColors(
+  element,
+  activity,
+) {
+  const colors =
+    getActivityColor(
+      activity,
+    );
+
+
+  element.style.setProperty(
+    "--calendar-activity-border",
+    colors.border,
+  );
+
+  element.style.setProperty(
+    "--calendar-activity-background",
+    colors.background,
+  );
+
+  element.style.setProperty(
+    "--calendar-activity-text",
+    colors.text,
+  );
+
+  element.style.setProperty(
+    "--calendar-activity-strong-background",
+    colors.strongBackground,
+  );
+}
+
+
 /* =========================================================
    CARREGAMENTO
 ========================================================= */
+
 
 async function loadBaseData() {
   const [
@@ -601,11 +735,10 @@ function createEventButton(
   button.type =
     "button";
 
-  const typeClass =
-    event.tipo_evento ===
-      "evento_comunidade"
-      ? "calendar-event-comunidade"
-      : "calendar-event-oficina";
+  const activity =
+    getActivityName(
+      event,
+    );
 
 
   const statusClass =
@@ -615,11 +748,16 @@ function createEventButton(
   button.className =
     [
       "calendar-event",
-      typeClass,
       statusClass,
     ].join(
       " ",
     );
+
+
+  applyActivityColors(
+    button,
+    activity,
+  );
 
 
   const time =
@@ -646,8 +784,7 @@ function createEventButton(
     "calendar-event-title";
 
   title.textContent =
-    event.atividade ||
-    "Evento YXZ";
+    activity;
 
 
   const statusMarker =
@@ -703,6 +840,130 @@ function createEventButton(
 
 
   return button;
+}
+
+
+/* =========================================================
+   LEGENDA DE ATIVIDADES
+========================================================= */
+
+function renderActivityLegend(
+  elements,
+  filteredEvents,
+) {
+  if (
+    !elements.activityLegend
+  ) {
+    return;
+  }
+
+
+  elements.activityLegend
+    .replaceChildren();
+
+
+  const activities =
+    Array.from(
+      new Set(
+        filteredEvents.map(
+          (event) =>
+            getActivityName(
+              event,
+            ),
+        ),
+      ),
+    ).sort(
+      (
+        a,
+        b,
+      ) =>
+        a.localeCompare(
+          b,
+          "pt-BR",
+          {
+            sensitivity:
+              "base",
+          },
+        ),
+    );
+
+
+  if (
+    !activities.length
+  ) {
+    const empty =
+      document.createElement(
+        "span",
+      );
+
+
+    empty.className =
+      "calendar-legend-empty";
+
+    empty.textContent =
+      "Nenhuma atividade no período";
+
+
+    elements.activityLegend
+      .append(
+        empty,
+      );
+
+
+    return;
+  }
+
+
+  activities.forEach(
+    (activity) => {
+      const item =
+        document.createElement(
+          "span",
+        );
+
+
+      item.className =
+        "calendar-activity-legend-item";
+
+
+      const swatch =
+        document.createElement(
+          "i",
+        );
+
+
+      swatch.className =
+        "calendar-activity-swatch";
+
+
+      applyActivityColors(
+        swatch,
+        activity,
+      );
+
+
+      const label =
+        document.createElement(
+          "span",
+        );
+
+
+      label.textContent =
+        activity;
+
+
+      item.append(
+        swatch,
+        label,
+      );
+
+
+      elements.activityLegend
+        .append(
+          item,
+        );
+    },
+  );
 }
 
 
@@ -808,6 +1069,12 @@ function renderCalendar(
     getFilteredEvents(
       elements,
     );
+
+
+  renderActivityLegend(
+    elements,
+    filtered,
+  );
 
 
   const monthLabel =
