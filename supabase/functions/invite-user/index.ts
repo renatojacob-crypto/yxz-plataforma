@@ -46,6 +46,25 @@ function normalizeText(
 }
 
 
+/*
+ * Normaliza somente a representação textual do perfil.
+ * A lista ALLOWED_PROFILES abaixo continua determinando
+ * quais perfis podem ser criados; isto não amplia privilégios.
+ */
+function normalizeProfile(
+  value: unknown,
+) {
+  return normalizeText(
+    value,
+    40,
+  )
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/[\s-]+/g, "_");
+}
+
+
 function normalizeEmail(
   value: unknown,
 ) {
@@ -204,9 +223,8 @@ export default {
 
 
         const perfil =
-          normalizeText(
+          normalizeProfile(
             body.perfil,
-            40,
           );
 
 
@@ -252,6 +270,12 @@ export default {
               perfil,
             )
         ) {
+          // Não registrar nome, e-mail ou tokens neste diagnóstico.
+          console.warn(
+            "[YXZ] Perfil recusado pela lista de criação:",
+            { perfil },
+          );
+
           return jsonError(
             "Este perfil não pode ser criado pela Central de Usuários.",
             400,

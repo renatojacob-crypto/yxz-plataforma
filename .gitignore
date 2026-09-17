@@ -24,3 +24,11 @@ dist-ssr
 *.sw?
 .env.local
 .env.*.local
+# YXZ — nunca publicar dados sensíveis ou cópias operacionais
+.env
+.env.*
+!.env.example
+supabase/.temp/
+*.7z
+/YXZ-backup-*/
+/backup*.zip

@@ -25,6 +25,11 @@ import "./css/gastos.css";
 import "./css/comparativo.css";
 import "./css/relatorios.css";
 import "./css/faturamento.css";
+import "./css/pecas.css";
+import "./css/pecas-gestao.css";
+import "./css/pecas-cadastro.css";
+import "./css/pecas-notificacoes.css";
+import "./css/pecas-dashboard.css";
 
 
 import {
@@ -46,6 +51,8 @@ import {
   initFeedback,
 } from "./js/feedback.js";
 
+
+import { initIndicadorNotificacoes } from "./js/notificacoes-header.js";
 
 import {
   initLogoutButtons,
@@ -132,6 +139,31 @@ function authorizeCurrentPage(
       PERMISSIONS
         .WORKSHOPS_VIEW,
     );
+  }
+
+
+  if (
+    page ===
+    "pecas"
+  ) {
+    return requirePermission(
+      PERMISSIONS.PECAS_VIEW,
+    );
+  }
+
+  if (page === "pecas-pedidos") {
+    return requirePermission(PERMISSIONS.PECAS_MANAGE);
+  }
+  if (page === "pecas-cadastro") {
+    return requirePermission(PERMISSIONS.PECAS_MANAGE);
+  }
+
+  if (page === "pecas-notificacoes") {
+    return requirePermission(PERMISSIONS.PECAS_VIEW);
+  }
+
+  if (page === "pecas-dashboard") {
+    return requirePermission(PERMISSIONS.PECAS_MANAGE);
   }
 
 
@@ -294,6 +326,47 @@ async function iniciarPaginaAtual() {
 
     await initCalendarioPage();
 
+    return;
+  }
+
+
+  if (
+    page ===
+    "pecas"
+  ) {
+    const {
+      initPecasPage,
+    } =
+      await import(
+        "./js/pecas-page.js"
+      );
+
+
+    await initPecasPage();
+
+    return;
+  }
+
+  if (page === "pecas-pedidos") {
+    const { initPecasPedidosPage } = await import("./js/pecas-pedidos-page.js");
+    await initPecasPedidosPage();
+    return;
+  }
+  if (page === "pecas-cadastro") {
+    const { initPecasCadastroPage } = await import("./js/pecas-cadastro-page.js");
+    await initPecasCadastroPage();
+    return;
+  }
+
+  if (page === "pecas-notificacoes") {
+    const { initPecasNotificacoesPage } = await import("./js/pecas-notificacoes-page.js");
+    await initPecasNotificacoesPage();
+    return;
+  }
+
+  if (page === "pecas-dashboard") {
+    const { initPecasDashboardPage } = await import("./js/pecas-dashboard-page.js");
+    await initPecasDashboardPage();
     return;
   }
 
@@ -579,6 +652,11 @@ async function iniciarAplicacao() {
     inicializarModulo(
       "Monitor de autenticação",
       watchAuthState,
+    );
+
+    inicializarModulo(
+      "Indicador de notificações",
+      initIndicadorNotificacoes,
     );
 
 

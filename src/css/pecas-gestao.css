@@ -1,0 +1,59 @@
+/* YXZ Portal 2.0 | Gestão e separação de pedidos */
+.gp-admin-page { padding-bottom: 48px; }
+.gp-admin-heading { display:flex;justify-content:space-between;gap:18px;align-items:start;flex-wrap:wrap;margin-bottom:18px }
+.gp-admin-heading h1{margin:4px 0 8px;font-size:clamp(1.55rem,3vw,2.2rem)}
+.gp-admin-heading p{margin:0}
+.gp-admin-eyebrow{color:#277249;font-weight:800;text-transform:uppercase;letter-spacing:.08em;font-size:.73rem}
+.gp-admin-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.gp-admin-notice{border:1px solid #cbdbee;border-radius:12px;background:#f2f7ff;color:#16385e;padding:13px 16px;line-height:1.55;margin:12px 0}
+.gp-admin-message{min-height:1.3em;padding:0;margin:10px 0 15px;font-size:.93rem}
+.gp-admin-message[data-state="error"]{color:#ab2121}
+.gp-admin-message[data-state="success"]{color:#176b3d}
+.gp-admin-message[data-state="loading"]{color:#27528e}
+.gp-admin-filtros{padding:16px;display:grid;grid-template-columns:repeat(4,minmax(130px,1fr));gap:12px;margin-bottom:18px}
+.gp-admin-filtros>div{display:flex;flex-direction:column;gap:6px;min-width:0}
+.gp-admin-filtros label{font-weight:700;font-size:.85rem}
+.gp-admin-filtros input,.gp-admin-filtros select,.gp-admin-quantidade{width:100%;border:1px solid #b9c9c2;background:#fff;color:#19362b;border-radius:9px;padding:9px 10px;font:inherit;min-height:42px}
+.gp-admin-layout{display:grid;grid-template-columns:minmax(275px,.86fr) minmax(0,1.5fr);gap:16px;align-items:start}
+.gp-admin-col{padding:18px;min-width:0}
+.gp-admin-panel-heading{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.gp-admin-panel-heading h2,.gp-admin-details>h2{margin:0 0 12px;font-size:1.14rem}
+.gp-admin-muted{color:#64746d;font-size:.85rem;line-height:1.45}
+.gp-admin-lista{display:flex;flex-direction:column;gap:9px;margin-top:14px;max-height:690px;overflow:auto}
+.gp-admin-pedido{display:block;width:100%;text-align:left;border:1px solid #dae4de;border-radius:11px;background:#fff;padding:13px;cursor:pointer;color:inherit;font:inherit;line-height:1.5}
+.gp-admin-pedido:hover,.gp-admin-pedido:focus-visible{border-color:#23905b;background:#f2fbf5}
+.gp-admin-pedido.is-selected{border:2px solid #16864c;background:#f2fbf5}
+.gp-admin-pedido strong{display:block}
+.gp-admin-pedido small{display:block;color:#52625d}
+.gp-admin-status{display:inline-flex;border-radius:999px;background:#e7effa;color:#264f80;padding:3px 9px;font-size:.73rem;font-weight:700;margin-top:5px}
+.gp-admin-status[data-status="Em separação"]{background:#fff0d3;color:#85540a}
+.gp-admin-status[data-status="Entregue"]{background:#def5e8;color:#18693d}
+.gp-admin-status[data-status="Cancelado"]{background:#fee2e2;color:#942020}
+.gp-admin-status[data-status="Enviado"]{background:#d9f4fa;color:#086075}
+.gp-admin-dados{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:14px 0}
+.gp-admin-dados>div{border-radius:9px;background:#f5f8f6;padding:10px}
+.gp-admin-dados strong{display:block;font-size:.76rem;color:#52625d;margin-bottom:4px}
+.gp-admin-obs{overflow-wrap:anywhere;margin:10px 0}
+.gp-admin-itens{display:grid;gap:12px;margin:18px 0}
+.gp-admin-item{display:grid;grid-template-columns:80px minmax(0,1fr) 112px;align-items:center;gap:12px;border:1px solid #dae4de;border-radius:12px;padding:11px}
+.gp-admin-foto{width:78px;height:78px;display:grid;place-items:center;border-radius:9px;background:#f0f4f1;overflow:hidden;color:#6d7a72;font-size:.68rem;text-align:center}
+.gp-admin-foto img{width:100%;height:100%;object-fit:contain}
+.gp-admin-item-title{display:block;margin:0 0 4px;overflow-wrap:anywhere}
+.gp-admin-item-meta{color:#5d6d65;font-size:.79rem;line-height:1.45}
+.gp-admin-qtd-label{display:block;font-weight:700;font-size:.79rem;margin-bottom:6px}
+.gp-admin-resumo{border-top:1px solid #dbe5de;padding:15px 0;font-weight:700;display:flex;gap:10px;justify-content:space-between;flex-wrap:wrap}
+.gp-admin-rodape{display:flex;justify-content:flex-end;align-items:center;gap:10px;flex-wrap:wrap}
+.gp-admin-rodape button:disabled{opacity:.6;cursor:not-allowed}
+.gp-admin-inline-info{font-size:.83rem;color:#65756e}
+.gp-admin-page :is(button,input,select):focus-visible{outline:3px solid #71c9a0;outline-offset:2px}
+@media(max-width:980px){.gp-admin-layout{grid-template-columns:1fr}.gp-admin-filtros{grid-template-columns:repeat(2,minmax(0,1fr))}.gp-admin-lista{max-height:320px}}
+@media(max-width:570px){.gp-admin-filtros{grid-template-columns:1fr}.gp-admin-item{grid-template-columns:64px minmax(0,1fr)}.gp-admin-foto{width:62px;height:62px}.gp-admin-item .gp-admin-quant-wrap{grid-column:1/-1}.gp-admin-dados{grid-template-columns:1fr}}
+
+
+/* Etapa 5 — status do atendimento parcial */
+.gp-admin-status[data-status="Parcialmente enviado"]{
+  background:#fff0d3;color:#85540a
+}
+.gp-admin-status[data-status="Enviado"]{
+  background:#d9f4fa;color:#086075
+}

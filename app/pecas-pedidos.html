@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#0f2c25">
+  <title>Gestão, separação e expedição | Portal YXZ 2.0</title>
+  <link rel="icon" href="/assets/favicon.png" type="image/png">
+</head>
+<body data-app-page="pecas-pedidos">
+  <div class="app-shell" data-app-shell hidden>
+    <aside class="sidebar" id="sidebar" aria-label="Menu lateral"></aside>
+    <div class="sidebar-overlay" data-sidebar-close aria-hidden="true"></div>
+    <div class="app-main">
+      <header class="app-header">
+        <div class="header-left">
+          <button type="button" class="mobile-menu-button" data-sidebar-toggle
+            aria-label="Abrir menu" aria-expanded="false" aria-controls="sidebar">☰</button>
+          <div class="header-context">Gestão de peças / Expedição</div>
+        </div>
+        <div class="header-user">
+          <div class="user-avatar" data-auth-avatar aria-hidden="true">YXZ</div>
+          <div class="user-info">
+            <strong data-auth-name>Usuário</strong>
+            <span data-auth-cargo>Carregando...</span>
+          </div>
+          <button type="button" class="btn btn-ghost" data-auth-logout>Sair</button>
+        </div>
+      </header>
+      <main class="app-content gp-admin-page">
+        <div class="gp-admin-heading">
+          <div>
+            <p class="gp-admin-eyebrow">Gestão de peças</p>
+            <h1>Separação e envio de pedidos</h1>
+            <p>Consulte os pedidos, registre quantidades separadas e confirme o envio com baixa segura do estoque.</p>
+          </div>
+          <div class="gp-admin-actions">
+            <a class="btn btn-ghost" href="pecas.html">Novo pedido</a>
+            <button class="btn btn-primary" type="button" data-gpm-atualizar>Atualizar pedidos</button>
+          </div>
+        </div>
+        <p class="gp-admin-notice">Salvar a separação <strong>não desconta o estoque</strong>. Ao confirmar o envio,
+          somente as quantidades separadas e salvas no lote atual são descontadas.
+          Se o envio for parcial, o saldo não atendido permanece pendente para novo lote.
+          O recebimento/entrega será implementado em etapa posterior; nenhum e-mail é enviado agora.</p>
+        <p class="gp-admin-message" role="status" aria-live="polite" data-gpm-mensagem></p>
+        <section class="card gp-admin-filtros" aria-label="Filtros de pedidos">
+          <div><label for="gpmBusca">Número ou solicitante</label>
+            <input id="gpmBusca" type="search" placeholder="Buscar pedido..." data-gpm-busca></div>
+          <div><label for="gpmStatus">Status</label>
+            <select id="gpmStatus" data-gpm-status><option value="">Todos</option>
+              <option>Solicitado</option><option>Em separação</option><option>Parcialmente enviado</option>
+              <option>Enviado</option><option>Entregue</option><option>Cancelado</option></select></div>
+          <div><label for="gpmOficina">Oficina</label>
+            <select id="gpmOficina" data-gpm-oficina><option value="">Todas</option></select></div>
+          <div><label for="gpmRegional">Regional</label>
+            <select id="gpmRegional" data-gpm-regional><option value="">Todas</option></select></div>
+        </section>
+        <div class="gp-admin-layout">
+          <section class="card gp-admin-col" aria-labelledby="gpmListaTitulo">
+            <div class="gp-admin-panel-heading">
+              <h2 id="gpmListaTitulo">Pedidos recentes</h2>
+              <span data-gpm-contagem>—</span>
+            </div>
+            <p class="gp-admin-muted">Exibindo até os 200 pedidos mais recentes. Use os filtros para localizar um pedido.</p>
+            <div class="gp-admin-lista" data-gpm-lista>Carregando...</div>
+          </section>
+          <section class="card gp-admin-col gp-admin-details" aria-labelledby="gpmDetalheTitulo">
+            <h2 id="gpmDetalheTitulo">Detalhes, separação e expedição</h2>
+            <div data-gpm-detalhe>
+              <p class="gp-admin-muted">Escolha um pedido na lista ao lado.</p>
+            </div>
+          </section>
+        </div>
+      </main>
+    </div>
+  </div>
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#0f2c25">
+  <title>Dashboard de peças | Portal YXZ 2.0</title>
+  <link rel="icon" href="/assets/favicon.png" type="image/png">
+</head>
+<body data-app-page="pecas-dashboard">
+  <div class="app-shell" data-app-shell hidden>
+    <aside class="sidebar" id="sidebar" aria-label="Menu lateral"></aside>
+    <div class="sidebar-overlay" data-sidebar-close aria-hidden="true"></div>
+    <div class="app-main">
+      <header class="app-header">
+        <div class="header-left">
+          <button type="button" class="mobile-menu-button" data-sidebar-toggle
+            aria-label="Abrir menu" aria-expanded="false" aria-controls="sidebar">☰</button>
+          <div class="header-context">Gestão de peças / Dashboard</div>
+        </div>
+        <div class="header-user">
+          <div class="user-avatar" data-auth-avatar aria-hidden="true">YXZ</div>
+          <div class="user-info">
+            <strong data-auth-name>Usuário</strong>
+            <span data-auth-cargo>Carregando...</span>
+          </div>
+          <button type="button" class="btn btn-ghost" data-auth-logout>Sair</button>
+        </div>
+      </header>
+
+      <main class="app-content gp-dash">
+        <div class="gp-dash-top">
+          <div>
+            <p class="gp-dash-eyebrow">Portal YXZ 2.0 · Gestão de peças</p>
+            <h1>Dashboard e relatórios</h1>
+            <p>Pedidos, volumes solicitados, expedições e atenção ao estoque.</p>
+          </div>
+          <div class="gp-dash-top-actions">
+            <a class="btn btn-ghost" href="pecas-pedidos.html">Gerenciar pedidos</a>
+            <button type="button" class="btn btn-ghost" data-gpd-csv disabled>Exportar relatório CSV</button>
+          </div>
+        </div>
+
+        <p class="gp-dash-note">O período considera a <strong>data do pedido</strong>. As quantidades enviadas representam o
+          acumulado atual dos pedidos selecionados, mesmo quando o envio ocorreu depois do período.
+          Pedidos cancelados não entram nas unidades pendentes. O estoque crítico é sempre <strong>global e atual</strong>.</p>
+
+        <form class="card gp-dash-filters" data-gpd-filtros>
+          <div><label for="gpdInicio">Data inicial</label><input id="gpdInicio" type="date" required data-gpd-inicio></div>
+          <div><label for="gpdFim">Data final</label><input id="gpdFim" type="date" required data-gpd-fim></div>
+          <div><label for="gpdRegional">Regional</label>
+            <select id="gpdRegional" data-gpd-regional><option value="">Todas as regionais</option></select>
+          </div>
+          <div><label for="gpdOficina">Oficina</label>
+            <select id="gpdOficina" data-gpd-oficina><option value="">Todas as oficinas</option></select>
+          </div>
+          <button type="submit" class="btn btn-primary" data-gpd-aplicar>Aplicar filtros</button>
+          <button type="button" class="btn btn-ghost" data-gpd-limpar>Últimos 30 dias</button>
+        </form>
+
+        <p class="gp-dash-feedback" data-gpd-mensagem role="status" aria-live="polite">Preparando relatório...</p>
+        <div data-gpd-conteudo hidden>
+          <section class="gp-dash-kpis" aria-label="Indicadores principais">
+            <article class="card gp-dash-kpi"><span>Pedidos</span><strong data-gpd-pedidos>—</strong><small>No período</small></article>
+            <article class="card gp-dash-kpi"><span>Unidades solicitadas</span><strong data-gpd-solicitadas>—</strong><small>Inclui pedidos cancelados</small></article>
+            <article class="card gp-dash-kpi"><span>Unidades enviadas</span><strong data-gpd-enviadas>—</strong><small>Acumulado dos pedidos filtrados</small></article>
+            <article class="card gp-dash-kpi"><span>Unidades pendentes</span><strong data-gpd-pendentes>—</strong><small>Exclui pedidos cancelados</small></article>
+            <article class="card gp-dash-kpi gp-dash-kpi-alerta"><span>Peças em estoque crítico</span><strong data-gpd-criticas>—</strong><small>Estoque global atual, sem filtros</small></article>
+          </section>
+
+          <div class="gp-dash-grid">
+            <section class="card gp-dash-panel" aria-labelledby="gpdStatusTitulo">
+              <h2 id="gpdStatusTitulo">Situação dos pedidos</h2>
+              <p>Quantidade de pedidos em cada status.</p>
+              <div data-gpd-status class="gp-dash-barras"></div>
+            </section>
+            <section class="card gp-dash-panel" aria-labelledby="gpdPeriodoTitulo">
+              <h2 id="gpdPeriodoTitulo">Pedidos por data</h2>
+              <p>Registro diário; períodos longos são agrupados em faixas de dias.</p>
+              <div data-gpd-diario class="gp-dash-diario" aria-label="Gráfico de pedidos por data"></div>
+            </section>
+            <section class="card gp-dash-panel" aria-labelledby="gpdRegionalTitulo">
+              <h2 id="gpdRegionalTitulo">Pedidos por regional</h2>
+              <div data-gpd-regionais class="gp-dash-barras"></div>
+            </section>
+            <section class="card gp-dash-panel" aria-labelledby="gpdOficinaTitulo">
+              <h2 id="gpdOficinaTitulo">Pedidos por oficina</h2>
+              <div data-gpd-oficinas class="gp-dash-barras"></div>
+            </section>
+          </div>
+
+          <section class="card gp-dash-panel" aria-labelledby="gpdTopTitulo">
+            <h2 id="gpdTopTitulo">Peças mais solicitadas</h2>
+            <p>Até 10 peças, por unidades solicitadas, independentemente de envio.</p>
+            <div class="gp-dash-table-wrap"><table class="gp-dash-table">
+              <thead><tr><th scope="col">Código</th><th scope="col">Peça</th><th scope="col">Solicitadas</th><th scope="col">Enviadas</th></tr></thead>
+              <tbody data-gpd-top></tbody>
+            </table></div>
+          </section>
+
+          <div class="gp-dash-grid">
+            <section class="card gp-dash-panel" aria-labelledby="gpdRecentesTitulo">
+              <h2 id="gpdRecentesTitulo">Pedidos recentes do período</h2>
+              <p>Amostra de até 20 registros. Para consulta completa, use Gestão e separação.</p>
+              <div class="gp-dash-table-wrap"><table class="gp-dash-table">
+                <thead><tr><th scope="col">Pedido</th><th scope="col">Data</th><th scope="col">Oficina</th><th scope="col">Status</th><th scope="col">Solicitadas</th><th scope="col">Enviadas</th></tr></thead>
+                <tbody data-gpd-recentes></tbody>
+              </table></div>
+            </section>
+            <section class="card gp-dash-panel" aria-labelledby="gpdCriticoTitulo">
+              <h2 id="gpdCriticoTitulo">Atenção ao estoque</h2>
+              <p>Até 20 peças ativas com estoque menor ou igual ao mínimo. Visão global atual.</p>
+              <div class="gp-dash-table-wrap"><table class="gp-dash-table">
+                <thead><tr><th scope="col">Peça</th><th scope="col">Atual</th><th scope="col">Mínimo</th></tr></thead>
+                <tbody data-gpd-estoque></tbody>
+              </table></div>
+            </section>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>

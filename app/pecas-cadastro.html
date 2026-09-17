@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#0f2c25">
+  <title>Cadastrar peça | Portal YXZ 2.0</title>
+  <link rel="icon" href="/assets/favicon.png" type="image/png">
+</head>
+<body data-app-page="pecas-cadastro">
+  <div class="app-shell" data-app-shell hidden>
+    <aside class="sidebar" id="sidebar" aria-label="Menu lateral"></aside>
+    <div class="sidebar-overlay" data-sidebar-close aria-hidden="true"></div>
+    <div class="app-main">
+      <header class="app-header">
+        <div class="header-left">
+          <button class="mobile-menu-button" type="button"
+            data-sidebar-toggle aria-label="Abrir menu"
+            aria-expanded="false" aria-controls="sidebar">☰</button>
+          <div class="header-context">Gestão de peças / Cadastro</div>
+        </div>
+        <div class="header-user">
+          <div class="user-avatar" data-auth-avatar aria-hidden="true">YXZ</div>
+          <div class="user-info">
+            <strong data-auth-name>Usuário</strong>
+            <span data-auth-cargo>Carregando...</span>
+          </div>
+          <button class="btn btn-ghost" type="button" data-auth-logout>Sair</button>
+        </div>
+      </header>
+
+      <main class="app-content gp-admin-page gp-register-page">
+        <div class="gp-admin-heading">
+          <div>
+            <p class="gp-admin-eyebrow">Gestão de peças</p>
+            <h1>Cadastrar nova peça</h1>
+            <p>Informe os dados, escolha a disponibilidade e anexe uma fotografia.</p>
+          </div>
+          <div class="gp-admin-actions">
+            <a class="btn btn-ghost" href="pecas.html">Ver catálogo</a>
+            <a class="btn btn-ghost" href="pecas-pedidos.html">Gestão de pedidos</a>
+          </div>
+        </div>
+
+        <div class="gp-admin-notice" role="note">
+          Somente administradores autorizados podem cadastrar peças.
+          O estoque inicial positivo é registrado como <strong>entrada de estoque</strong>.
+          O cadastro será confirmado apenas depois que a imagem estiver salva no Storage privado.
+        </div>
+
+        <form class="card gp-register-form" data-gpc-form enctype="multipart/form-data">
+          <h2>Identificação</h2>
+          <div class="gp-register-grid">
+            <div class="gp-register-field">
+              <label for="gpcCodigo">Código único da peça *</label>
+              <input id="gpcCodigo" name="codigo" required minlength="2" maxlength="60"
+                pattern="[A-Za-z0-9][A-Za-z0-9._/-]{1,59}"
+                placeholder="Ex.: PECA-408" autocomplete="off">
+              <small>De 2 a 60 caracteres: letras, números, ponto, barra, hífen e sublinhado.</small>
+            </div>
+            <div class="gp-register-field">
+              <label for="gpcNome">Nome da peça *</label>
+              <input id="gpcNome" name="nome" required minlength="2" maxlength="180"
+                placeholder="Ex.: Engrenagem de 24 dentes">
+            </div>
+            <div class="gp-register-field">
+              <label for="gpcCategoria">Categoria</label>
+              <input id="gpcCategoria" name="categoria" maxlength="100" placeholder="Ex.: Robótica">
+            </div>
+            <div class="gp-register-field">
+              <label for="gpcCor">Cor</label>
+              <input id="gpcCor" name="cor" maxlength="80" placeholder="Ex.: Cinza">
+            </div>
+            <div class="gp-register-field">
+              <label for="gpcEstoque">Estoque inicial *</label>
+              <input id="gpcEstoque" name="estoque" type="number" min="0" max="1000000"
+                step="1" value="0" required>
+            </div>
+            <div class="gp-register-field">
+              <label for="gpcEstoqueMinimo">Estoque mínimo *</label>
+              <input id="gpcEstoqueMinimo" name="estoque_minimo" type="number" min="0"
+                max="1000000" step="1" value="0" required>
+            </div>
+          </div>
+
+          <h2>Disponibilidade nas oficinas</h2>
+          <fieldset class="gp-register-offices">
+            <legend>Onde a peça pode ser solicitada? *</legend>
+            <label class="gp-register-option">
+              <input type="radio" name="disponibilidade" value="todas" checked>
+              Todas as oficinas
+            </label>
+            <label class="gp-register-option">
+              <input type="radio" name="disponibilidade" value="especificas">
+              Selecionar oficinas
+            </label>
+            <div data-gpc-oficinas class="gp-register-offices-list" hidden>
+              <p>Carregando oficinas...</p>
+            </div>
+          </fieldset>
+
+          <h2>Fotografia</h2>
+          <div class="gp-register-field">
+            <label for="gpcImagem">Imagem da peça * (JPG, PNG ou WebP; até 5 MB)</label>
+            <input id="gpcImagem" name="imagem" type="file"
+              accept="image/jpeg,image/png,image/webp" required>
+            <div class="gp-register-preview" data-gpc-preview>Prévia da fotografia</div>
+          </div>
+
+          <p class="gp-admin-message" role="status" aria-live="polite" data-gpc-status>
+            Preparando formulário...
+          </p>
+          <div class="gp-register-actions">
+            <button class="btn btn-primary" type="submit" data-gpc-salvar disabled>
+              Cadastrar peça
+            </button>
+            <button class="btn btn-ghost" type="reset">Limpar formulário</button>
+          </div>
+          <div class="gp-register-result" data-gpc-result role="status" aria-live="polite"></div>
+        </form>
+      </main>
+    </div>
+  </div>
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>

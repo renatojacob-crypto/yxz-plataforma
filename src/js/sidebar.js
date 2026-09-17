@@ -65,6 +65,49 @@ const MENU_SECTIONS = [
 
 
   {
+    title: "Peças",
+
+    items: [
+      {
+        page: "pecas",
+        label: "Catálogo de peças",
+        href: appUrl("pecas.html"),
+        icon: "▣",
+        permission: "pecas.visualizar",
+      },
+      {
+        page: "pecas-cadastro",
+        label: "Cadastrar peça",
+        href: appUrl("pecas-cadastro.html"),
+        icon: "＋",
+        permission: "pecas.gerenciar",
+      },
+      {
+        page: "pecas-pedidos",
+        label: "Gestão e separação",
+        href: appUrl("pecas-pedidos.html"),
+        icon: "▤",
+        permission: "pecas.gerenciar",
+      },
+      {
+        page: "pecas-notificacoes",
+        label: "Notificações",
+        href: appUrl("pecas-notificacoes.html"),
+        icon: "♧",
+        permission: "pecas.visualizar",
+      },
+      {
+        page: "pecas-dashboard",
+        label: "Dashboard de peças",
+        href: appUrl("pecas-dashboard.html"),
+        icon: "▥",
+        permission: "pecas.gerenciar",
+      },
+    ],
+  },
+
+
+  {
     title: "Equipe",
 
     items: [

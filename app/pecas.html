@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#0f2c25">
+  <title>Solicitar peças | Portal YXZ 2.0</title>
+  <link rel="icon" href="/assets/favicon.png" type="image/png">
+</head>
+<body data-app-page="pecas">
+  <div class="app-shell" data-app-shell hidden>
+    <aside class="sidebar" id="sidebar" aria-label="Menu lateral"></aside>
+    <div class="sidebar-overlay" data-sidebar-close aria-hidden="true"></div>
+
+    <div class="app-main">
+      <header class="app-header">
+        <div class="header-left">
+          <button type="button" class="mobile-menu-button"
+            data-sidebar-toggle aria-label="Abrir menu"
+            aria-expanded="false" aria-controls="sidebar">☰</button>
+          <div class="header-context">Gestão de peças / Solicitar</div>
+        </div>
+        <div class="header-user">
+          <div class="user-avatar" data-auth-avatar aria-hidden="true">YXZ</div>
+          <div class="user-info">
+            <strong data-auth-name>Usuário</strong>
+            <span data-auth-cargo>Carregando...</span>
+          </div>
+          <button class="btn btn-ghost" type="button" data-auth-logout>Sair</button>
+        </div>
+      </header>
+
+      <main class="app-content gp-page">
+        <div class="gp-heading">
+          <div>
+            <p class="gp-eyebrow">Módulo de peças · Etapa 3</p>
+            <h1>Solicitar peças</h1>
+            <p>Selecione a oficina, escolha as peças e monte seu pedido.</p>
+          </div>
+          <button class="btn btn-ghost" type="button" data-gp-refresh disabled>
+            Atualizar catálogo
+          </button>
+        </div>
+
+        <div class="gp-notice" role="note">
+          <strong>Solicitações integradas ao Supabase.</strong>
+          O estoque é descontado somente quando a gestão confirma o envio.
+          As notificações são exibidas dentro do Portal.
+        </div>
+
+        <section class="card gp-filters" aria-label="Filtros do catálogo">
+          <div class="gp-filter">
+            <label for="gpOficina">Oficina do pedido</label>
+            <select id="gpOficina" data-gp-oficina disabled>
+              <option value="">Carregando oficinas...</option>
+            </select>
+          </div>
+          <div class="gp-filter">
+            <label for="gpCategoria">Categoria</label>
+            <select id="gpCategoria" data-gp-categoria disabled>
+              <option value="">Todas as categorias</option>
+            </select>
+          </div>
+          <div class="gp-filter gp-filter-search">
+            <label for="gpBusca">Buscar peça</label>
+            <input id="gpBusca" type="search" autocomplete="off"
+              placeholder="Nome, cor ou código" data-gp-busca disabled>
+          </div>
+        </section>
+
+        <p class="gp-message" data-gp-mensagem role="status" aria-live="polite">
+          Preparando catálogo...
+        </p>
+
+        <section class="gp-summary" aria-label="Resumo do catálogo">
+          <article class="card gp-stat">
+            <span>Peças cadastradas ativas</span>
+            <strong data-gp-total>—</strong>
+          </article>
+          <article class="card gp-stat">
+            <span>Peças nesta oficina</span>
+            <strong data-gp-oficina-total>—</strong>
+          </article>
+          <article class="card gp-stat">
+            <span>Resultado dos filtros</span>
+            <strong data-gp-visiveis>—</strong>
+          </article>
+        </section>
+
+        <div class="gp-order-layout">
+          <div class="gp-catalog-column">
+            <div class="gp-results-heading">
+              <h2 data-gp-titulo>Selecione uma oficina</h2>
+              <span data-gp-resultados aria-live="polite"></span>
+            </div>
+            <section class="gp-grid" data-gp-grid aria-label="Peças encontradas"></section>
+            <div class="card gp-empty" data-gp-vazio hidden>
+              <strong>Nenhuma peça encontrada.</strong>
+              <p>Experimente outra oficina, categoria ou busca.</p>
+            </div>
+          </div>
+
+          <aside class="card gp-cart-panel" aria-labelledby="gpCartTitle">
+            <h2 id="gpCartTitle">Seu pedido</h2>
+            <p class="gp-cart-helper">O carrinho pertence a uma única oficina.
+              Alterar a oficina esvazia o carrinho.</p>
+
+            <form data-gp-form>
+              <div class="gp-filter">
+                <label for="gpRegional">Regional <span aria-hidden="true">*</span></label>
+                <select id="gpRegional" data-gp-regional required disabled>
+                  <option value="">Carregando regionais...</option>
+                </select>
+              </div>
+
+              <div class="gp-cart-list" data-gp-carrinho aria-live="polite">
+                <p class="gp-cart-empty">Adicione peças do catálogo para montar seu pedido.</p>
+              </div>
+
+              <div class="gp-cart-totals">
+                <span>Tipos de peças: <strong data-gp-itens>0</strong></span>
+                <span>Quantidade total: <strong data-gp-quantidade-total>0</strong></span>
+              </div>
+
+              <div class="gp-filter">
+                <label for="gpObservacoes">Observações (opcional)</label>
+                <textarea id="gpObservacoes" data-gp-observacoes maxlength="1000"
+                  rows="3" placeholder="Informações importantes para a separação" disabled></textarea>
+              </div>
+
+              <button class="btn btn-primary gp-submit" type="submit" data-gp-enviar disabled>
+                Registrar pedido
+              </button>
+              <p class="gp-message" data-gp-status-pedido role="status" aria-live="polite"></p>
+              <p class="gp-order-confirmation" data-gp-confirmacao role="status" aria-live="polite"></p>
+            </form>
+          </aside>
+        </div>
+
+        <section class="card gp-history" aria-labelledby="gpHistoryTitle">
+          <div class="gp-history-heading">
+            <h2 id="gpHistoryTitle">Meus últimos pedidos</h2>
+            <button class="btn btn-ghost" type="button" data-gp-refresh-historico>
+              Atualizar histórico
+            </button>
+          </div>
+          <div data-gp-historico aria-live="polite">Carregando pedidos...</div>
+        </section>
+      </main>
+    </div>
+  </div>
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#0f2c25">
+  <title>Notificações de peças | Portal YXZ 2.0</title>
+  <link rel="icon" href="/assets/favicon.png" type="image/png">
+</head>
+<body data-app-page="pecas-notificacoes">
+  <div class="app-shell" data-app-shell hidden>
+    <aside class="sidebar" id="sidebar" aria-label="Menu lateral"></aside>
+    <div class="sidebar-overlay" data-sidebar-close aria-hidden="true"></div>
+    <div class="app-main">
+      <header class="app-header">
+        <div class="header-left">
+          <button type="button" class="mobile-menu-button" data-sidebar-toggle
+            aria-label="Abrir menu" aria-expanded="false" aria-controls="sidebar">☰</button>
+          <div class="header-context">Gestão de peças / Notificações</div>
+        </div>
+        <div class="header-user">
+          <div class="user-avatar" data-auth-avatar aria-hidden="true">YXZ</div>
+          <div class="user-info">
+            <strong data-auth-name>Usuário</strong>
+            <span data-auth-cargo>Carregando...</span>
+          </div>
+          <button type="button" class="btn btn-ghost" data-auth-logout>Sair</button>
+        </div>
+      </header>
+      <main class="app-content gp-n-pagina">
+        <div class="gp-n-topo">
+          <div>
+            <p class="gp-n-etiqueta">Portal YXZ 2.0</p>
+            <h1>Notificações de peças</h1>
+            <p>Gestores recebem avisos de novos pedidos; solicitantes recebem avisos de envios.</p>
+          </div>
+          <div class="gp-n-acoes">
+            <button type="button" class="btn btn-ghost" data-gpn-atualizar>Atualizar</button>
+            <button type="button" class="btn btn-primary" data-gpn-marcar-todas>Marcar todas como lidas</button>
+          </div>
+        </div>
+        <p class="gp-n-aviso">As notificações são internas ao Portal. Nesta etapa não são enviados e-mails.
+          O estoque continua sendo descontado exclusivamente na confirmação do envio.</p>
+        <p class="gp-n-mensagem" role="status" aria-live="polite" data-gpn-mensagem></p>
+        <div class="gp-n-grade">
+          <section class="card gp-n-coluna" aria-labelledby="gpNotificacoesLista">
+            <div class="gp-n-cabecalho">
+              <h2 id="gpNotificacoesLista">Seus avisos</h2>
+              <span data-gpn-total>Carregando...</span>
+            </div>
+            <label for="gpFiltroNotificacoes">Mostrar</label>
+            <select id="gpFiltroNotificacoes" data-gpn-filtro>
+              <option value="nao_lidas">Não lidas</option>
+              <option value="todos">Todas</option>
+            </select>
+            <div class="gp-n-lista" data-gpn-lista>Carregando notificações...</div>
+          </section>
+          <section class="card gp-n-coluna gp-n-detalhe" aria-labelledby="gpNotificacoesDetalhe">
+            <h2 id="gpNotificacoesDetalhe">Detalhes do pedido</h2>
+            <div data-gpn-detalhe>
+              <p class="gp-n-nenhum">Selecione um aviso para visualizar o pedido e suas fotografias.</p>
+            </div>
+          </section>
+        </div>
+      </main>
+    </div>
+  </div>
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
