@@ -1097,3 +1097,153 @@
   }
 
 }
+
+/* =========================================================
+   COMPARTILHAMENTO MANUAL DA ESCALA / WHATSAPP
+========================================================= */
+.scales-whatsapp {
+  padding: 1.4rem;
+  margin-bottom: 1.5rem;
+}
+
+.scales-whatsapp[hidden] {
+  display: none;
+}
+
+.scales-whatsapp-header h2 {
+  margin: 0.25rem 0 0.5rem;
+}
+
+.scales-whatsapp-header p,
+.scales-whatsapp-nota {
+  margin: 0;
+  color: var(--color-text-muted, #667085);
+  line-height: 1.55;
+  font-size: 0.91rem;
+}
+
+.scales-whatsapp-kicker {
+  font-weight: 700;
+  font-size: 0.82rem;
+  color: var(--color-primary, #067647);
+}
+
+.scales-whatsapp-filtros {
+  display: grid;
+  grid-template-columns: minmax(200px, 2fr) repeat(2, minmax(140px, 1fr));
+  gap: 1rem;
+  margin: 1.25rem 0 0.8rem;
+}
+
+.scales-whatsapp-campo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  min-width: 0;
+}
+
+.scales-whatsapp-campo label,
+.scales-whatsapp-previa label {
+  font-size: 0.88rem;
+  font-weight: 650;
+}
+
+.scales-whatsapp-campo select,
+.scales-whatsapp-campo input,
+.scales-whatsapp-previa textarea {
+  width: 100%;
+  padding: 0.72rem 0.85rem;
+  border: 1px solid var(--color-border, #d0d5dd);
+  border-radius: 10px;
+  background: var(--color-surface, #fff);
+  color: inherit;
+  font: inherit;
+}
+
+.scales-whatsapp-campo select,
+.scales-whatsapp-campo input {
+  min-height: 44px;
+}
+
+.scales-whatsapp-opcao {
+  display: flex;
+  align-items: start;
+  gap: 0.55rem;
+  margin-bottom: 0.8rem;
+  cursor: pointer;
+  font-size: 0.91rem;
+}
+
+.scales-whatsapp-opcao input {
+  margin-top: 0.2rem;
+}
+
+.scales-whatsapp-nota {
+  padding: 0.7rem 0.85rem;
+  border-radius: 8px;
+  background: var(--color-background, #f7f9fb);
+}
+
+.scales-whatsapp-botoes {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.9rem;
+  margin-top: 1rem;
+}
+
+.scales-whatsapp-botoes span {
+  color: var(--color-text-muted, #667085);
+  font-size: 0.9rem;
+}
+
+.scales-whatsapp-previa {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  margin-top: 1.2rem;
+}
+
+.scales-whatsapp-previa textarea {
+  min-height: 235px;
+  resize: vertical;
+  line-height: 1.6;
+}
+
+.scales-whatsapp-previa .scales-whatsapp-botoes {
+  margin-top: 0.2rem;
+}
+
+.scales-whatsapp-botoes button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.scales-whatsapp-aviso {
+  min-height: 1.25rem;
+  margin: 0.2rem 0 0;
+  font-size: 0.9rem;
+}
+
+.scales-whatsapp-aviso[data-estado="erro"] {
+  color: var(--color-danger, #b42318);
+}
+
+.scales-whatsapp-aviso[data-estado="sucesso"] {
+  color: var(--color-success, #027a48);
+}
+
+@media (max-width: 760px) {
+  .scales-whatsapp {
+    padding: 1rem;
+  }
+
+  .scales-whatsapp-filtros {
+    grid-template-columns: 1fr;
+  }
+
+  .scales-whatsapp-botoes .btn {
+    width: 100%;
+    justify-content: center;
+  }
+}

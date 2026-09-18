@@ -226,6 +226,98 @@
 
 
         <!-- ==================================================
+             WHATSAPP — COPIAR ESCALA REGIONAL
+             Não envia mensagens automaticamente.
+        ================================================== -->
+        <section
+          class="card scales-whatsapp"
+          data-whatsapp-escalas
+          aria-labelledby="scalesWhatsappTitle"
+          hidden
+        >
+          <div class="scales-whatsapp-header">
+            <div>
+              <span class="scales-whatsapp-kicker">📲 Comunicação com a equipe</span>
+              <h2 id="scalesWhatsappTitle">Compartilhar escala pelo WhatsApp</h2>
+              <p>
+                Selecione sua regional e o período. Gere uma mensagem com as oficinas
+                agendadas, revise e copie para colar no grupo pelo WhatsApp Web.
+                Nenhuma mensagem é enviada automaticamente.
+              </p>
+            </div>
+          </div>
+
+          <div class="scales-whatsapp-filtros">
+            <div class="scales-whatsapp-campo">
+              <label for="whatsappRegional">Regional *</label>
+              <select id="whatsappRegional" data-whatsapp-regional required>
+                <option value="">Carregando regionais...</option>
+              </select>
+            </div>
+            <div class="scales-whatsapp-campo">
+              <label for="whatsappInicio">De *</label>
+              <input id="whatsappInicio" type="date" data-whatsapp-inicio required>
+            </div>
+            <div class="scales-whatsapp-campo">
+              <label for="whatsappFim">Até *</label>
+              <input id="whatsappFim" type="date" data-whatsapp-fim required>
+            </div>
+          </div>
+
+          <label class="scales-whatsapp-opcao">
+            <input type="checkbox" data-whatsapp-incluir-sem-escala>
+            Incluir oficinas agendadas ainda sem instrutores escalados
+          </label>
+
+          <p class="scales-whatsapp-nota">
+            Apenas oficinas educacionais com status <strong>Agendada</strong>
+            são incluídas. Selecione a regional correta antes de compartilhar;
+            este filtro não altera suas permissões de acesso.
+          </p>
+
+          <div class="scales-whatsapp-botoes">
+            <button type="button" class="btn btn-primary" data-whatsapp-gerar>
+              📝 Gerar mensagem
+            </button>
+            <span data-whatsapp-total aria-live="polite"></span>
+          </div>
+
+          <div class="scales-whatsapp-previa">
+            <label for="whatsappPrevia">Mensagem para revisar ou editar</label>
+            <textarea
+              id="whatsappPrevia"
+              data-whatsapp-previa
+              rows="13"
+              spellcheck="true"
+              placeholder="Escolha uma regional e clique em Gerar mensagem..."
+            ></textarea>
+            <div class="scales-whatsapp-botoes">
+              <button
+                type="button"
+                class="btn btn-primary"
+                data-whatsapp-copiar
+                disabled
+              >
+                📋 Copiar mensagem
+              </button>
+              <a
+                class="btn btn-ghost"
+                href="https://web.whatsapp.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >Abrir WhatsApp Web ↗</a>
+            </div>
+            <p
+              class="scales-whatsapp-aviso"
+              data-whatsapp-aviso
+              role="status"
+              aria-live="polite"
+            ></p>
+          </div>
+        </section>
+
+
+        <!-- ==================================================
              LISTAGEM
         ================================================== -->
 

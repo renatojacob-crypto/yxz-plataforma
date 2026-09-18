@@ -2,6 +2,15 @@ import {
   supabase,
 } from "./supabase.js";
 
+import {
+  hasProfile,
+  USER_PROFILES,
+} from "./auth.js";
+
+import {
+  iniciarCompartilhamentoEscalas,
+} from "./escalas-whatsapp.js";
+
 
 const EVENT_TYPES = {
   EDUCATIONAL_WORKSHOP:
@@ -21,6 +30,8 @@ let scales = [];
 
 let selectedEventId =
   null;
+
+let compartilhamentoWhatsapp = null;
 
 
 /* =========================================================
@@ -2218,6 +2229,9 @@ async function saveScale(
 
     await reloadScales();
 
+    compartilhamentoWhatsapp?.invalidar(
+      "A escala foi atualizada. Gere a mensagem novamente antes de compartilhar.",
+    );
 
     render(
       elements,
@@ -2393,6 +2407,20 @@ export async function initEscalasPage() {
       elements,
     );
 
+    compartilhamentoWhatsapp = iniciarCompartilhamentoEscalas({
+      autorizado: hasProfile(
+        USER_PROFILES.COORDINATOR,
+        USER_PROFILES.ADMIN,
+        USER_PROFILES.MASTER,
+      ),
+      obterDados: () => ({
+        regionais: regionals,
+        escolas: schools,
+        oficinas: events,
+        escalas: scales,
+        instrutores: instructors,
+      }),
+    });
 
     render(
       elements,

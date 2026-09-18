@@ -2,6 +2,10 @@ import {
   appUrl,
 } from "./paths.js";
 
+import {
+  hasPermission,
+} from "./auth.js";
+
 
 /* =========================================================
    YXZ PLATAFORMA
@@ -448,10 +452,20 @@ function createNavigation(
 
   MENU_SECTIONS.forEach(
     (section) => {
+      // Não criar links proibidos no DOM. O perfil já foi carregado
+      // por requireAuth() antes de renderSidebar().
+      const allowedItems = section.items.filter(
+        (item) => hasPermission(item.permission),
+      );
+
+      // Também oculta o título quando não há itens autorizados.
+      if (allowedItems.length === 0) {
+        return;
+      }
 
       navigation.append(
         createMenuSection(
-          section,
+          { ...section, items: allowedItems },
           currentPage,
         ),
       );
