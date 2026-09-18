@@ -2410,6 +2410,7 @@ export async function initEscalasPage() {
     compartilhamentoWhatsapp = iniciarCompartilhamentoEscalas({
       autorizado: hasProfile(
         USER_PROFILES.COORDINATOR,
+        USER_PROFILES.SOCIAL_EDUCATOR,
         USER_PROFILES.ADMIN,
         USER_PROFILES.MASTER,
       ),
